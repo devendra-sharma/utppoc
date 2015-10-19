@@ -1,5 +1,5 @@
 -- TODO: Rmeove the configuration tables from the list of delete tables
-use mydb_testcases;
+use mydb;
 
 SET foreign_key_checks = 0;
 DELETE FROM ticket_status_link;
@@ -31,7 +31,7 @@ SET foreign_key_checks = 1;
 
 COMMIT;
 
-USE mydb_testcases ;
+USE mydb ;
 
 INSERT INTO `type` (`typ_id`,`type`,`maintain_type`,`expired`,`effective_from`,`effective_to`) VALUES (1,'CURRENCY',NULL,NULL,NULL,NULL);
 INSERT INTO `type` (`typ_id`,`type`,`maintain_type`,`expired`,`effective_from`,`effective_to`) VALUES (2,'TICKETTYPE',NULL,NULL,NULL,NULL);

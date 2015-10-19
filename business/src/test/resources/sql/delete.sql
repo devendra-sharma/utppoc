@@ -1,5 +1,5 @@
 -- TODO: Rmeove the configuration tables from the list of delete tables
-use mydb_testcases;
+use mydb;
 
 SET foreign_key_checks = 0;
 DELETE FROM ticket_status_link;
