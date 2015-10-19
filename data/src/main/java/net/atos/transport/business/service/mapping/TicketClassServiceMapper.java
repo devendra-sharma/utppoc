@@ -16,59 +16,59 @@ import net.atos.transport.entity.jpa.TicketClassEntity;
 @Component
 public class TicketClassServiceMapper extends AbstractServiceMapper {
 
-	/**
-	 * ModelMapper : bean to bean mapping library.
-	 */
-	private ModelMapper modelMapper;
-	
-	/**
-	 * Constructor.
-	 */
-	public TicketClassServiceMapper() {
-		modelMapper = new ModelMapper();
-		modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-	}
+    /**
+     * ModelMapper : bean to bean mapping library.
+     */
+    private ModelMapper modelMapper;
+    
+    /**
+     * Constructor.
+     */
+    public TicketClassServiceMapper() {
+        modelMapper = new ModelMapper();
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+    }
 
-	/**
-	 * Mapping from 'TicketClassEntity' to 'TicketClass'
-	 * @param ticketClassEntity
-	 */
-	public TicketClass mapTicketClassEntityToTicketClass(TicketClassEntity ticketClassEntity) {
-		if(ticketClassEntity == null) {
-			return null;
-		}
+    /**
+     * Mapping from 'TicketClassEntity' to 'TicketClass'
+     * @param ticketClassEntity
+     */
+    public TicketClass mapTicketClassEntityToTicketClass(TicketClassEntity ticketClassEntity) {
+        if(ticketClassEntity == null) {
+            return null;
+        }
 
-		//--- Generic mapping 
-		TicketClass ticketClass = map(ticketClassEntity, TicketClass.class);
+        //--- Generic mapping 
+        TicketClass ticketClass = map(ticketClassEntity, TicketClass.class);
 
-		return ticketClass;
-	}
-	
-	/**
-	 * Mapping from 'TicketClass' to 'TicketClassEntity'
-	 * @param ticketClass
-	 * @param ticketClassEntity
-	 */
-	public void mapTicketClassToTicketClassEntity(TicketClass ticketClass, TicketClassEntity ticketClassEntity) {
-		if(ticketClass == null) {
-			return;
-		}
+        return ticketClass;
+    }
+    
+    /**
+     * Mapping from 'TicketClass' to 'TicketClassEntity'
+     * @param ticketClass
+     * @param ticketClassEntity
+     */
+    public void mapTicketClassToTicketClassEntity(TicketClass ticketClass, TicketClassEntity ticketClassEntity) {
+        if(ticketClass == null) {
+            return;
+        }
 
-		//--- Generic mapping 
-		map(ticketClass, ticketClassEntity);
+        //--- Generic mapping 
+        map(ticketClass, ticketClassEntity);
 
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	protected ModelMapper getModelMapper() {
-		return modelMapper;
-	}
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected ModelMapper getModelMapper() {
+        return modelMapper;
+    }
 
-	protected void setModelMapper(ModelMapper modelMapper) {
-		this.modelMapper = modelMapper;
-	}
+    protected void setModelMapper(ModelMapper modelMapper) {
+        this.modelMapper = modelMapper;
+    }
 
 }

@@ -16,59 +16,59 @@ import net.atos.transport.entity.jpa.InstanceControlLogEntity;
 @Component
 public class InstanceControlLogServiceMapper extends AbstractServiceMapper {
 
-	/**
-	 * ModelMapper : bean to bean mapping library.
-	 */
-	private ModelMapper modelMapper;
-	
-	/**
-	 * Constructor.
-	 */
-	public InstanceControlLogServiceMapper() {
-		modelMapper = new ModelMapper();
-		modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-	}
+    /**
+     * ModelMapper : bean to bean mapping library.
+     */
+    private ModelMapper modelMapper;
+    
+    /**
+     * Constructor.
+     */
+    public InstanceControlLogServiceMapper() {
+        modelMapper = new ModelMapper();
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+    }
 
-	/**
-	 * Mapping from 'InstanceControlLogEntity' to 'InstanceControlLog'
-	 * @param instanceControlLogEntity
-	 */
-	public InstanceControlLog mapInstanceControlLogEntityToInstanceControlLog(InstanceControlLogEntity instanceControlLogEntity) {
-		if(instanceControlLogEntity == null) {
-			return null;
-		}
+    /**
+     * Mapping from 'InstanceControlLogEntity' to 'InstanceControlLog'
+     * @param instanceControlLogEntity
+     */
+    public InstanceControlLog mapInstanceControlLogEntityToInstanceControlLog(InstanceControlLogEntity instanceControlLogEntity) {
+        if(instanceControlLogEntity == null) {
+            return null;
+        }
 
-		//--- Generic mapping 
-		InstanceControlLog instanceControlLog = map(instanceControlLogEntity, InstanceControlLog.class);
+        //--- Generic mapping 
+        InstanceControlLog instanceControlLog = map(instanceControlLogEntity, InstanceControlLog.class);
 
-		return instanceControlLog;
-	}
-	
-	/**
-	 * Mapping from 'InstanceControlLog' to 'InstanceControlLogEntity'
-	 * @param instanceControlLog
-	 * @param instanceControlLogEntity
-	 */
-	public void mapInstanceControlLogToInstanceControlLogEntity(InstanceControlLog instanceControlLog, InstanceControlLogEntity instanceControlLogEntity) {
-		if(instanceControlLog == null) {
-			return;
-		}
+        return instanceControlLog;
+    }
+    
+    /**
+     * Mapping from 'InstanceControlLog' to 'InstanceControlLogEntity'
+     * @param instanceControlLog
+     * @param instanceControlLogEntity
+     */
+    public void mapInstanceControlLogToInstanceControlLogEntity(InstanceControlLog instanceControlLog, InstanceControlLogEntity instanceControlLogEntity) {
+        if(instanceControlLog == null) {
+            return;
+        }
 
-		//--- Generic mapping 
-		map(instanceControlLog, instanceControlLogEntity);
+        //--- Generic mapping 
+        map(instanceControlLog, instanceControlLogEntity);
 
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	protected ModelMapper getModelMapper() {
-		return modelMapper;
-	}
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected ModelMapper getModelMapper() {
+        return modelMapper;
+    }
 
-	protected void setModelMapper(ModelMapper modelMapper) {
-		this.modelMapper = modelMapper;
-	}
+    protected void setModelMapper(ModelMapper modelMapper) {
+        this.modelMapper = modelMapper;
+    }
 
 }

@@ -16,59 +16,59 @@ import net.atos.transport.entity.jpa.RecordFieldEntity;
 @Component
 public class RecordFieldServiceMapper extends AbstractServiceMapper {
 
-	/**
-	 * ModelMapper : bean to bean mapping library.
-	 */
-	private ModelMapper modelMapper;
-	
-	/**
-	 * Constructor.
-	 */
-	public RecordFieldServiceMapper() {
-		modelMapper = new ModelMapper();
-		modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-	}
+    /**
+     * ModelMapper : bean to bean mapping library.
+     */
+    private ModelMapper modelMapper;
+    
+    /**
+     * Constructor.
+     */
+    public RecordFieldServiceMapper() {
+        modelMapper = new ModelMapper();
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+    }
 
-	/**
-	 * Mapping from 'RecordFieldEntity' to 'RecordField'
-	 * @param recordFieldEntity
-	 */
-	public RecordField mapRecordFieldEntityToRecordField(RecordFieldEntity recordFieldEntity) {
-		if(recordFieldEntity == null) {
-			return null;
-		}
+    /**
+     * Mapping from 'RecordFieldEntity' to 'RecordField'
+     * @param recordFieldEntity
+     */
+    public RecordField mapRecordFieldEntityToRecordField(RecordFieldEntity recordFieldEntity) {
+        if(recordFieldEntity == null) {
+            return null;
+        }
 
-		//--- Generic mapping 
-		RecordField recordField = map(recordFieldEntity, RecordField.class);
+        //--- Generic mapping 
+        RecordField recordField = map(recordFieldEntity, RecordField.class);
 
-		return recordField;
-	}
-	
-	/**
-	 * Mapping from 'RecordField' to 'RecordFieldEntity'
-	 * @param recordField
-	 * @param recordFieldEntity
-	 */
-	public void mapRecordFieldToRecordFieldEntity(RecordField recordField, RecordFieldEntity recordFieldEntity) {
-		if(recordField == null) {
-			return;
-		}
+        return recordField;
+    }
+    
+    /**
+     * Mapping from 'RecordField' to 'RecordFieldEntity'
+     * @param recordField
+     * @param recordFieldEntity
+     */
+    public void mapRecordFieldToRecordFieldEntity(RecordField recordField, RecordFieldEntity recordFieldEntity) {
+        if(recordField == null) {
+            return;
+        }
 
-		//--- Generic mapping 
-		map(recordField, recordFieldEntity);
+        //--- Generic mapping 
+        map(recordField, recordFieldEntity);
 
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	protected ModelMapper getModelMapper() {
-		return modelMapper;
-	}
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected ModelMapper getModelMapper() {
+        return modelMapper;
+    }
 
-	protected void setModelMapper(ModelMapper modelMapper) {
-		this.modelMapper = modelMapper;
-	}
+    protected void setModelMapper(ModelMapper modelMapper) {
+        this.modelMapper = modelMapper;
+    }
 
 }

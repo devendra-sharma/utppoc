@@ -27,7 +27,7 @@ public class LocationTypeEntity extends CommonEntity implements Serializable {
     // ENTITY PRIMARY KEY ( BASED ON A SINGLE FIELD )
     //----------------------------------------------------------------------
     @Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="lot_id", nullable=false)
     private Integer    lotId        ;
 
@@ -52,7 +52,7 @@ public class LocationTypeEntity extends CommonEntity implements Serializable {
     // CONSTRUCTOR(S)
     //----------------------------------------------------------------------
     public LocationTypeEntity() {
-		super();
+        super();
     }
     
     //----------------------------------------------------------------------

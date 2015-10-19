@@ -17,84 +17,84 @@ import net.atos.transport.entity.jpa.LocationTypeEntity;
 @Component
 public class LocationServiceMapper extends AbstractServiceMapper {
 
-	/**
-	 * ModelMapper : bean to bean mapping library.
-	 */
-	private ModelMapper modelMapper;
-	
-	/**
-	 * Constructor.
-	 */
-	public LocationServiceMapper() {
-		modelMapper = new ModelMapper();
-		modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-	}
+    /**
+     * ModelMapper : bean to bean mapping library.
+     */
+    private ModelMapper modelMapper;
+    
+    /**
+     * Constructor.
+     */
+    public LocationServiceMapper() {
+        modelMapper = new ModelMapper();
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+    }
 
-	/**
-	 * Mapping from 'LocationEntity' to 'Location'
-	 * @param locationEntity
-	 */
-	public Location mapLocationEntityToLocation(LocationEntity locationEntity) {
-		if(locationEntity == null) {
-			return null;
-		}
+    /**
+     * Mapping from 'LocationEntity' to 'Location'
+     * @param locationEntity
+     */
+    public Location mapLocationEntityToLocation(LocationEntity locationEntity) {
+        if(locationEntity == null) {
+            return null;
+        }
 
-		//--- Generic mapping 
-		Location location = map(locationEntity, Location.class);
+        //--- Generic mapping 
+        Location location = map(locationEntity, Location.class);
 
-		//--- Link mapping ( link to LocationType )
-		if(locationEntity.getLocationType() != null) {
-			location.setLotId(locationEntity.getLocationType().getLotId());
-		}
-		return location;
-	}
-	
-	/**
-	 * Mapping from 'Location' to 'LocationEntity'
-	 * @param location
-	 * @param locationEntity
-	 */
-	public void mapLocationToLocationEntity(Location location, LocationEntity locationEntity) {
-		if(location == null) {
-			return;
-		}
+        //--- Link mapping ( link to LocationType )
+        if(locationEntity.getLocationType() != null) {
+            location.setLotId(locationEntity.getLocationType().getLotId());
+        }
+        return location;
+    }
+    
+    /**
+     * Mapping from 'Location' to 'LocationEntity'
+     * @param location
+     * @param locationEntity
+     */
+    public void mapLocationToLocationEntity(Location location, LocationEntity locationEntity) {
+        if(location == null) {
+            return;
+        }
 
-		//--- Generic mapping 
-		map(location, locationEntity);
+        //--- Generic mapping 
+        map(location, locationEntity);
 
-		//--- Link mapping ( link : location )
-		if( hasLinkToLocationType(location) ) {
-			LocationTypeEntity locationType1 = new LocationTypeEntity();
-			locationType1.setLotId( location.getLotId() );
-			locationEntity.setLocationType( locationType1 );
-		} else {
-			locationEntity.setLocationType( null );
-		}
+        //--- Link mapping ( link : location )
+        if( hasLinkToLocationType(location) ) {
+            LocationTypeEntity locationType1 = new LocationTypeEntity();
+            locationType1.setLotId( location.getLotId() );
+            locationEntity.setLocationType( locationType1 );
+        } else {
+            locationEntity.setLocationType( null );
+        }
 
-	}
-	
-	/**
-	 * Verify that LocationType id is valid.
-	 * @param LocationType LocationType
-	 * @return boolean
-	 */
-	private boolean hasLinkToLocationType(Location location) {
-		if(location.getLotId() != null) {
-			return true;
-		}
-		return false;
-	}
+    }
+    
+    /**
+     * Verify that LocationType id is valid.
+     * @param LocationType LocationType
+     * @return boolean
+     */
+    private boolean hasLinkToLocationType(Location location) {
+        if(location.getLotId() != null) {
+            return true;
+        }
+        return false;
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	protected ModelMapper getModelMapper() {
-		return modelMapper;
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected ModelMapper getModelMapper() {
+        return modelMapper;
+    }
 
-	protected void setModelMapper(ModelMapper modelMapper) {
-		this.modelMapper = modelMapper;
-	}
+    protected void setModelMapper(ModelMapper modelMapper) {
+        this.modelMapper = modelMapper;
+    }
 
 }

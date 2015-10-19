@@ -27,7 +27,7 @@ public class WeekEntity implements Serializable {
     // ENTITY PRIMARY KEY ( BASED ON A SINGLE FIELD )
     //----------------------------------------------------------------------
     @Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="week_id", nullable=false)
     private Integer    weekId       ;
 
@@ -49,8 +49,8 @@ public class WeekEntity implements Serializable {
     @Column(name="week_mask", length=8)
     private String     weekMask     ;
 
-	// "year" (column "year") is not defined by itself because used as FK in a link 
-	// "period" (column "period") is not defined by itself because used as FK in a link 
+    // "year" (column "year") is not defined by itself because used as FK in a link 
+    // "period" (column "period") is not defined by itself because used as FK in a link 
 
 
     //----------------------------------------------------------------------
@@ -72,7 +72,7 @@ public class WeekEntity implements Serializable {
     // CONSTRUCTOR(S)
     //----------------------------------------------------------------------
     public WeekEntity() {
-		super();
+        super();
     }
     
     //----------------------------------------------------------------------

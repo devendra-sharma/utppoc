@@ -27,7 +27,7 @@ public class LocationEntity extends CommonEntity implements Serializable {
     // ENTITY PRIMARY KEY ( BASED ON A SINGLE FIELD )
     //----------------------------------------------------------------------
     @Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="loc_id", nullable=false)
     private Integer    locId        ;
 
@@ -146,7 +146,7 @@ public class LocationEntity extends CommonEntity implements Serializable {
     @Column(name="cob_id_group_type", nullable=false)
     private Integer    cobIdGroupType ;
 
-	// "lotId" (column "lot_id") is not defined by itself because used as FK in a link 
+    // "lotId" (column "lot_id") is not defined by itself because used as FK in a link 
 
 
     //----------------------------------------------------------------------
@@ -167,7 +167,7 @@ public class LocationEntity extends CommonEntity implements Serializable {
     // CONSTRUCTOR(S)
     //----------------------------------------------------------------------
     public LocationEntity() {
-		super();
+        super();
     }
     
     //----------------------------------------------------------------------

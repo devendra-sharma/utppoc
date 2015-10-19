@@ -16,59 +16,59 @@ import net.atos.transport.entity.jpa.FaresCheckingExclusionEntity;
 @Component
 public class FaresCheckingExclusionServiceMapper extends AbstractServiceMapper {
 
-	/**
-	 * ModelMapper : bean to bean mapping library.
-	 */
-	private ModelMapper modelMapper;
-	
-	/**
-	 * Constructor.
-	 */
-	public FaresCheckingExclusionServiceMapper() {
-		modelMapper = new ModelMapper();
-		modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-	}
+    /**
+     * ModelMapper : bean to bean mapping library.
+     */
+    private ModelMapper modelMapper;
+    
+    /**
+     * Constructor.
+     */
+    public FaresCheckingExclusionServiceMapper() {
+        modelMapper = new ModelMapper();
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+    }
 
-	/**
-	 * Mapping from 'FaresCheckingExclusionEntity' to 'FaresCheckingExclusion'
-	 * @param faresCheckingExclusionEntity
-	 */
-	public FaresCheckingExclusion mapFaresCheckingExclusionEntityToFaresCheckingExclusion(FaresCheckingExclusionEntity faresCheckingExclusionEntity) {
-		if(faresCheckingExclusionEntity == null) {
-			return null;
-		}
+    /**
+     * Mapping from 'FaresCheckingExclusionEntity' to 'FaresCheckingExclusion'
+     * @param faresCheckingExclusionEntity
+     */
+    public FaresCheckingExclusion mapFaresCheckingExclusionEntityToFaresCheckingExclusion(FaresCheckingExclusionEntity faresCheckingExclusionEntity) {
+        if(faresCheckingExclusionEntity == null) {
+            return null;
+        }
 
-		//--- Generic mapping 
-		FaresCheckingExclusion faresCheckingExclusion = map(faresCheckingExclusionEntity, FaresCheckingExclusion.class);
+        //--- Generic mapping 
+        FaresCheckingExclusion faresCheckingExclusion = map(faresCheckingExclusionEntity, FaresCheckingExclusion.class);
 
-		return faresCheckingExclusion;
-	}
-	
-	/**
-	 * Mapping from 'FaresCheckingExclusion' to 'FaresCheckingExclusionEntity'
-	 * @param faresCheckingExclusion
-	 * @param faresCheckingExclusionEntity
-	 */
-	public void mapFaresCheckingExclusionToFaresCheckingExclusionEntity(FaresCheckingExclusion faresCheckingExclusion, FaresCheckingExclusionEntity faresCheckingExclusionEntity) {
-		if(faresCheckingExclusion == null) {
-			return;
-		}
+        return faresCheckingExclusion;
+    }
+    
+    /**
+     * Mapping from 'FaresCheckingExclusion' to 'FaresCheckingExclusionEntity'
+     * @param faresCheckingExclusion
+     * @param faresCheckingExclusionEntity
+     */
+    public void mapFaresCheckingExclusionToFaresCheckingExclusionEntity(FaresCheckingExclusion faresCheckingExclusion, FaresCheckingExclusionEntity faresCheckingExclusionEntity) {
+        if(faresCheckingExclusion == null) {
+            return;
+        }
 
-		//--- Generic mapping 
-		map(faresCheckingExclusion, faresCheckingExclusionEntity);
+        //--- Generic mapping 
+        map(faresCheckingExclusion, faresCheckingExclusionEntity);
 
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	protected ModelMapper getModelMapper() {
-		return modelMapper;
-	}
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected ModelMapper getModelMapper() {
+        return modelMapper;
+    }
 
-	protected void setModelMapper(ModelMapper modelMapper) {
-		this.modelMapper = modelMapper;
-	}
+    protected void setModelMapper(ModelMapper modelMapper) {
+        this.modelMapper = modelMapper;
+    }
 
 }

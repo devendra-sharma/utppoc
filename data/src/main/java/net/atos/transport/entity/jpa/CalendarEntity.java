@@ -26,7 +26,7 @@ public class CalendarEntity implements Serializable {
     // ENTITY PRIMARY KEY ( BASED ON A SINGLE FIELD )
     //----------------------------------------------------------------------
     @Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="cal_id", nullable=false)
     private Integer    calId        ;
 
@@ -47,9 +47,9 @@ public class CalendarEntity implements Serializable {
     @Column(name="conversion_power", length=8)
     private Integer     conversionPower   ;
 
-	// "period" (column "period") is not defined by itself because used as FK in a link 
-	// "year" (column "year") is not defined by itself because used as FK in a link 
-	// "week" (column "week") is not defined by itself because used as FK in a link 
+    // "period" (column "period") is not defined by itself because used as FK in a link 
+    // "year" (column "year") is not defined by itself because used as FK in a link 
+    // "week" (column "week") is not defined by itself because used as FK in a link 
 
 
     //----------------------------------------------------------------------
@@ -72,7 +72,7 @@ public class CalendarEntity implements Serializable {
     // CONSTRUCTOR(S)
     //----------------------------------------------------------------------
     public CalendarEntity() {
-		super();
+        super();
     }
     
     //----------------------------------------------------------------------
@@ -132,26 +132,26 @@ public class CalendarEntity implements Serializable {
 
    
 
-	public Integer getCurrencyRate() {
-		return currencyRate;
-	}
+    public Integer getCurrencyRate() {
+        return currencyRate;
+    }
 
-	public void setCurrencyRate(Integer currencyRate) {
-		this.currencyRate = currencyRate;
-	}
+    public void setCurrencyRate(Integer currencyRate) {
+        this.currencyRate = currencyRate;
+    }
 
-	public Integer getConversionPower() {
-		return conversionPower;
-	}
+    public Integer getConversionPower() {
+        return conversionPower;
+    }
 
-	public void setConversionPower(Integer conversionPower) {
-		this.conversionPower = conversionPower;
-	}
+    public void setConversionPower(Integer conversionPower) {
+        this.conversionPower = conversionPower;
+    }
 
-	//----------------------------------------------------------------------
+    //----------------------------------------------------------------------
     // toString METHOD
     //----------------------------------------------------------------------
-	@Override
+    @Override
     public String toString() { 
         StringBuilder sb = new StringBuilder(); 
         sb.append("["); 

@@ -26,7 +26,7 @@ public class RecordFieldEntity extends CommonEntity implements Serializable {
     // ENTITY PRIMARY KEY ( BASED ON A SINGLE FIELD )
     //----------------------------------------------------------------------
     @Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="ref_id", nullable=false)
     private Integer    refId        ;
 
@@ -62,7 +62,7 @@ public class RecordFieldEntity extends CommonEntity implements Serializable {
     // CONSTRUCTOR(S)
     //----------------------------------------------------------------------
     public RecordFieldEntity() {
-		super();
+        super();
     }
     
     //----------------------------------------------------------------------

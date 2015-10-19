@@ -27,7 +27,7 @@ public class TicketAllocationCodeEntity extends CommonEntity implements Serializ
     // ENTITY PRIMARY KEY ( BASED ON A SINGLE FIELD )
     //----------------------------------------------------------------------
     @Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="tac_id", nullable=false)
     private Integer    tacId        ;
 
@@ -58,7 +58,7 @@ public class TicketAllocationCodeEntity extends CommonEntity implements Serializ
     // CONSTRUCTOR(S)
     //----------------------------------------------------------------------
     public TicketAllocationCodeEntity() {
-		super();
+        super();
     }
     
     //----------------------------------------------------------------------

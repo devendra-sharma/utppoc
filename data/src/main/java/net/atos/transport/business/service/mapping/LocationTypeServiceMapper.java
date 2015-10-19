@@ -16,59 +16,59 @@ import net.atos.transport.entity.jpa.LocationTypeEntity;
 @Component
 public class LocationTypeServiceMapper extends AbstractServiceMapper {
 
-	/**
-	 * ModelMapper : bean to bean mapping library.
-	 */
-	private ModelMapper modelMapper;
-	
-	/**
-	 * Constructor.
-	 */
-	public LocationTypeServiceMapper() {
-		modelMapper = new ModelMapper();
-		modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-	}
+    /**
+     * ModelMapper : bean to bean mapping library.
+     */
+    private ModelMapper modelMapper;
+    
+    /**
+     * Constructor.
+     */
+    public LocationTypeServiceMapper() {
+        modelMapper = new ModelMapper();
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+    }
 
-	/**
-	 * Mapping from 'LocationTypeEntity' to 'LocationType'
-	 * @param locationTypeEntity
-	 */
-	public LocationType mapLocationTypeEntityToLocationType(LocationTypeEntity locationTypeEntity) {
-		if(locationTypeEntity == null) {
-			return null;
-		}
+    /**
+     * Mapping from 'LocationTypeEntity' to 'LocationType'
+     * @param locationTypeEntity
+     */
+    public LocationType mapLocationTypeEntityToLocationType(LocationTypeEntity locationTypeEntity) {
+        if(locationTypeEntity == null) {
+            return null;
+        }
 
-		//--- Generic mapping 
-		LocationType locationType = map(locationTypeEntity, LocationType.class);
+        //--- Generic mapping 
+        LocationType locationType = map(locationTypeEntity, LocationType.class);
 
-		return locationType;
-	}
-	
-	/**
-	 * Mapping from 'LocationType' to 'LocationTypeEntity'
-	 * @param locationType
-	 * @param locationTypeEntity
-	 */
-	public void mapLocationTypeToLocationTypeEntity(LocationType locationType, LocationTypeEntity locationTypeEntity) {
-		if(locationType == null) {
-			return;
-		}
+        return locationType;
+    }
+    
+    /**
+     * Mapping from 'LocationType' to 'LocationTypeEntity'
+     * @param locationType
+     * @param locationTypeEntity
+     */
+    public void mapLocationTypeToLocationTypeEntity(LocationType locationType, LocationTypeEntity locationTypeEntity) {
+        if(locationType == null) {
+            return;
+        }
 
-		//--- Generic mapping 
-		map(locationType, locationTypeEntity);
+        //--- Generic mapping 
+        map(locationType, locationTypeEntity);
 
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	protected ModelMapper getModelMapper() {
-		return modelMapper;
-	}
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected ModelMapper getModelMapper() {
+        return modelMapper;
+    }
 
-	protected void setModelMapper(ModelMapper modelMapper) {
-		this.modelMapper = modelMapper;
-	}
+    protected void setModelMapper(ModelMapper modelMapper) {
+        this.modelMapper = modelMapper;
+    }
 
 }

@@ -16,59 +16,59 @@ import net.atos.transport.entity.jpa.YearEntity;
 @Component
 public class YearServiceMapper extends AbstractServiceMapper {
 
-	/**
-	 * ModelMapper : bean to bean mapping library.
-	 */
-	private ModelMapper modelMapper;
-	
-	/**
-	 * Constructor.
-	 */
-	public YearServiceMapper() {
-		modelMapper = new ModelMapper();
-		modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-	}
+    /**
+     * ModelMapper : bean to bean mapping library.
+     */
+    private ModelMapper modelMapper;
+    
+    /**
+     * Constructor.
+     */
+    public YearServiceMapper() {
+        modelMapper = new ModelMapper();
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+    }
 
-	/**
-	 * Mapping from 'YearEntity' to 'Year'
-	 * @param yearEntity
-	 */
-	public Year mapYearEntityToYear(YearEntity yearEntity) {
-		if(yearEntity == null) {
-			return null;
-		}
+    /**
+     * Mapping from 'YearEntity' to 'Year'
+     * @param yearEntity
+     */
+    public Year mapYearEntityToYear(YearEntity yearEntity) {
+        if(yearEntity == null) {
+            return null;
+        }
 
-		//--- Generic mapping 
-		Year year = map(yearEntity, Year.class);
+        //--- Generic mapping 
+        Year year = map(yearEntity, Year.class);
 
-		return year;
-	}
-	
-	/**
-	 * Mapping from 'Year' to 'YearEntity'
-	 * @param year
-	 * @param yearEntity
-	 */
-	public void mapYearToYearEntity(Year year, YearEntity yearEntity) {
-		if(year == null) {
-			return;
-		}
+        return year;
+    }
+    
+    /**
+     * Mapping from 'Year' to 'YearEntity'
+     * @param year
+     * @param yearEntity
+     */
+    public void mapYearToYearEntity(Year year, YearEntity yearEntity) {
+        if(year == null) {
+            return;
+        }
 
-		//--- Generic mapping 
-		map(year, yearEntity);
+        //--- Generic mapping 
+        map(year, yearEntity);
 
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	protected ModelMapper getModelMapper() {
-		return modelMapper;
-	}
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected ModelMapper getModelMapper() {
+        return modelMapper;
+    }
 
-	protected void setModelMapper(ModelMapper modelMapper) {
-		this.modelMapper = modelMapper;
-	}
+    protected void setModelMapper(ModelMapper modelMapper) {
+        this.modelMapper = modelMapper;
+    }
 
 }

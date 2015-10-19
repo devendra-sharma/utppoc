@@ -25,7 +25,7 @@ public class RouteLinkEntity extends CommonEntity implements Serializable {
     // ENTITY PRIMARY KEY ( BASED ON A SINGLE FIELD )
     //----------------------------------------------------------------------
     @Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="rol_id", nullable=false)
     private Integer    rolId        ;
 
@@ -34,8 +34,8 @@ public class RouteLinkEntity extends CommonEntity implements Serializable {
     // ENTITY DATA FIELDS 
     //----------------------------------------------------------------------    
   
-	// "rouIdChild" (column "rou_id_child") is not defined by itself because used as FK in a link 
-	// "rouIdParent" (column "rou_id_parent") is not defined by itself because used as FK in a link 
+    // "rouIdChild" (column "rou_id_child") is not defined by itself because used as FK in a link 
+    // "rouIdParent" (column "rou_id_parent") is not defined by itself because used as FK in a link 
 
 
     //----------------------------------------------------------------------
@@ -54,7 +54,7 @@ public class RouteLinkEntity extends CommonEntity implements Serializable {
     // CONSTRUCTOR(S)
     //----------------------------------------------------------------------
     public RouteLinkEntity() {
-		super();
+        super();
     }
     
     //----------------------------------------------------------------------

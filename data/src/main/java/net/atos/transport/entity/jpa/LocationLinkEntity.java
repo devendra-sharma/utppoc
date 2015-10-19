@@ -26,7 +26,7 @@ public class LocationLinkEntity extends CommonEntity implements Serializable {
     // ENTITY PRIMARY KEY ( BASED ON A SINGLE FIELD )
     //----------------------------------------------------------------------
     @Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="lol_id", nullable=false)
     private Integer    lolId        ;
 
@@ -35,9 +35,9 @@ public class LocationLinkEntity extends CommonEntity implements Serializable {
     // ENTITY DATA FIELDS 
     //----------------------------------------------------------------------    
    
-	// "locIdChild" (column "loc_id_child") is not defined by itself because used as FK in a link 
-	// "locIdParent" (column "loc_id_parent") is not defined by itself because used as FK in a link 
-	// "gftId" (column "gft_id") is not defined by itself because used as FK in a link 
+    // "locIdChild" (column "loc_id_child") is not defined by itself because used as FK in a link 
+    // "locIdParent" (column "loc_id_parent") is not defined by itself because used as FK in a link 
+    // "gftId" (column "gft_id") is not defined by itself because used as FK in a link 
 
 
     //----------------------------------------------------------------------
@@ -60,7 +60,7 @@ public class LocationLinkEntity extends CommonEntity implements Serializable {
     // CONSTRUCTOR(S)
     //----------------------------------------------------------------------
     public LocationLinkEntity() {
-		super();
+        super();
     }
     
     //----------------------------------------------------------------------

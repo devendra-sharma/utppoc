@@ -16,59 +16,59 @@ import net.atos.transport.entity.jpa.BusinessEntity;
 @Component
 public class BusinessServiceMapper extends AbstractServiceMapper {
 
-	/**
-	 * ModelMapper : bean to bean mapping library.
-	 */
-	private ModelMapper modelMapper;
-	
-	/**
-	 * Constructor.
-	 */
-	public BusinessServiceMapper() {
-		modelMapper = new ModelMapper();
-		modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-	}
+    /**
+     * ModelMapper : bean to bean mapping library.
+     */
+    private ModelMapper modelMapper;
+    
+    /**
+     * Constructor.
+     */
+    public BusinessServiceMapper() {
+        modelMapper = new ModelMapper();
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+    }
 
-	/**
-	 * Mapping from 'BusinessEntity' to 'Business'
-	 * @param businessEntity
-	 */
-	public Business mapBusinessEntityToBusiness(BusinessEntity businessEntity) {
-		if(businessEntity == null) {
-			return null;
-		}
+    /**
+     * Mapping from 'BusinessEntity' to 'Business'
+     * @param businessEntity
+     */
+    public Business mapBusinessEntityToBusiness(BusinessEntity businessEntity) {
+        if(businessEntity == null) {
+            return null;
+        }
 
-		//--- Generic mapping 
-		Business business = map(businessEntity, Business.class);
+        //--- Generic mapping 
+        Business business = map(businessEntity, Business.class);
 
-		return business;
-	}
-	
-	/**
-	 * Mapping from 'Business' to 'BusinessEntity'
-	 * @param business
-	 * @param businessEntity
-	 */
-	public void mapBusinessToBusinessEntity(Business business, BusinessEntity businessEntity) {
-		if(business == null) {
-			return;
-		}
+        return business;
+    }
+    
+    /**
+     * Mapping from 'Business' to 'BusinessEntity'
+     * @param business
+     * @param businessEntity
+     */
+    public void mapBusinessToBusinessEntity(Business business, BusinessEntity businessEntity) {
+        if(business == null) {
+            return;
+        }
 
-		//--- Generic mapping 
-		map(business, businessEntity);
+        //--- Generic mapping 
+        map(business, businessEntity);
 
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	protected ModelMapper getModelMapper() {
-		return modelMapper;
-	}
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected ModelMapper getModelMapper() {
+        return modelMapper;
+    }
 
-	protected void setModelMapper(ModelMapper modelMapper) {
-		this.modelMapper = modelMapper;
-	}
+    protected void setModelMapper(ModelMapper modelMapper) {
+        this.modelMapper = modelMapper;
+    }
 
 }

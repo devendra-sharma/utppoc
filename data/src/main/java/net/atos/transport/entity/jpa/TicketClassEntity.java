@@ -27,7 +27,7 @@ public class TicketClassEntity extends CommonEntity implements Serializable {
     // ENTITY PRIMARY KEY ( BASED ON A SINGLE FIELD )
     //----------------------------------------------------------------------
     @Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="tic_id", nullable=false)
     private Integer    ticId        ;
 
@@ -52,7 +52,7 @@ public class TicketClassEntity extends CommonEntity implements Serializable {
     // CONSTRUCTOR(S)
     //----------------------------------------------------------------------
     public TicketClassEntity() {
-		super();
+        super();
     }
     
     //----------------------------------------------------------------------

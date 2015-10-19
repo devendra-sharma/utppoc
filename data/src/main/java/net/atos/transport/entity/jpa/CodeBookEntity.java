@@ -25,7 +25,7 @@ public class CodeBookEntity extends CommonEntity implements Serializable {
     // ENTITY PRIMARY KEY ( BASED ON A SINGLE FIELD )
     //----------------------------------------------------------------------
     @Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="cob_id", nullable=false)
     private Integer    cobId        ;
 
@@ -50,7 +50,7 @@ public class CodeBookEntity extends CommonEntity implements Serializable {
     @Column(name="maintain_parent_code_book", length=1)
     private String     maintainParentCodeBook ;
 
-	// "typId" (column "typ_id") is not defined by itself because used as FK in a link 
+    // "typId" (column "typ_id") is not defined by itself because used as FK in a link 
 
 
     //----------------------------------------------------------------------
@@ -65,7 +65,7 @@ public class CodeBookEntity extends CommonEntity implements Serializable {
     // CONSTRUCTOR(S)
     //----------------------------------------------------------------------
     public CodeBookEntity() {
-		super();
+        super();
     }
     
     //----------------------------------------------------------------------

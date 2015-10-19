@@ -24,72 +24,72 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class TicketClassServiceImpl implements TicketClassService {
 
-	@Resource
-	private TicketClassJpaRepository ticketClassJpaRepository;
+    @Resource
+    private TicketClassJpaRepository ticketClassJpaRepository;
 
-	@Resource
-	private TicketClassServiceMapper ticketClassServiceMapper;
-	
-	@Override
-	public TicketClass findById(Integer ticId) {
-		TicketClassEntity ticketClassEntity = ticketClassJpaRepository.findOne(ticId);
-		return ticketClassServiceMapper.mapTicketClassEntityToTicketClass(ticketClassEntity);
-	}
+    @Resource
+    private TicketClassServiceMapper ticketClassServiceMapper;
+    
+    @Override
+    public TicketClass findById(Integer ticId) {
+        TicketClassEntity ticketClassEntity = ticketClassJpaRepository.findOne(ticId);
+        return ticketClassServiceMapper.mapTicketClassEntityToTicketClass(ticketClassEntity);
+    }
 
-	@Override
-	public List<TicketClass> findAll() {
-		Iterable<TicketClassEntity> entities = ticketClassJpaRepository.findAll();
-		List<TicketClass> beans = new ArrayList<TicketClass>();
-		for(TicketClassEntity ticketClassEntity : entities) {
-			beans.add(ticketClassServiceMapper.mapTicketClassEntityToTicketClass(ticketClassEntity));
-		}
-		return beans;
-	}
+    @Override
+    public List<TicketClass> findAll() {
+        Iterable<TicketClassEntity> entities = ticketClassJpaRepository.findAll();
+        List<TicketClass> beans = new ArrayList<TicketClass>();
+        for(TicketClassEntity ticketClassEntity : entities) {
+            beans.add(ticketClassServiceMapper.mapTicketClassEntityToTicketClass(ticketClassEntity));
+        }
+        return beans;
+    }
 
-	@Override
-	public TicketClass save(TicketClass ticketClass) {
-		return update(ticketClass) ;
-	}
+    @Override
+    public TicketClass save(TicketClass ticketClass) {
+        return update(ticketClass) ;
+    }
 
-	@Override
-	public TicketClass create(TicketClass ticketClass) {
-		TicketClassEntity ticketClassEntity = ticketClassJpaRepository.findOne(ticketClass.getTicId());
-		if( ticketClassEntity != null ) {
-			throw new IllegalStateException("already.exists");
-		}
-		ticketClassEntity = new TicketClassEntity();
-		ticketClassServiceMapper.mapTicketClassToTicketClassEntity(ticketClass, ticketClassEntity);
-		TicketClassEntity ticketClassEntitySaved = ticketClassJpaRepository.save(ticketClassEntity);
-		return ticketClassServiceMapper.mapTicketClassEntityToTicketClass(ticketClassEntitySaved);
-	}
+    @Override
+    public TicketClass create(TicketClass ticketClass) {
+        TicketClassEntity ticketClassEntity = ticketClassJpaRepository.findOne(ticketClass.getTicId());
+        if( ticketClassEntity != null ) {
+            throw new IllegalStateException("already.exists");
+        }
+        ticketClassEntity = new TicketClassEntity();
+        ticketClassServiceMapper.mapTicketClassToTicketClassEntity(ticketClass, ticketClassEntity);
+        TicketClassEntity ticketClassEntitySaved = ticketClassJpaRepository.save(ticketClassEntity);
+        return ticketClassServiceMapper.mapTicketClassEntityToTicketClass(ticketClassEntitySaved);
+    }
 
-	@Override
-	public TicketClass update(TicketClass ticketClass) {
-		TicketClassEntity ticketClassEntity = ticketClassJpaRepository.findOne(ticketClass.getTicId());
-		ticketClassServiceMapper.mapTicketClassToTicketClassEntity(ticketClass, ticketClassEntity);
-		TicketClassEntity ticketClassEntitySaved = ticketClassJpaRepository.save(ticketClassEntity);
-		return ticketClassServiceMapper.mapTicketClassEntityToTicketClass(ticketClassEntitySaved);
-	}
+    @Override
+    public TicketClass update(TicketClass ticketClass) {
+        TicketClassEntity ticketClassEntity = ticketClassJpaRepository.findOne(ticketClass.getTicId());
+        ticketClassServiceMapper.mapTicketClassToTicketClassEntity(ticketClass, ticketClassEntity);
+        TicketClassEntity ticketClassEntitySaved = ticketClassJpaRepository.save(ticketClassEntity);
+        return ticketClassServiceMapper.mapTicketClassEntityToTicketClass(ticketClassEntitySaved);
+    }
 
-	@Override
-	public void delete(Integer ticId) {
-		ticketClassJpaRepository.delete(ticId);
-	}
+    @Override
+    public void delete(Integer ticId) {
+        ticketClassJpaRepository.delete(ticId);
+    }
 
-	public TicketClassJpaRepository getTicketClassJpaRepository() {
-		return ticketClassJpaRepository;
-	}
+    public TicketClassJpaRepository getTicketClassJpaRepository() {
+        return ticketClassJpaRepository;
+    }
 
-	public void setTicketClassJpaRepository(TicketClassJpaRepository ticketClassJpaRepository) {
-		this.ticketClassJpaRepository = ticketClassJpaRepository;
-	}
+    public void setTicketClassJpaRepository(TicketClassJpaRepository ticketClassJpaRepository) {
+        this.ticketClassJpaRepository = ticketClassJpaRepository;
+    }
 
-	public TicketClassServiceMapper getTicketClassServiceMapper() {
-		return ticketClassServiceMapper;
-	}
+    public TicketClassServiceMapper getTicketClassServiceMapper() {
+        return ticketClassServiceMapper;
+    }
 
-	public void setTicketClassServiceMapper(TicketClassServiceMapper ticketClassServiceMapper) {
-		this.ticketClassServiceMapper = ticketClassServiceMapper;
-	}
+    public void setTicketClassServiceMapper(TicketClassServiceMapper ticketClassServiceMapper) {
+        this.ticketClassServiceMapper = ticketClassServiceMapper;
+    }
 
 }

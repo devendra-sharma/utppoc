@@ -81,7 +81,7 @@ public class FaresCheckingExclusionEntity implements Serializable {
     // CONSTRUCTOR(S)
     //----------------------------------------------------------------------
     public FaresCheckingExclusionEntity() {
-		super();
+        super();
     }
     
     //----------------------------------------------------------------------

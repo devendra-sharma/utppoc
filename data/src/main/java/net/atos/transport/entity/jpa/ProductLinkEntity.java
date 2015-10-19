@@ -31,13 +31,13 @@ public class ProductLinkEntity extends CommonEntity implements Serializable {
     // ENTITY DATA FIELDS 
     //---------------------------------------------------------------------- 
     @Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="prl_id")
     private Integer    prlId        ;
 
    
-	// "proId" (column "pro_id") is not defined by itself because used as FK in a link 
-	// "proIdParent" (column "pro_id_parent") is not defined by itself because used as FK in a link 
+    // "proId" (column "pro_id") is not defined by itself because used as FK in a link 
+    // "proIdParent" (column "pro_id_parent") is not defined by itself because used as FK in a link 
 
 
     //----------------------------------------------------------------------
@@ -56,7 +56,7 @@ public class ProductLinkEntity extends CommonEntity implements Serializable {
     // CONSTRUCTOR(S)
     //----------------------------------------------------------------------
     public ProductLinkEntity() {
-		super();
+        super();
     }
     
     //----------------------------------------------------------------------

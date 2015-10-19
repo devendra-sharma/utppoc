@@ -24,7 +24,7 @@ public class ProcessControlEntity implements Serializable {
     // ENTITY PRIMARY KEY ( BASED ON A SINGLE FIELD )
     //----------------------------------------------------------------------
     @Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="process_id", nullable=false)
     private Integer    processId    ;
 
@@ -45,7 +45,7 @@ public class ProcessControlEntity implements Serializable {
     // CONSTRUCTOR(S)
     //----------------------------------------------------------------------
     public ProcessControlEntity() {
-		super();
+        super();
     }
     
     //----------------------------------------------------------------------

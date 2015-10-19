@@ -27,7 +27,7 @@ public class ProductTypeEntity extends CommonEntity implements Serializable {
     // ENTITY PRIMARY KEY ( BASED ON A SINGLE FIELD )
     //----------------------------------------------------------------------
     @Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="prt_id", nullable=false)
     private Integer    prtId        ;
 
@@ -51,7 +51,7 @@ public class ProductTypeEntity extends CommonEntity implements Serializable {
     // CONSTRUCTOR(S)
     //----------------------------------------------------------------------
     public ProductTypeEntity() {
-		super();
+        super();
     }
     
     //----------------------------------------------------------------------

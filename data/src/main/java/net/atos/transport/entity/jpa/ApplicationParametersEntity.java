@@ -32,7 +32,7 @@ public class ApplicationParametersEntity implements Serializable {
     // ENTITY PRIMARY KEY ( BASED ON A SINGLE FIELD )
     //----------------------------------------------------------------------
     @Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="application_parameters_id", nullable=false)
     private Integer    applicationParametersId ;
 
@@ -53,7 +53,7 @@ public class ApplicationParametersEntity implements Serializable {
     // CONSTRUCTOR(S)
     //----------------------------------------------------------------------
     public ApplicationParametersEntity() {
-		super();
+        super();
     }
     
     //----------------------------------------------------------------------

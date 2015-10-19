@@ -13,45 +13,45 @@ import net.atos.transport.entity.TicketStatusLink;
  */
 public interface TicketStatusLinkService { 
 
-	/**
-	 * Loads an entity from the database using its Primary Key
-	 * @param tslId
-	 * @return entity
-	 */
-	TicketStatusLink findById( Integer tslId  ) ;
+    /**
+     * Loads an entity from the database using its Primary Key
+     * @param tslId
+     * @return entity
+     */
+    TicketStatusLink findById( Integer tslId  ) ;
 
-	/**
-	 * Loads all entities.
-	 * @return all entities
-	 */
-	List<TicketStatusLink> findAll();
+    /**
+     * Loads all entities.
+     * @return all entities
+     */
+    List<TicketStatusLink> findAll();
 
-	/**
-	 * Saves the given entity in the database (create or update)
-	 * @param entity
-	 * @return entity
-	 */
-	TicketStatusLink save(TicketStatusLink entity);
+    /**
+     * Saves the given entity in the database (create or update)
+     * @param entity
+     * @return entity
+     */
+    TicketStatusLink save(TicketStatusLink entity);
 
-	/**
-	 * Updates the given entity in the database
-	 * @param entity
-	 * @return
-	 */
-	TicketStatusLink update(TicketStatusLink entity);
+    /**
+     * Updates the given entity in the database
+     * @param entity
+     * @return
+     */
+    TicketStatusLink update(TicketStatusLink entity);
 
-	/**
-	 * Creates the given entity in the database
-	 * @param entity
-	 * @return
-	 */
-	TicketStatusLink create(TicketStatusLink entity);
+    /**
+     * Creates the given entity in the database
+     * @param entity
+     * @return
+     */
+    TicketStatusLink create(TicketStatusLink entity);
 
-	/**
-	 * Deletes an entity using its Primary Key
-	 * @param tslId
-	 */
-	void delete( Integer tslId );
+    /**
+     * Deletes an entity using its Primary Key
+     * @param tslId
+     */
+    void delete( Integer tslId );
 
 
 }

@@ -24,72 +24,72 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class ProductTypeServiceImpl implements ProductTypeService {
 
-	@Resource
-	private ProductTypeJpaRepository productTypeJpaRepository;
+    @Resource
+    private ProductTypeJpaRepository productTypeJpaRepository;
 
-	@Resource
-	private ProductTypeServiceMapper productTypeServiceMapper;
-	
-	@Override
-	public ProductType findById(Integer prtId) {
-		ProductTypeEntity productTypeEntity = productTypeJpaRepository.findOne(prtId);
-		return productTypeServiceMapper.mapProductTypeEntityToProductType(productTypeEntity);
-	}
+    @Resource
+    private ProductTypeServiceMapper productTypeServiceMapper;
+    
+    @Override
+    public ProductType findById(Integer prtId) {
+        ProductTypeEntity productTypeEntity = productTypeJpaRepository.findOne(prtId);
+        return productTypeServiceMapper.mapProductTypeEntityToProductType(productTypeEntity);
+    }
 
-	@Override
-	public List<ProductType> findAll() {
-		Iterable<ProductTypeEntity> entities = productTypeJpaRepository.findAll();
-		List<ProductType> beans = new ArrayList<ProductType>();
-		for(ProductTypeEntity productTypeEntity : entities) {
-			beans.add(productTypeServiceMapper.mapProductTypeEntityToProductType(productTypeEntity));
-		}
-		return beans;
-	}
+    @Override
+    public List<ProductType> findAll() {
+        Iterable<ProductTypeEntity> entities = productTypeJpaRepository.findAll();
+        List<ProductType> beans = new ArrayList<ProductType>();
+        for(ProductTypeEntity productTypeEntity : entities) {
+            beans.add(productTypeServiceMapper.mapProductTypeEntityToProductType(productTypeEntity));
+        }
+        return beans;
+    }
 
-	@Override
-	public ProductType save(ProductType productType) {
-		return update(productType) ;
-	}
+    @Override
+    public ProductType save(ProductType productType) {
+        return update(productType) ;
+    }
 
-	@Override
-	public ProductType create(ProductType productType) {
-		ProductTypeEntity productTypeEntity = productTypeJpaRepository.findOne(productType.getPrtId());
-		if( productTypeEntity != null ) {
-			throw new IllegalStateException("already.exists");
-		}
-		productTypeEntity = new ProductTypeEntity();
-		productTypeServiceMapper.mapProductTypeToProductTypeEntity(productType, productTypeEntity);
-		ProductTypeEntity productTypeEntitySaved = productTypeJpaRepository.save(productTypeEntity);
-		return productTypeServiceMapper.mapProductTypeEntityToProductType(productTypeEntitySaved);
-	}
+    @Override
+    public ProductType create(ProductType productType) {
+        ProductTypeEntity productTypeEntity = productTypeJpaRepository.findOne(productType.getPrtId());
+        if( productTypeEntity != null ) {
+            throw new IllegalStateException("already.exists");
+        }
+        productTypeEntity = new ProductTypeEntity();
+        productTypeServiceMapper.mapProductTypeToProductTypeEntity(productType, productTypeEntity);
+        ProductTypeEntity productTypeEntitySaved = productTypeJpaRepository.save(productTypeEntity);
+        return productTypeServiceMapper.mapProductTypeEntityToProductType(productTypeEntitySaved);
+    }
 
-	@Override
-	public ProductType update(ProductType productType) {
-		ProductTypeEntity productTypeEntity = productTypeJpaRepository.findOne(productType.getPrtId());
-		productTypeServiceMapper.mapProductTypeToProductTypeEntity(productType, productTypeEntity);
-		ProductTypeEntity productTypeEntitySaved = productTypeJpaRepository.save(productTypeEntity);
-		return productTypeServiceMapper.mapProductTypeEntityToProductType(productTypeEntitySaved);
-	}
+    @Override
+    public ProductType update(ProductType productType) {
+        ProductTypeEntity productTypeEntity = productTypeJpaRepository.findOne(productType.getPrtId());
+        productTypeServiceMapper.mapProductTypeToProductTypeEntity(productType, productTypeEntity);
+        ProductTypeEntity productTypeEntitySaved = productTypeJpaRepository.save(productTypeEntity);
+        return productTypeServiceMapper.mapProductTypeEntityToProductType(productTypeEntitySaved);
+    }
 
-	@Override
-	public void delete(Integer prtId) {
-		productTypeJpaRepository.delete(prtId);
-	}
+    @Override
+    public void delete(Integer prtId) {
+        productTypeJpaRepository.delete(prtId);
+    }
 
-	public ProductTypeJpaRepository getProductTypeJpaRepository() {
-		return productTypeJpaRepository;
-	}
+    public ProductTypeJpaRepository getProductTypeJpaRepository() {
+        return productTypeJpaRepository;
+    }
 
-	public void setProductTypeJpaRepository(ProductTypeJpaRepository productTypeJpaRepository) {
-		this.productTypeJpaRepository = productTypeJpaRepository;
-	}
+    public void setProductTypeJpaRepository(ProductTypeJpaRepository productTypeJpaRepository) {
+        this.productTypeJpaRepository = productTypeJpaRepository;
+    }
 
-	public ProductTypeServiceMapper getProductTypeServiceMapper() {
-		return productTypeServiceMapper;
-	}
+    public ProductTypeServiceMapper getProductTypeServiceMapper() {
+        return productTypeServiceMapper;
+    }
 
-	public void setProductTypeServiceMapper(ProductTypeServiceMapper productTypeServiceMapper) {
-		this.productTypeServiceMapper = productTypeServiceMapper;
-	}
+    public void setProductTypeServiceMapper(ProductTypeServiceMapper productTypeServiceMapper) {
+        this.productTypeServiceMapper = productTypeServiceMapper;
+    }
 
 }

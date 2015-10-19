@@ -27,7 +27,7 @@ public class PeriodEntity implements Serializable {
     // ENTITY PRIMARY KEY ( BASED ON A SINGLE FIELD )
     //----------------------------------------------------------------------
     @Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="per_id", nullable=false)
     private Integer    perId        ;
 
@@ -52,7 +52,7 @@ public class PeriodEntity implements Serializable {
     @Column(name="period_mask", length=8)
     private String     periodMask   ;
 
-	// "year" (column "year") is not defined by itself because used as FK in a link 
+    // "year" (column "year") is not defined by itself because used as FK in a link 
 
 
     //----------------------------------------------------------------------
@@ -73,7 +73,7 @@ public class PeriodEntity implements Serializable {
     // CONSTRUCTOR(S)
     //----------------------------------------------------------------------
     public PeriodEntity() {
-		super();
+        super();
     }
     
     //----------------------------------------------------------------------

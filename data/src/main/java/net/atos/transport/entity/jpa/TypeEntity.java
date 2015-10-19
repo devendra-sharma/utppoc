@@ -27,7 +27,7 @@ public class TypeEntity extends CommonEntity implements Serializable {
     // ENTITY PRIMARY KEY ( BASED ON A SINGLE FIELD )
     //----------------------------------------------------------------------
     @Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="typ_id", nullable=false)
     private Integer    typId        ;
 
@@ -55,7 +55,7 @@ public class TypeEntity extends CommonEntity implements Serializable {
     // CONSTRUCTOR(S)
     //----------------------------------------------------------------------
     public TypeEntity() {
-		super();
+        super();
     }
     
     //----------------------------------------------------------------------

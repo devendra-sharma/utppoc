@@ -12,5 +12,5 @@ import net.atos.transport.entity.jpa.CalendarEntity;
  */
 public interface CalendarJpaRepository extends PagingAndSortingRepository<CalendarEntity, Integer> {
 
-	public List<CalendarEntity> findByCalIdIn(List<Integer> ids);
+    public List<CalendarEntity> findByCalIdIn(List<Integer> ids);
 }

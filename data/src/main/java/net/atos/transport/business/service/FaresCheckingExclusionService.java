@@ -15,54 +15,54 @@ import net.atos.transport.entity.FaresCheckingExclusion;
  */
 public interface FaresCheckingExclusionService { 
 
-	/**
-	 * Loads an entity from the database using its Primary Key
-	 * @param faresCheckingExclusionId
-	 * @return entity
-	 */
-	FaresCheckingExclusion findById( Long faresCheckingExclusionId  ) ;
+    /**
+     * Loads an entity from the database using its Primary Key
+     * @param faresCheckingExclusionId
+     * @return entity
+     */
+    FaresCheckingExclusion findById( Long faresCheckingExclusionId  ) ;
 
-	/**
-	 * Loads all entities.
-	 * @return all entities
-	 */
-	List<FaresCheckingExclusion> findAll();
+    /**
+     * Loads all entities.
+     * @return all entities
+     */
+    List<FaresCheckingExclusion> findAll();
 
-	/**
-	 * Saves the given entity in the database (create or update)
-	 * @param entity
-	 * @return entity
-	 */
-	FaresCheckingExclusion save(FaresCheckingExclusion entity);
+    /**
+     * Saves the given entity in the database (create or update)
+     * @param entity
+     * @return entity
+     */
+    FaresCheckingExclusion save(FaresCheckingExclusion entity);
 
-	/**
-	 * Updates the given entity in the database
-	 * @param entity
-	 * @return
-	 */
-	FaresCheckingExclusion update(FaresCheckingExclusion entity);
+    /**
+     * Updates the given entity in the database
+     * @param entity
+     * @return
+     */
+    FaresCheckingExclusion update(FaresCheckingExclusion entity);
 
-	/**
-	 * Creates the given entity in the database
-	 * @param entity
-	 * @return
-	 */
-	FaresCheckingExclusion create(FaresCheckingExclusion entity);
+    /**
+     * Creates the given entity in the database
+     * @param entity
+     * @return
+     */
+    FaresCheckingExclusion create(FaresCheckingExclusion entity);
 
-	/**
-	 * Deletes an entity using its Primary Key
-	 * @param faresCheckingExclusionId
-	 */
-	void delete( Long faresCheckingExclusionId );
+    /**
+     * Deletes an entity using its Primary Key
+     * @param faresCheckingExclusionId
+     */
+    void delete( Long faresCheckingExclusionId );
 
-	/**
-	 * Gets an entity using the parameters
-	 * 
-	 * @param faresCheckingExclusionId
-	 */
-	FaresCheckingExclusion getFaresExclusionByParams(
-			String sellingLocation, String originLocation,
-			String destinationLocation, String route, String product,
-			String ticketStatus);
+    /**
+     * Gets an entity using the parameters
+     * 
+     * @param faresCheckingExclusionId
+     */
+    FaresCheckingExclusion getFaresExclusionByParams(
+            String sellingLocation, String originLocation,
+            String destinationLocation, String route, String product,
+            String ticketStatus);
 
 }

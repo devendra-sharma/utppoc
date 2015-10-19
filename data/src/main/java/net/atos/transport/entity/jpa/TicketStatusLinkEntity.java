@@ -27,7 +27,7 @@ public class TicketStatusLinkEntity extends CommonEntity implements Serializable
     // ENTITY PRIMARY KEY ( BASED ON A SINGLE FIELD )
     //----------------------------------------------------------------------
     @Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="tsl_id", nullable=false)
     private Integer    tslId        ;
 
@@ -37,8 +37,8 @@ public class TicketStatusLinkEntity extends CommonEntity implements Serializable
     //----------------------------------------------------------------------    
    
 
-	// "tisIdLinks" (column "tis_id_links") is not defined by itself because used as FK in a link 
-	// "tisIdLinkedBy" (column "tis_id_linked_by") is not defined by itself because used as FK in a link 
+    // "tisIdLinks" (column "tis_id_links") is not defined by itself because used as FK in a link 
+    // "tisIdLinkedBy" (column "tis_id_linked_by") is not defined by itself because used as FK in a link 
 
 
     //----------------------------------------------------------------------
@@ -57,7 +57,7 @@ public class TicketStatusLinkEntity extends CommonEntity implements Serializable
     // CONSTRUCTOR(S)
     //----------------------------------------------------------------------
     public TicketStatusLinkEntity() {
-		super();
+        super();
     }
     
     //----------------------------------------------------------------------

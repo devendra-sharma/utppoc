@@ -13,45 +13,45 @@ import net.atos.transport.entity.GroupFunctionType;
  */
 public interface GroupFunctionTypeService { 
 
-	/**
-	 * Loads an entity from the database using its Primary Key
-	 * @param gftId
-	 * @return entity
-	 */
-	GroupFunctionType findById( Integer gftId  ) ;
+    /**
+     * Loads an entity from the database using its Primary Key
+     * @param gftId
+     * @return entity
+     */
+    GroupFunctionType findById( Integer gftId  ) ;
 
-	/**
-	 * Loads all entities.
-	 * @return all entities
-	 */
-	List<GroupFunctionType> findAll();
+    /**
+     * Loads all entities.
+     * @return all entities
+     */
+    List<GroupFunctionType> findAll();
 
-	/**
-	 * Saves the given entity in the database (create or update)
-	 * @param entity
-	 * @return entity
-	 */
-	GroupFunctionType save(GroupFunctionType entity);
+    /**
+     * Saves the given entity in the database (create or update)
+     * @param entity
+     * @return entity
+     */
+    GroupFunctionType save(GroupFunctionType entity);
 
-	/**
-	 * Updates the given entity in the database
-	 * @param entity
-	 * @return
-	 */
-	GroupFunctionType update(GroupFunctionType entity);
+    /**
+     * Updates the given entity in the database
+     * @param entity
+     * @return
+     */
+    GroupFunctionType update(GroupFunctionType entity);
 
-	/**
-	 * Creates the given entity in the database
-	 * @param entity
-	 * @return
-	 */
-	GroupFunctionType create(GroupFunctionType entity);
+    /**
+     * Creates the given entity in the database
+     * @param entity
+     * @return
+     */
+    GroupFunctionType create(GroupFunctionType entity);
 
-	/**
-	 * Deletes an entity using its Primary Key
-	 * @param gftId
-	 */
-	void delete( Integer gftId );
+    /**
+     * Deletes an entity using its Primary Key
+     * @param gftId
+     */
+    void delete( Integer gftId );
 
 
 }

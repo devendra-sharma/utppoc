@@ -28,80 +28,80 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class FaresCheckingExclusionServiceImpl implements FaresCheckingExclusionService {
 
-	@Resource
-	private FaresCheckingExclusionJpaRepository faresCheckingExclusionJpaRepository;
+    @Resource
+    private FaresCheckingExclusionJpaRepository faresCheckingExclusionJpaRepository;
 
-	@Resource
-	private FaresCheckingExclusionServiceMapper faresCheckingExclusionServiceMapper;
-	
-	@Override
-	public FaresCheckingExclusion findById(Long faresCheckingExclusionId) {
-		FaresCheckingExclusionEntity faresCheckingExclusionEntity = faresCheckingExclusionJpaRepository.findOne(faresCheckingExclusionId);
-		return faresCheckingExclusionServiceMapper.mapFaresCheckingExclusionEntityToFaresCheckingExclusion(faresCheckingExclusionEntity);
-	}
+    @Resource
+    private FaresCheckingExclusionServiceMapper faresCheckingExclusionServiceMapper;
+    
+    @Override
+    public FaresCheckingExclusion findById(Long faresCheckingExclusionId) {
+        FaresCheckingExclusionEntity faresCheckingExclusionEntity = faresCheckingExclusionJpaRepository.findOne(faresCheckingExclusionId);
+        return faresCheckingExclusionServiceMapper.mapFaresCheckingExclusionEntityToFaresCheckingExclusion(faresCheckingExclusionEntity);
+    }
 
-	@Override
-	public List<FaresCheckingExclusion> findAll() {
-		Iterable<FaresCheckingExclusionEntity> entities = faresCheckingExclusionJpaRepository.findAll();
-		List<FaresCheckingExclusion> beans = new ArrayList<FaresCheckingExclusion>();
-		for(FaresCheckingExclusionEntity faresCheckingExclusionEntity : entities) {
-			beans.add(faresCheckingExclusionServiceMapper.mapFaresCheckingExclusionEntityToFaresCheckingExclusion(faresCheckingExclusionEntity));
-		}
-		return beans;
-	}
+    @Override
+    public List<FaresCheckingExclusion> findAll() {
+        Iterable<FaresCheckingExclusionEntity> entities = faresCheckingExclusionJpaRepository.findAll();
+        List<FaresCheckingExclusion> beans = new ArrayList<FaresCheckingExclusion>();
+        for(FaresCheckingExclusionEntity faresCheckingExclusionEntity : entities) {
+            beans.add(faresCheckingExclusionServiceMapper.mapFaresCheckingExclusionEntityToFaresCheckingExclusion(faresCheckingExclusionEntity));
+        }
+        return beans;
+    }
 
-	@Override
-	public FaresCheckingExclusion save(FaresCheckingExclusion faresCheckingExclusion) {
-		return update(faresCheckingExclusion) ;
-	}
+    @Override
+    public FaresCheckingExclusion save(FaresCheckingExclusion faresCheckingExclusion) {
+        return update(faresCheckingExclusion) ;
+    }
 
-	@Override
-	public FaresCheckingExclusion create(FaresCheckingExclusion faresCheckingExclusion) {
-		FaresCheckingExclusionEntity faresCheckingExclusionEntity = faresCheckingExclusionJpaRepository.findOne(faresCheckingExclusion.getFaresCheckingExclusionId());
-		if( faresCheckingExclusionEntity != null ) {
-			throw new IllegalStateException("already.exists");
-		}
-		faresCheckingExclusionEntity = new FaresCheckingExclusionEntity();
-		faresCheckingExclusionServiceMapper.mapFaresCheckingExclusionToFaresCheckingExclusionEntity(faresCheckingExclusion, faresCheckingExclusionEntity);
-		FaresCheckingExclusionEntity faresCheckingExclusionEntitySaved = faresCheckingExclusionJpaRepository.save(faresCheckingExclusionEntity);
-		return faresCheckingExclusionServiceMapper.mapFaresCheckingExclusionEntityToFaresCheckingExclusion(faresCheckingExclusionEntitySaved);
-	}
+    @Override
+    public FaresCheckingExclusion create(FaresCheckingExclusion faresCheckingExclusion) {
+        FaresCheckingExclusionEntity faresCheckingExclusionEntity = faresCheckingExclusionJpaRepository.findOne(faresCheckingExclusion.getFaresCheckingExclusionId());
+        if( faresCheckingExclusionEntity != null ) {
+            throw new IllegalStateException("already.exists");
+        }
+        faresCheckingExclusionEntity = new FaresCheckingExclusionEntity();
+        faresCheckingExclusionServiceMapper.mapFaresCheckingExclusionToFaresCheckingExclusionEntity(faresCheckingExclusion, faresCheckingExclusionEntity);
+        FaresCheckingExclusionEntity faresCheckingExclusionEntitySaved = faresCheckingExclusionJpaRepository.save(faresCheckingExclusionEntity);
+        return faresCheckingExclusionServiceMapper.mapFaresCheckingExclusionEntityToFaresCheckingExclusion(faresCheckingExclusionEntitySaved);
+    }
 
-	@Override
-	public FaresCheckingExclusion update(FaresCheckingExclusion faresCheckingExclusion) {
-		FaresCheckingExclusionEntity faresCheckingExclusionEntity = faresCheckingExclusionJpaRepository.findOne(faresCheckingExclusion.getFaresCheckingExclusionId());
-		faresCheckingExclusionServiceMapper.mapFaresCheckingExclusionToFaresCheckingExclusionEntity(faresCheckingExclusion, faresCheckingExclusionEntity);
-		FaresCheckingExclusionEntity faresCheckingExclusionEntitySaved = faresCheckingExclusionJpaRepository.save(faresCheckingExclusionEntity);
-		return faresCheckingExclusionServiceMapper.mapFaresCheckingExclusionEntityToFaresCheckingExclusion(faresCheckingExclusionEntitySaved);
-	}
+    @Override
+    public FaresCheckingExclusion update(FaresCheckingExclusion faresCheckingExclusion) {
+        FaresCheckingExclusionEntity faresCheckingExclusionEntity = faresCheckingExclusionJpaRepository.findOne(faresCheckingExclusion.getFaresCheckingExclusionId());
+        faresCheckingExclusionServiceMapper.mapFaresCheckingExclusionToFaresCheckingExclusionEntity(faresCheckingExclusion, faresCheckingExclusionEntity);
+        FaresCheckingExclusionEntity faresCheckingExclusionEntitySaved = faresCheckingExclusionJpaRepository.save(faresCheckingExclusionEntity);
+        return faresCheckingExclusionServiceMapper.mapFaresCheckingExclusionEntityToFaresCheckingExclusion(faresCheckingExclusionEntitySaved);
+    }
 
-	@Override
-	public void delete(Long faresCheckingExclusionId) {
-		faresCheckingExclusionJpaRepository.delete(faresCheckingExclusionId);
-	}
+    @Override
+    public void delete(Long faresCheckingExclusionId) {
+        faresCheckingExclusionJpaRepository.delete(faresCheckingExclusionId);
+    }
 
-	public FaresCheckingExclusionJpaRepository getFaresCheckingExclusionJpaRepository() {
-		return faresCheckingExclusionJpaRepository;
-	}
+    public FaresCheckingExclusionJpaRepository getFaresCheckingExclusionJpaRepository() {
+        return faresCheckingExclusionJpaRepository;
+    }
 
-	public void setFaresCheckingExclusionJpaRepository(FaresCheckingExclusionJpaRepository faresCheckingExclusionJpaRepository) {
-		this.faresCheckingExclusionJpaRepository = faresCheckingExclusionJpaRepository;
-	}
+    public void setFaresCheckingExclusionJpaRepository(FaresCheckingExclusionJpaRepository faresCheckingExclusionJpaRepository) {
+        this.faresCheckingExclusionJpaRepository = faresCheckingExclusionJpaRepository;
+    }
 
-	public FaresCheckingExclusionServiceMapper getFaresCheckingExclusionServiceMapper() {
-		return faresCheckingExclusionServiceMapper;
-	}
+    public FaresCheckingExclusionServiceMapper getFaresCheckingExclusionServiceMapper() {
+        return faresCheckingExclusionServiceMapper;
+    }
 
-	public void setFaresCheckingExclusionServiceMapper(FaresCheckingExclusionServiceMapper faresCheckingExclusionServiceMapper) {
-		this.faresCheckingExclusionServiceMapper = faresCheckingExclusionServiceMapper;
-	}
+    public void setFaresCheckingExclusionServiceMapper(FaresCheckingExclusionServiceMapper faresCheckingExclusionServiceMapper) {
+        this.faresCheckingExclusionServiceMapper = faresCheckingExclusionServiceMapper;
+    }
 
-	@Override
-	public FaresCheckingExclusion getFaresExclusionByParams(String sellingLocation,
-			String originLocation, String destinationLocation, String route,
-			String product, String ticketStatus) {
-		FaresCheckingExclusionEntity entity = faresCheckingExclusionJpaRepository.findByParams(sellingLocation, originLocation, destinationLocation, route, product, ticketStatus);
-		return faresCheckingExclusionServiceMapper.mapFaresCheckingExclusionEntityToFaresCheckingExclusion(entity);
-	}
+    @Override
+    public FaresCheckingExclusion getFaresExclusionByParams(String sellingLocation,
+            String originLocation, String destinationLocation, String route,
+            String product, String ticketStatus) {
+        FaresCheckingExclusionEntity entity = faresCheckingExclusionJpaRepository.findByParams(sellingLocation, originLocation, destinationLocation, route, product, ticketStatus);
+        return faresCheckingExclusionServiceMapper.mapFaresCheckingExclusionEntityToFaresCheckingExclusion(entity);
+    }
 
 }

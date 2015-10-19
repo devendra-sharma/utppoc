@@ -27,7 +27,7 @@ public class RouteEntity extends CommonEntity implements Serializable {
     // ENTITY PRIMARY KEY ( BASED ON A SINGLE FIELD )
     //----------------------------------------------------------------------
     @Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="rou_id", nullable=false)
     private Integer    rouId        ;
 
@@ -46,7 +46,7 @@ public class RouteEntity extends CommonEntity implements Serializable {
     @Column(name="cob_id_route_type", nullable=false)
     private Integer    cobIdRouteType ;
 
-	// "tacId" (column "tac_id") is not defined by itself because used as FK in a link 
+    // "tacId" (column "tac_id") is not defined by itself because used as FK in a link 
 
 
     //----------------------------------------------------------------------
@@ -67,7 +67,7 @@ public class RouteEntity extends CommonEntity implements Serializable {
     // CONSTRUCTOR(S)
     //----------------------------------------------------------------------
     public RouteEntity() {
-		super();
+        super();
     }
     
     //----------------------------------------------------------------------

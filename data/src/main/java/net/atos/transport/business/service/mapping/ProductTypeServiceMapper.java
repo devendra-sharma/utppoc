@@ -16,59 +16,59 @@ import net.atos.transport.entity.jpa.ProductTypeEntity;
 @Component
 public class ProductTypeServiceMapper extends AbstractServiceMapper {
 
-	/**
-	 * ModelMapper : bean to bean mapping library.
-	 */
-	private ModelMapper modelMapper;
-	
-	/**
-	 * Constructor.
-	 */
-	public ProductTypeServiceMapper() {
-		modelMapper = new ModelMapper();
-		modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-	}
+    /**
+     * ModelMapper : bean to bean mapping library.
+     */
+    private ModelMapper modelMapper;
+    
+    /**
+     * Constructor.
+     */
+    public ProductTypeServiceMapper() {
+        modelMapper = new ModelMapper();
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+    }
 
-	/**
-	 * Mapping from 'ProductTypeEntity' to 'ProductType'
-	 * @param productTypeEntity
-	 */
-	public ProductType mapProductTypeEntityToProductType(ProductTypeEntity productTypeEntity) {
-		if(productTypeEntity == null) {
-			return null;
-		}
+    /**
+     * Mapping from 'ProductTypeEntity' to 'ProductType'
+     * @param productTypeEntity
+     */
+    public ProductType mapProductTypeEntityToProductType(ProductTypeEntity productTypeEntity) {
+        if(productTypeEntity == null) {
+            return null;
+        }
 
-		//--- Generic mapping 
-		ProductType productType = map(productTypeEntity, ProductType.class);
+        //--- Generic mapping 
+        ProductType productType = map(productTypeEntity, ProductType.class);
 
-		return productType;
-	}
-	
-	/**
-	 * Mapping from 'ProductType' to 'ProductTypeEntity'
-	 * @param productType
-	 * @param productTypeEntity
-	 */
-	public void mapProductTypeToProductTypeEntity(ProductType productType, ProductTypeEntity productTypeEntity) {
-		if(productType == null) {
-			return;
-		}
+        return productType;
+    }
+    
+    /**
+     * Mapping from 'ProductType' to 'ProductTypeEntity'
+     * @param productType
+     * @param productTypeEntity
+     */
+    public void mapProductTypeToProductTypeEntity(ProductType productType, ProductTypeEntity productTypeEntity) {
+        if(productType == null) {
+            return;
+        }
 
-		//--- Generic mapping 
-		map(productType, productTypeEntity);
+        //--- Generic mapping 
+        map(productType, productTypeEntity);
 
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	protected ModelMapper getModelMapper() {
-		return modelMapper;
-	}
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected ModelMapper getModelMapper() {
+        return modelMapper;
+    }
 
-	protected void setModelMapper(ModelMapper modelMapper) {
-		this.modelMapper = modelMapper;
-	}
+    protected void setModelMapper(ModelMapper modelMapper) {
+        this.modelMapper = modelMapper;
+    }
 
 }

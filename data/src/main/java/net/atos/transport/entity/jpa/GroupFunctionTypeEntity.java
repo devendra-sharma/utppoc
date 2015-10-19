@@ -27,7 +27,7 @@ public class GroupFunctionTypeEntity extends CommonEntity implements Serializabl
     // ENTITY PRIMARY KEY ( BASED ON A SINGLE FIELD )
     //----------------------------------------------------------------------
     @Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="gft_id", nullable=false)
     private Integer    gftId        ;
 
@@ -50,7 +50,7 @@ public class GroupFunctionTypeEntity extends CommonEntity implements Serializabl
     // CONSTRUCTOR(S)
     //----------------------------------------------------------------------
     public GroupFunctionTypeEntity() {
-		super();
+        super();
     }
     
     //----------------------------------------------------------------------

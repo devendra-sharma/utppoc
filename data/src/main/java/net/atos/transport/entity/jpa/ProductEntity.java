@@ -28,7 +28,7 @@ public class ProductEntity extends CommonEntity implements Serializable {
     // ENTITY PRIMARY KEY ( BASED ON A SINGLE FIELD )
     //----------------------------------------------------------------------
     @Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="pro_id", nullable=false)
     private Integer    proId        ;
 
@@ -79,10 +79,10 @@ public class ProductEntity extends CommonEntity implements Serializable {
     @Column(name="cob_id_suspendable_ind", nullable=false)
     private Integer    cobIdSuspendableInd ;
 
-	// "business" (column "business") is not defined by itself because used as FK in a link 
-	// "prtId" (column "prt_id") is not defined by itself because used as FK in a link 
-	// "ticId" (column "tic_id") is not defined by itself because used as FK in a link 
-	// "tacId" (column "tac_id") is not defined by itself because used as FK in a link 
+    // "business" (column "business") is not defined by itself because used as FK in a link 
+    // "prtId" (column "prt_id") is not defined by itself because used as FK in a link 
+    // "ticId" (column "tic_id") is not defined by itself because used as FK in a link 
+    // "tacId" (column "tac_id") is not defined by itself because used as FK in a link 
 
 
     //----------------------------------------------------------------------
@@ -115,7 +115,7 @@ public class ProductEntity extends CommonEntity implements Serializable {
     // CONSTRUCTOR(S)
     //----------------------------------------------------------------------
     public ProductEntity() {
-		super();
+        super();
     }
     
     //----------------------------------------------------------------------
