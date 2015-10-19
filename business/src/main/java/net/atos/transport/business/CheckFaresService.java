@@ -6,6 +6,6 @@ import net.atos.htts.transport.common.exceptions.UTPException;
 
 public interface CheckFaresService {
 
-	public CodeBookDetailsDTO checkFares(CheckFaresDTO checkFares) throws UTPException ;
-		
+    public CodeBookDetailsDTO checkFares(CheckFaresDTO checkFares) throws UTPException ;
+        
 }

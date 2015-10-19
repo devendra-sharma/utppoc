@@ -4,9 +4,8 @@
  */
 package net.atos.transport.entity;
 
-import java.io.Serializable;
-
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 
 public class ProcessControl implements Serializable {
@@ -53,7 +52,7 @@ public class ProcessControl implements Serializable {
     //----------------------------------------------------------------------
     // toString METHOD
     //----------------------------------------------------------------------
-    	@Override
+        @Override
         public String toString() { 
         StringBuilder sb = new StringBuilder(); 
         sb.append(processId);

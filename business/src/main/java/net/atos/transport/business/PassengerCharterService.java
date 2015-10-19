@@ -7,6 +7,6 @@ import net.atos.htts.transport.common.domain.PassengerCharterDTO;
 
 public interface PassengerCharterService {
 
-	public BigDecimal calculatePassengerCharterFullFare(PassengerCharterDTO passengerCharterDTO,
-			CodeBookDTO codeBookDTO);
+    public BigDecimal calculatePassengerCharterFullFare(PassengerCharterDTO passengerCharterDTO,
+            CodeBookDTO codeBookDTO);
 }

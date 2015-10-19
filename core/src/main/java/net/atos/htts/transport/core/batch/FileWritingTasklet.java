@@ -16,82 +16,73 @@ import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.core.io.Resource;
 
 public class FileWritingTasklet implements Tasklet, StepExecutionListener {
-	
+    
 
-	private Resource filePath;
-	private String content;	
-	List<Item> errorItems;
+    private Resource filePath;
+    private String content;    
+    List<Item> errorItems;
 
-	public Resource getFilePath() {
-		return filePath;
-	}
+    public Resource getFilePath() {
+        return filePath;
+    }
 
-	public void setFilePath(Resource filePath) {
-		this.filePath = filePath;
-	}
-	
-	public void setContent(String content) {
+    public void setFilePath(Resource filePath) {
+        this.filePath = filePath;
+    }
+    
+    public void setContent(String content) {
 
-		this.content = content;
+        this.content = content;
 
-	}
-	
-	@Override
-	public void beforeStep(StepExecution stepExecution) {
-		errorItems = (List)stepExecution.getJobExecution().getExecutionContext().get("ErrorItem");
-	}
-	
-	@Override
-	public RepeatStatus execute(StepContribution stepContribution,
-			ChunkContext chunkContext) throws Exception {
+    }
+    
+    @Override
+    public void beforeStep(StepExecution stepExecution) {
+        errorItems = (List)stepExecution.getJobExecution().getExecutionContext().get("ErrorItem");
+    }
+    
+    @Override
+    public RepeatStatus execute(StepContribution stepContribution,
+            ChunkContext chunkContext) throws Exception {
 
-		FileWriter fileWriter = null;
+        FileWriter fileWriter = null;
 
-		BufferedWriter bWriter = null;
+        BufferedWriter bWriter = null;
 
-		try {
-			
-			stepContribution.incrementReadCount();
-			fileWriter = new FileWriter(filePath.getFile());
+        try {
+            
+            stepContribution.incrementReadCount();
+            fileWriter = new FileWriter(filePath.getFile());
 
-			bWriter = new BufferedWriter(fileWriter);
-			
-			for(Item item : errorItems){
-				content = item.getDataItem()+ "\n " +item.getMessage() +"\n";
-				bWriter.write(content);
-			}
+            bWriter = new BufferedWriter(fileWriter);
+            
+            for(Item item : errorItems){
+                content = item.getDataItem()+ "\n " +item.getMessage() +"\n";
+                bWriter.write(content);
+            }
 
-		} catch (Exception e) {
+        } catch (Exception e) {            
+            throw e;
 
-			
-			throw e;
+        } finally {
 
-		} finally {
+            if (bWriter != null) {
+                bWriter.close();
+            }
 
-			if (bWriter != null) {
+            if (fileWriter != null) {
+                fileWriter.close();
+            }
 
-				bWriter.close();
+        }
+        return RepeatStatus.FINISHED;
+    }
 
-			}
+    
 
-			if (fileWriter != null) {
-
-				fileWriter.close();
-
-			}
-
-		}
-
-		return RepeatStatus.FINISHED;
-
-	}
-
-	
-
-	@Override
-	public ExitStatus afterStep(StepExecution stepExecution) {
-		
-		return null;
-	}
+    @Override
+    public ExitStatus afterStep(StepExecution stepExecution) {        
+        return null;
+    }
 
 }

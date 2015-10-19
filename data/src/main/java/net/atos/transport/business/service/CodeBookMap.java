@@ -10,15 +10,12 @@ import javax.annotation.PostConstruct;
 
 import net.atos.transport.entity.CodeBook;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class CodeBookMap {
     
-    private static final Logger logger = LoggerFactory.getLogger(CodeBookMap.class);
     
     private Map<Integer, Map<Integer,String>> codeBookMapper;
     
@@ -38,7 +35,7 @@ public class CodeBookMap {
                 codeBookMapper.put(cb.getTypId(), valMap);
             }
         }
-        logger.info("Code Book Map :::: " + codeBookMapper);
+        
     }
 
     
@@ -50,8 +47,7 @@ public class CodeBookMap {
      * @return
      */
     public Map<Integer, String> getCodeBooksByType(Integer typeId){
-        Map<Integer, String> valMap = codeBookMapper.get(typeId);
-        return valMap;        
+        return codeBookMapper.get(typeId);     
     }
 
     /**
@@ -64,8 +60,7 @@ public class CodeBookMap {
      */
     public String getCodeBookByTypeAndCobId(Integer typeId,Integer cobId){
         Map<Integer, String> valMap = codeBookMapper.get(typeId);
-        String value = valMap.get(cobId);
-        return value;        
+        return valMap.get(cobId);     
     }
     
     public boolean isCobIdPresent(Long cobId){

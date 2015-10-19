@@ -7,5 +7,5 @@ import net.atos.htts.transport.common.exceptions.UTPException;
 
 public interface CurrencyConversionService {
 
-	public BigDecimal convertCurrency(ConvertCurrency convCurr) throws UTPException;
+    public BigDecimal convertCurrency(ConvertCurrency convCurr) throws UTPException;
 }

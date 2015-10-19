@@ -10,22 +10,22 @@ import org.springframework.messaging.Message;
 
 public class UTPInFileMessageToJobRequest {
 
-	private Job job;
+    private Job job;
 
-	private String fileParameterName;
+    private String fileParameterName;
 
-	public void setFileParameterName(String fileParameterName) {
-		this.fileParameterName = fileParameterName;
-	}
+    public void setFileParameterName(String fileParameterName) {
+        this.fileParameterName = fileParameterName;
+    }
 
-	public void setJob(Job job) {
-		this.job = job;
-	}
+    public void setJob(Job job) {
+        this.job = job;
+    }
 
-	@Transformer
-	public JobLaunchRequest toRequest(Message<File> message) {
-		JobParametersBuilder jobParametersBuilder = new JobParametersBuilder();
-		jobParametersBuilder.addString(fileParameterName, message.getPayload().getAbsolutePath());
-		return new JobLaunchRequest(job, jobParametersBuilder.toJobParameters());
-	}
+    @Transformer
+    public JobLaunchRequest toRequest(Message<File> message) {
+        JobParametersBuilder jobParametersBuilder = new JobParametersBuilder();
+        jobParametersBuilder.addString(fileParameterName, message.getPayload().getAbsolutePath());
+        return new JobLaunchRequest(job, jobParametersBuilder.toJobParameters());
+    }
 }

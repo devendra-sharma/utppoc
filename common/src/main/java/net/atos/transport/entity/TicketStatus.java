@@ -4,12 +4,8 @@
  */
 package net.atos.transport.entity;
 
-import java.io.Serializable;
-
-import javax.validation.constraints.*;
-
-import java.math.BigDecimal;
-import java.util.Date;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 public class TicketStatus extends Common implements Serializable {
 
@@ -99,7 +95,7 @@ public class TicketStatus extends Common implements Serializable {
     //----------------------------------------------------------------------
     // toString METHOD
     //----------------------------------------------------------------------
-    	@Override
+        @Override
         public String toString() { 
         StringBuilder sb = new StringBuilder(); 
         sb.append(tisId);

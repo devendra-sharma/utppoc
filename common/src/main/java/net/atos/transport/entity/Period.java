@@ -4,11 +4,8 @@
  */
 package net.atos.transport.entity;
 
-import java.io.Serializable;
-
-import javax.validation.constraints.*;
-
-import java.util.Date;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 public class Period implements Serializable {
 
@@ -104,7 +101,7 @@ public class Period implements Serializable {
     //----------------------------------------------------------------------
     // toString METHOD
     //----------------------------------------------------------------------
-    	@Override
+        @Override
         public String toString() { 
         StringBuilder sb = new StringBuilder(); 
         sb.append(perId);

@@ -1,9 +1,13 @@
-/*package net.atos.transport.business;
+package net.atos.transport.business;
 
 public class App {
-
-	public static void main(String[] args) {
-	}
+    
+    private App() {
+        //This is intentionally left blank.
+    }
+    
+    public static void main(String[] args) {
+        //This is intentionally left blank.
+    }
 
 }
-*/

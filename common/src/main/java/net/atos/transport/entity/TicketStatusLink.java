@@ -4,11 +4,7 @@
  */
 package net.atos.transport.entity;
 
-import java.io.Serializable;
-
-import javax.validation.constraints.*;
-
-import java.util.Date;
+import javax.validation.constraints.NotNull;
 
 public class TicketStatusLink extends Common implements Serializable {
 
@@ -66,7 +62,7 @@ public class TicketStatusLink extends Common implements Serializable {
     //----------------------------------------------------------------------
     // toString METHOD
     //----------------------------------------------------------------------
-    	@Override
+        @Override
         public String toString() { 
         StringBuilder sb = new StringBuilder(); 
         sb.append(tslId);

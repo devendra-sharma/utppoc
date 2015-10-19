@@ -164,7 +164,7 @@ public class FaresCheckingExclusion implements Serializable {
     //----------------------------------------------------------------------
     // toString METHOD
     //----------------------------------------------------------------------
-    	@Override
+        @Override
         public String toString() { 
         StringBuilder sb = new StringBuilder(); 
         sb.append(faresCheckingExclusionId);

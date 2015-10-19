@@ -40,7 +40,7 @@ public class Calendar implements Serializable {
 
     private Integer currencyRate;
     
-	private Integer conversionPower;
+    private Integer conversionPower;
 
 
     //----------------------------------------------------------------------
@@ -99,23 +99,23 @@ public class Calendar implements Serializable {
     //----------------------------------------------------------------------
  
         public Integer getCurrencyRate() {
-		return currencyRate;
-	}
+        return currencyRate;
+    }
 
-	public void setCurrencyRate(Integer currencyRate) {
-		this.currencyRate = currencyRate;
-	}
+    public void setCurrencyRate(Integer currencyRate) {
+        this.currencyRate = currencyRate;
+    }
 
-	public Integer getConversionPower() {
-		return conversionPower;
-	}
+    public Integer getConversionPower() {
+        return conversionPower;
+    }
 
-	public void setConversionPower(Integer conversionPower) {
-		this.conversionPower = conversionPower;
-	}
-	
-		@Override
-		public String toString() { 
+    public void setConversionPower(Integer conversionPower) {
+        this.conversionPower = conversionPower;
+    }
+    
+        @Override
+        public String toString() { 
         StringBuilder sb = new StringBuilder(); 
         sb.append(calId);
         sb.append("|");
@@ -131,7 +131,7 @@ public class Calendar implements Serializable {
         return sb.toString(); 
     }
 
-		
+        
 
 
 }
