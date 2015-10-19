@@ -9,11 +9,12 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import net.atos.transport.entity.TicketAllocationCode;
-import net.atos.transport.entity.jpa.TicketAllocationCodeEntity;
 import net.atos.transport.business.service.TicketAllocationCodeService;
 import net.atos.transport.business.service.mapping.TicketAllocationCodeServiceMapper;
 import net.atos.transport.data.repository.jpa.TicketAllocationCodeJpaRepository;
+import net.atos.transport.entity.TicketAllocationCode;
+import net.atos.transport.entity.jpa.TicketAllocationCodeEntity;
+
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 

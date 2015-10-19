@@ -9,11 +9,12 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import net.atos.transport.entity.LocationType;
-import net.atos.transport.entity.jpa.LocationTypeEntity;
 import net.atos.transport.business.service.LocationTypeService;
 import net.atos.transport.business.service.mapping.LocationTypeServiceMapper;
 import net.atos.transport.data.repository.jpa.LocationTypeJpaRepository;
+import net.atos.transport.entity.LocationType;
+import net.atos.transport.entity.jpa.LocationTypeEntity;
+
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -9,11 +9,12 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import net.atos.transport.entity.Year;
-import net.atos.transport.entity.jpa.YearEntity;
 import net.atos.transport.business.service.YearService;
 import net.atos.transport.business.service.mapping.YearServiceMapper;
 import net.atos.transport.data.repository.jpa.YearJpaRepository;
+import net.atos.transport.entity.Year;
+import net.atos.transport.entity.jpa.YearEntity;
+
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 

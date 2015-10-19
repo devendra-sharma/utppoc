@@ -4,11 +4,12 @@
  */
 package net.atos.transport.business.service.mapping;
 
+import net.atos.transport.entity.RecordField;
+import net.atos.transport.entity.jpa.RecordFieldEntity;
+
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Component;
-import net.atos.transport.entity.RecordField;
-import net.atos.transport.entity.jpa.RecordFieldEntity;
 
 /**
  * Mapping between entity beans and display beans.
@@ -39,9 +40,8 @@ public class RecordFieldServiceMapper extends AbstractServiceMapper {
         }
 
         //--- Generic mapping 
-        RecordField recordField = map(recordFieldEntity, RecordField.class);
+        return map(recordFieldEntity, RecordField.class);
 
-        return recordField;
     }
     
     /**

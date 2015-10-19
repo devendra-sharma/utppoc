@@ -9,11 +9,12 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import net.atos.transport.entity.InstanceControlLog;
-import net.atos.transport.entity.jpa.InstanceControlLogEntity;
 import net.atos.transport.business.service.InstanceControlLogService;
 import net.atos.transport.business.service.mapping.InstanceControlLogServiceMapper;
 import net.atos.transport.data.repository.jpa.InstanceControlLogJpaRepository;
+import net.atos.transport.entity.InstanceControlLog;
+import net.atos.transport.entity.jpa.InstanceControlLogEntity;
+
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 

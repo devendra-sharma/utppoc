@@ -9,11 +9,12 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import net.atos.transport.entity.RecordField;
-import net.atos.transport.entity.jpa.RecordFieldEntity;
 import net.atos.transport.business.service.RecordFieldService;
 import net.atos.transport.business.service.mapping.RecordFieldServiceMapper;
 import net.atos.transport.data.repository.jpa.RecordFieldJpaRepository;
+import net.atos.transport.entity.RecordField;
+import net.atos.transport.entity.jpa.RecordFieldEntity;
+
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 

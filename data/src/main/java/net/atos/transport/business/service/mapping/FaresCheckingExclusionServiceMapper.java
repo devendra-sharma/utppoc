@@ -4,11 +4,12 @@
  */
 package net.atos.transport.business.service.mapping;
 
+import net.atos.transport.entity.FaresCheckingExclusion;
+import net.atos.transport.entity.jpa.FaresCheckingExclusionEntity;
+
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Component;
-import net.atos.transport.entity.FaresCheckingExclusion;
-import net.atos.transport.entity.jpa.FaresCheckingExclusionEntity;
 
 /**
  * Mapping between entity beans and display beans.
@@ -39,9 +40,8 @@ public class FaresCheckingExclusionServiceMapper extends AbstractServiceMapper {
         }
 
         //--- Generic mapping 
-        FaresCheckingExclusion faresCheckingExclusion = map(faresCheckingExclusionEntity, FaresCheckingExclusion.class);
+        return map(faresCheckingExclusionEntity, FaresCheckingExclusion.class);
 
-        return faresCheckingExclusion;
     }
     
     /**

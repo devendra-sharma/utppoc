@@ -4,14 +4,15 @@
  */
 package net.atos.transport.business.service.mapping;
 
+import net.atos.transport.entity.Calendar;
+import net.atos.transport.entity.jpa.CalendarEntity;
+import net.atos.transport.entity.jpa.PeriodEntity;
+import net.atos.transport.entity.jpa.WeekEntity;
+import net.atos.transport.entity.jpa.YearEntity;
+
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Component;
-import net.atos.transport.entity.Calendar;
-import net.atos.transport.entity.jpa.CalendarEntity;
-import net.atos.transport.entity.jpa.WeekEntity;
-import net.atos.transport.entity.jpa.YearEntity;
-import net.atos.transport.entity.jpa.PeriodEntity;
 
 /**
  * Mapping between entity beans and display beans.

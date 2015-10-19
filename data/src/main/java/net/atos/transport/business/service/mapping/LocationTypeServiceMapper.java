@@ -4,11 +4,12 @@
  */
 package net.atos.transport.business.service.mapping;
 
+import net.atos.transport.entity.LocationType;
+import net.atos.transport.entity.jpa.LocationTypeEntity;
+
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Component;
-import net.atos.transport.entity.LocationType;
-import net.atos.transport.entity.jpa.LocationTypeEntity;
 
 /**
  * Mapping between entity beans and display beans.
@@ -39,9 +40,8 @@ public class LocationTypeServiceMapper extends AbstractServiceMapper {
         }
 
         //--- Generic mapping 
-        LocationType locationType = map(locationTypeEntity, LocationType.class);
+        return map(locationTypeEntity, LocationType.class);
 
-        return locationType;
     }
     
     /**

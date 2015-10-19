@@ -4,11 +4,12 @@
  */
 package net.atos.transport.business.service.mapping;
 
+import net.atos.transport.entity.Type;
+import net.atos.transport.entity.jpa.TypeEntity;
+
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Component;
-import net.atos.transport.entity.Type;
-import net.atos.transport.entity.jpa.TypeEntity;
 
 /**
  * Mapping between entity beans and display beans.
@@ -39,9 +40,8 @@ public class TypeServiceMapper extends AbstractServiceMapper {
         }
 
         //--- Generic mapping 
-        Type type = map(typeEntity, Type.class);
+        return map(typeEntity, Type.class);
 
-        return type;
     }
     
     /**

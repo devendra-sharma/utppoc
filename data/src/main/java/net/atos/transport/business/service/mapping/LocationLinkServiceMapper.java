@@ -4,13 +4,14 @@
  */
 package net.atos.transport.business.service.mapping;
 
+import net.atos.transport.entity.LocationLink;
+import net.atos.transport.entity.jpa.GroupFunctionTypeEntity;
+import net.atos.transport.entity.jpa.LocationEntity;
+import net.atos.transport.entity.jpa.LocationLinkEntity;
+
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Component;
-import net.atos.transport.entity.LocationLink;
-import net.atos.transport.entity.jpa.LocationLinkEntity;
-import net.atos.transport.entity.jpa.LocationEntity;
-import net.atos.transport.entity.jpa.GroupFunctionTypeEntity;
 
 /**
  * Mapping between entity beans and display beans.

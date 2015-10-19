@@ -9,11 +9,12 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import net.atos.transport.entity.TicketClass;
-import net.atos.transport.entity.jpa.TicketClassEntity;
 import net.atos.transport.business.service.TicketClassService;
 import net.atos.transport.business.service.mapping.TicketClassServiceMapper;
 import net.atos.transport.data.repository.jpa.TicketClassJpaRepository;
+import net.atos.transport.entity.TicketClass;
+import net.atos.transport.entity.jpa.TicketClassEntity;
+
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 

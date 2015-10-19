@@ -9,11 +9,12 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import net.atos.transport.entity.GroupFunctionType;
-import net.atos.transport.entity.jpa.GroupFunctionTypeEntity;
 import net.atos.transport.business.service.GroupFunctionTypeService;
 import net.atos.transport.business.service.mapping.GroupFunctionTypeServiceMapper;
 import net.atos.transport.data.repository.jpa.GroupFunctionTypeJpaRepository;
+import net.atos.transport.entity.GroupFunctionType;
+import net.atos.transport.entity.jpa.GroupFunctionTypeEntity;
+
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 

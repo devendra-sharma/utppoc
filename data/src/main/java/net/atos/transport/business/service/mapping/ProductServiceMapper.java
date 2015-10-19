@@ -4,15 +4,16 @@
  */
 package net.atos.transport.business.service.mapping;
 
+import net.atos.transport.entity.Product;
+import net.atos.transport.entity.jpa.BusinessEntity;
+import net.atos.transport.entity.jpa.ProductEntity;
+import net.atos.transport.entity.jpa.ProductTypeEntity;
+import net.atos.transport.entity.jpa.TicketAllocationCodeEntity;
+import net.atos.transport.entity.jpa.TicketClassEntity;
+
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Component;
-import net.atos.transport.entity.Product;
-import net.atos.transport.entity.jpa.ProductEntity;
-import net.atos.transport.entity.jpa.TicketAllocationCodeEntity;
-import net.atos.transport.entity.jpa.BusinessEntity;
-import net.atos.transport.entity.jpa.ProductTypeEntity;
-import net.atos.transport.entity.jpa.TicketClassEntity;
 
 /**
  * Mapping between entity beans and display beans.

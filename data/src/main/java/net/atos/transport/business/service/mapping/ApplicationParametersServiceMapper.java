@@ -4,11 +4,12 @@
  */
 package net.atos.transport.business.service.mapping;
 
+import net.atos.transport.entity.ApplicationParameters;
+import net.atos.transport.entity.jpa.ApplicationParametersEntity;
+
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Component;
-import net.atos.transport.entity.ApplicationParameters;
-import net.atos.transport.entity.jpa.ApplicationParametersEntity;
 
 /**
  * Mapping between entity beans and display beans.
@@ -39,9 +40,8 @@ public class ApplicationParametersServiceMapper extends AbstractServiceMapper {
         }
 
         //--- Generic mapping 
-        ApplicationParameters applicationParameters = map(applicationParametersEntity, ApplicationParameters.class);
+        return map(applicationParametersEntity, ApplicationParameters.class);
 
-        return applicationParameters;
     }
     
     /**

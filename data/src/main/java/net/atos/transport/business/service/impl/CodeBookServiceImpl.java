@@ -9,11 +9,12 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import net.atos.transport.entity.CodeBook;
-import net.atos.transport.entity.jpa.CodeBookEntity;
 import net.atos.transport.business.service.CodeBookService;
 import net.atos.transport.business.service.mapping.CodeBookServiceMapper;
 import net.atos.transport.data.repository.jpa.CodeBookJpaRepository;
+import net.atos.transport.entity.CodeBook;
+import net.atos.transport.entity.jpa.CodeBookEntity;
+
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 

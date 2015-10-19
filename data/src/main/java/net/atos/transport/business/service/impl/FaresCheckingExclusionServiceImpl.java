@@ -9,14 +9,11 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import net.atos.transport.entity.FaresCheckingExclusion;
-import net.atos.transport.entity.jpa.FaresCheckingExclusionEntity;
-
-import java.util.Date;
-
 import net.atos.transport.business.service.FaresCheckingExclusionService;
 import net.atos.transport.business.service.mapping.FaresCheckingExclusionServiceMapper;
 import net.atos.transport.data.repository.jpa.FaresCheckingExclusionJpaRepository;
+import net.atos.transport.entity.FaresCheckingExclusion;
+import net.atos.transport.entity.jpa.FaresCheckingExclusionEntity;
 
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;

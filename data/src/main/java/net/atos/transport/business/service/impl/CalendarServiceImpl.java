@@ -9,11 +9,12 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import net.atos.transport.entity.Calendar;
-import net.atos.transport.entity.jpa.CalendarEntity;
 import net.atos.transport.business.service.CalendarService;
 import net.atos.transport.business.service.mapping.CalendarServiceMapper;
 import net.atos.transport.data.repository.jpa.CalendarJpaRepository;
+import net.atos.transport.entity.Calendar;
+import net.atos.transport.entity.jpa.CalendarEntity;
+
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 

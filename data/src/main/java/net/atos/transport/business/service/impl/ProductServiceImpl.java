@@ -9,11 +9,12 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import net.atos.transport.entity.Product;
-import net.atos.transport.entity.jpa.ProductEntity;
 import net.atos.transport.business.service.ProductService;
 import net.atos.transport.business.service.mapping.ProductServiceMapper;
 import net.atos.transport.data.repository.jpa.ProductJpaRepository;
+import net.atos.transport.entity.Product;
+import net.atos.transport.entity.jpa.ProductEntity;
+
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 

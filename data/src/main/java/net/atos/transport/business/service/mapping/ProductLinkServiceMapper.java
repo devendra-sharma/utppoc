@@ -4,12 +4,13 @@
  */
 package net.atos.transport.business.service.mapping;
 
+import net.atos.transport.entity.ProductLink;
+import net.atos.transport.entity.jpa.ProductEntity;
+import net.atos.transport.entity.jpa.ProductLinkEntity;
+
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Component;
-import net.atos.transport.entity.ProductLink;
-import net.atos.transport.entity.jpa.ProductLinkEntity;
-import net.atos.transport.entity.jpa.ProductEntity;
 
 /**
  * Mapping between entity beans and display beans.

@@ -6,8 +6,6 @@ package net.atos.transport.business.service;
 
 import java.util.List;
 
-import org.springframework.data.repository.query.Param;
-
 import net.atos.transport.entity.FaresCheckingExclusion;
 
 /**

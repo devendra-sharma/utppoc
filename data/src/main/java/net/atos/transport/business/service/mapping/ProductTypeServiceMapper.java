@@ -4,11 +4,12 @@
  */
 package net.atos.transport.business.service.mapping;
 
+import net.atos.transport.entity.ProductType;
+import net.atos.transport.entity.jpa.ProductTypeEntity;
+
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Component;
-import net.atos.transport.entity.ProductType;
-import net.atos.transport.entity.jpa.ProductTypeEntity;
 
 /**
  * Mapping between entity beans and display beans.
@@ -39,9 +40,8 @@ public class ProductTypeServiceMapper extends AbstractServiceMapper {
         }
 
         //--- Generic mapping 
-        ProductType productType = map(productTypeEntity, ProductType.class);
+        return map(productTypeEntity, ProductType.class);
 
-        return productType;
     }
     
     /**

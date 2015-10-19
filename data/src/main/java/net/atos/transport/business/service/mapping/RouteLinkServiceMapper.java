@@ -4,12 +4,13 @@
  */
 package net.atos.transport.business.service.mapping;
 
+import net.atos.transport.entity.RouteLink;
+import net.atos.transport.entity.jpa.RouteEntity;
+import net.atos.transport.entity.jpa.RouteLinkEntity;
+
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Component;
-import net.atos.transport.entity.RouteLink;
-import net.atos.transport.entity.jpa.RouteLinkEntity;
-import net.atos.transport.entity.jpa.RouteEntity;
 
 /**
  * Mapping between entity beans and display beans.

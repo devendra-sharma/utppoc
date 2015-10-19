@@ -4,12 +4,13 @@
  */
 package net.atos.transport.business.service.mapping;
 
-import org.modelmapper.ModelMapper;
-import org.modelmapper.convention.MatchingStrategies;
-import org.springframework.stereotype.Component;
 import net.atos.transport.entity.Location;
 import net.atos.transport.entity.jpa.LocationEntity;
 import net.atos.transport.entity.jpa.LocationTypeEntity;
+
+import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
+import org.springframework.stereotype.Component;
 
 /**
  * Mapping between entity beans and display beans.

@@ -4,11 +4,12 @@
  */
 package net.atos.transport.business.service.mapping;
 
+import net.atos.transport.entity.ProcessControl;
+import net.atos.transport.entity.jpa.ProcessControlEntity;
+
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Component;
-import net.atos.transport.entity.ProcessControl;
-import net.atos.transport.entity.jpa.ProcessControlEntity;
 
 /**
  * Mapping between entity beans and display beans.
@@ -39,9 +40,8 @@ public class ProcessControlServiceMapper extends AbstractServiceMapper {
         }
 
         //--- Generic mapping 
-        ProcessControl processControl = map(processControlEntity, ProcessControl.class);
+        return map(processControlEntity, ProcessControl.class);
 
-        return processControl;
     }
     
     /**

@@ -1,10 +1,10 @@
 package net.atos.transport.data.repository.jpa;
 
+import net.atos.transport.entity.jpa.FaresCheckingExclusionEntity;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
-
-import net.atos.transport.entity.jpa.FaresCheckingExclusionEntity;
 
 /**
  * Repository : FaresCheckingExclusion.

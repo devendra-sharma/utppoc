@@ -9,11 +9,12 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import net.atos.transport.entity.ProcessControl;
-import net.atos.transport.entity.jpa.ProcessControlEntity;
 import net.atos.transport.business.service.ProcessControlService;
 import net.atos.transport.business.service.mapping.ProcessControlServiceMapper;
 import net.atos.transport.data.repository.jpa.ProcessControlJpaRepository;
+import net.atos.transport.entity.ProcessControl;
+import net.atos.transport.entity.jpa.ProcessControlEntity;
+
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 

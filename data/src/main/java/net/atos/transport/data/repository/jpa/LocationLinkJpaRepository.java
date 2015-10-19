@@ -1,7 +1,8 @@
 package net.atos.transport.data.repository.jpa;
 
-import org.springframework.data.repository.PagingAndSortingRepository;
 import net.atos.transport.entity.jpa.LocationLinkEntity;
+
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 /**
  * Repository : LocationLink.

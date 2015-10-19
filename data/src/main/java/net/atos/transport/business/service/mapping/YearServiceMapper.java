@@ -4,11 +4,12 @@
  */
 package net.atos.transport.business.service.mapping;
 
+import net.atos.transport.entity.Year;
+import net.atos.transport.entity.jpa.YearEntity;
+
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Component;
-import net.atos.transport.entity.Year;
-import net.atos.transport.entity.jpa.YearEntity;
 
 /**
  * Mapping between entity beans and display beans.
@@ -39,9 +40,8 @@ public class YearServiceMapper extends AbstractServiceMapper {
         }
 
         //--- Generic mapping 
-        Year year = map(yearEntity, Year.class);
+        return map(yearEntity, Year.class);
 
-        return year;
     }
     
     /**

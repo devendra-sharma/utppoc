@@ -9,11 +9,12 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import net.atos.transport.entity.RouteLink;
-import net.atos.transport.entity.jpa.RouteLinkEntity;
 import net.atos.transport.business.service.RouteLinkService;
 import net.atos.transport.business.service.mapping.RouteLinkServiceMapper;
 import net.atos.transport.data.repository.jpa.RouteLinkJpaRepository;
+import net.atos.transport.entity.RouteLink;
+import net.atos.transport.entity.jpa.RouteLinkEntity;
+
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 

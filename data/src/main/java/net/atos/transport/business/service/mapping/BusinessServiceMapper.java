@@ -4,11 +4,12 @@
  */
 package net.atos.transport.business.service.mapping;
 
+import net.atos.transport.entity.Business;
+import net.atos.transport.entity.jpa.BusinessEntity;
+
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Component;
-import net.atos.transport.entity.Business;
-import net.atos.transport.entity.jpa.BusinessEntity;
 
 /**
  * Mapping between entity beans and display beans.
@@ -39,9 +40,7 @@ public class BusinessServiceMapper extends AbstractServiceMapper {
         }
 
         //--- Generic mapping 
-        Business business = map(businessEntity, Business.class);
-
-        return business;
+        return map(businessEntity, Business.class);
     }
     
     /**

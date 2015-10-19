@@ -9,11 +9,12 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import net.atos.transport.entity.Week;
-import net.atos.transport.entity.jpa.WeekEntity;
 import net.atos.transport.business.service.WeekService;
 import net.atos.transport.business.service.mapping.WeekServiceMapper;
 import net.atos.transport.data.repository.jpa.WeekJpaRepository;
+import net.atos.transport.entity.Week;
+import net.atos.transport.entity.jpa.WeekEntity;
+
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -9,11 +9,12 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import net.atos.transport.entity.ApplicationParameters;
-import net.atos.transport.entity.jpa.ApplicationParametersEntity;
 import net.atos.transport.business.service.ApplicationParametersService;
 import net.atos.transport.business.service.mapping.ApplicationParametersServiceMapper;
 import net.atos.transport.data.repository.jpa.ApplicationParametersJpaRepository;
+import net.atos.transport.entity.ApplicationParameters;
+import net.atos.transport.entity.jpa.ApplicationParametersEntity;
+
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
