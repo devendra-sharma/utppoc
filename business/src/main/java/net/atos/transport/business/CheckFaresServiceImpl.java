@@ -1,6 +1,7 @@
 package net.atos.transport.business;
 
 import java.util.Date;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import net.atos.htts.transport.common.constants.AppConstants;
 import net.atos.htts.transport.common.domain.CheckFaresDTO;
@@ -39,6 +40,8 @@ public class CheckFaresServiceImpl implements CheckFaresService {
     @Autowired
     private FaresCheckingExclusionService faresService;
 
+    private AtomicInteger counter = new AtomicInteger();
+    
     @Override
     public CodeBookDetailsDTO checkFares(CheckFaresDTO checkFares)
             throws UTPException {
@@ -104,14 +107,14 @@ public class CheckFaresServiceImpl implements CheckFaresService {
                 .getFaresExclusionByParams(sellingLocation, originlocation,
                         destinationLocation, routeCode, productCode, ticketCode);
         CodeBookDetailsDTO codeBookDetailsDTO = new CodeBookDetailsDTO();
-       
-        codeBookDetailsDTO.setGeneratingRetailItem("RETAILDMM");
+        codeBookDetailsDTO.setFaresCheckingResult(productCode+"0");
+        codeBookDetailsDTO.setGeneratingRetailItem(getRetailItemValue());
         if (exclusion != null) {
             codeBookDetailsDTO
                     .setFcFullFare(Long.parseLong(exclusion.getFare()));
             Date effectFrom = exclusion.getWithEffectFrom();
             Date effectTo = exclusion.getWithEffectUntil();
-            codeBookDetailsDTO.setFaresCheckingResult("RESDMM");
+            
             if (retailItem.getDateOfTravel().after(effectFrom)
                     && retailItem.getDateOfTravel().before(effectTo)) {
                 codeBookDetailsDTO.setCobId(1L);
@@ -124,4 +127,15 @@ public class CheckFaresServiceImpl implements CheckFaresService {
 
         return codeBookDetailsDTO;
     }
+    
+	private String getRetailItemValue() {
+		StringBuffer value = new StringBuffer(String.valueOf(counter
+				.getAndIncrement()));
+		int length = value.length();
+		for (int i = 1; i <= 10 - length; i++) {
+			value.append("0");
+		}
+		return value.toString();
+
+	}
 }
