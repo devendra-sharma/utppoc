@@ -128,14 +128,14 @@ public class CheckFaresServiceImpl implements CheckFaresService {
         return codeBookDetailsDTO;
     }
     
-	private String getRetailItemValue() {
-		StringBuffer value = new StringBuffer(String.valueOf(counter
-				.getAndIncrement()));
-		int length = value.length();
-		for (int i = 1; i <= 10 - length; i++) {
-			value.append("0");
-		}
-		return value.toString();
+    private String getRetailItemValue() {
+        StringBuilder value = new StringBuilder(String.valueOf(counter
+                .getAndIncrement()));
+        int length = value.length();
+        for (int i = 1; i <= 10 - length; i++) {
+            value.append("0");
+        }
+        return value.toString();
 
-	}
+    }
 }
