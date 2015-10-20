@@ -23,9 +23,7 @@ public class CurrencyConversionServiceImpl implements CurrencyConversionService{
     @Override
     public BigDecimal convertCurrency(net.atos.htts.transport.common.domain.ConvertCurrency convCurr) throws UTPException{
         
-        List<Calendar> retCalendars = calendarService.findAll();
-        
-        Calendar calendar  = this.retrieveCalenderObject(convCurr,retCalendars);
+        Calendar calendar  = this.retrieveCalenderObject(convCurr);
         
         if(convCurr.getAmountInOrgCurr().doubleValue() < 0){
             convCurr.setAmountInOrgCurr(BigDecimal.valueOf(convCurr.getAmountInOrgCurr().doubleValue() * -1));
@@ -46,14 +44,12 @@ public class CurrencyConversionServiceImpl implements CurrencyConversionService{
      * @param retCalendars
      * @throws Exception 
      */
-    private Calendar retrieveCalenderObject(ConvertCurrency convCurr,
-            List<Calendar> retCalendars) throws UTPException {
+    private Calendar retrieveCalenderObject(ConvertCurrency convCurr) throws UTPException {       
         
-        for (Calendar calendar : retCalendars) {
-            if(convCurr.getSaleDate().equals(calendar.getCalendarDate())){
-                return calendar;
-            }
-        }    
+	    if(convCurr.getSaleDate()!=null){
+	    	return calendarService.findBySaleDate(convCurr.getSaleDate());
+	    }
+           
         throw new UTPException("Could not find the related Calender object");
         
     }

@@ -5,7 +5,7 @@
 package net.atos.transport.business.service;
 
 import java.util.List;
-
+import java.util.Date;
 import net.atos.transport.entity.Calendar;
 
 /**
@@ -55,4 +55,10 @@ public interface CalendarService {
 
     public List<Calendar> getbyCalendarIds(List<Integer> ids);
 
+    /**
+     * Retrieves the Calendar for saleDate.
+     * @param saleDate
+     * @return
+     */
+    public Calendar findBySaleDate(Date saleDate);
 }

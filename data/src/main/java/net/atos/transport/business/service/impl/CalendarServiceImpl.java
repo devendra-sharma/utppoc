@@ -6,7 +6,7 @@ package net.atos.transport.business.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Date;
 import javax.annotation.Resource;
 
 import net.atos.transport.business.service.CalendarService;
@@ -101,5 +101,11 @@ public class CalendarServiceImpl implements CalendarService {
             listCal.add(calendarServiceMapper.mapCalendarEntityToCalendar(cal));
         }
         return listCal;
+    }
+    
+    @Override
+    public Calendar findBySaleDate(Date saleDate){    
+    	CalendarEntity entity = calendarJpaRepository.findBySaleDate(saleDate);
+	    return calendarServiceMapper.mapCalendarEntityToCalendar(entity);
     }
 }
