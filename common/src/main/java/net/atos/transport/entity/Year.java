@@ -4,6 +4,9 @@
  */
 package net.atos.transport.entity;
 
+import java.io.Serializable;
+import java.util.Date;
+
 import javax.validation.constraints.NotNull;
 
 public class Year implements Serializable {

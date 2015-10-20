@@ -4,13 +4,24 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class CommonUtil {
+	
+	private static final Logger logger = LoggerFactory.getLogger(CommonUtil.class);
 
     private CommonUtil(){
         
     }
-    public static Date getDateForFormat(String input,String format) throws ParseException{        
+    public static Date getDateForFormat(String input,String format){
+    	
         SimpleDateFormat dateFormat = new SimpleDateFormat(format);
-        return dateFormat.parse(input);        
+        try {
+			return dateFormat.parse(input);
+		} catch (ParseException e) {
+			logger.error(e.getMessage());
+		}   
+        return new Date();
     }
 }

@@ -24,7 +24,7 @@ public class CurrencyServiceImpl implements CurrencyService{
         try{            
         
             String lennonCurrency = codeBookMap.getCodeBookByTypeAndCobId(AppConstants.CURRENCY_GROUP, AppConstants.LENNON_CURR_COB_ID);            
-            String inputCurrency = codeBookMap.getCodeBookByTypeAndCobId(AppConstants.CURRENCY_GROUP, Integer.valueOf(curr_code));
+            String inputCurrency = codeBookMap.getCodeBookByTypeAndCobId(AppConstants.CURRENCY_GROUP, Integer.valueOf(currencyCode));
         
             if(inputCurrency.equals(lennonCurrency)){            
                 return AppConstants.NO_CONVERSION;

@@ -18,7 +18,7 @@ public class RetailItemProcessor implements ItemProcessor<String, String>{
         try{            
             FieldSet dataSet = tokenizer.tokenize(item);
                     
-            String strResult = zProcessorService.ProcessZRecord(dataSet);
+            String strResult = zProcessorService.processZRecord(dataSet);
             strResult=strResult.replace(", ", "").replace("[", "").replace("]", "");
             return strResult;
         }

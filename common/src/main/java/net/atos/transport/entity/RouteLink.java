@@ -4,6 +4,8 @@
  */
 package net.atos.transport.entity;
 
+import java.io.Serializable;
+
 import javax.validation.constraints.NotNull;
 
 public class RouteLink extends Common implements Serializable {
