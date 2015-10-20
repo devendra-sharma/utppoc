@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import net.atos.htts.transport.common.constants.AppConstants;
@@ -145,8 +146,13 @@ public class ZProcessorServiceImpl implements ZProcessorService {
         retailItemDTO.setTransactionValue(Long.valueOf(fare.longValue()));
         retailItemDTO.setDeferredIssueTypeCobId(Long.valueOf(fieldSet
                 .readString("deferredIssueType")));
+        try{
         retailItemDTO.setDateOfSale(fieldSet.readDate("dateOfSale",
                 AppConstants.DATE_FORMAT));
+        } catch(IllegalArgumentException e){
+        	 retailItemDTO.setDateOfSale(new Date());
+        	
+        }
         retailItemDTO.setDateOfIssue(CommonUtil.getDateForFormat(
                 fieldSet.readString("dateAndTime"),
                 AppConstants.DATE_TIME_FORMAT));

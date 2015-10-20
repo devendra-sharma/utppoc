@@ -62,7 +62,7 @@ public class PassengerCharterServiceImpl implements PassengerCharterService{
     private boolean establishChildTicketType(CodeBookDTO codeBookDTO){
         
         String ticketTypeCodeBook= codeBookMap.getCodeBookByTypeAndCobId(AppConstants.TICKET_TYPE_GROUP, codeBookDTO.getCobId());                
-        return ticketTypeCodeBook.equals(AppConstants.CHILD_TICKET_TYPE);
+        return ticketTypeCodeBook != null ? ticketTypeCodeBook.equals(AppConstants.CHILD_TICKET_TYPE) : false;
            
     }
 }

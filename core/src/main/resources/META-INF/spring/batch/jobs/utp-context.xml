@@ -49,9 +49,11 @@
 		<property name="processorMap">
 			<map>
 				<entry key="Z" value-ref="retailItemProcessor" />
+				<entry key="V" value-ref="deleteItemProcessor"/>					
 			</map>
 		</property>
 	</bean>
+	<bean id="deleteItemProcessor" class="net.atos.htts.transport.core.batch.DeleteItemProcessor"/>
 	<bean id="retailItemProcessor" class="net.atos.htts.transport.core.batch.RetailItemProcessor">
 		<!-- <constructor-arg ref="recordTypeZ" /> -->
 		<!--<property name="tokenizer" ref="recordTypeZ"></property>
