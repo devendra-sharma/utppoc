@@ -104,14 +104,14 @@ public class CheckFaresServiceImpl implements CheckFaresService {
                 .getFaresExclusionByParams(sellingLocation, originlocation,
                         destinationLocation, routeCode, productCode, ticketCode);
         CodeBookDetailsDTO codeBookDetailsDTO = new CodeBookDetailsDTO();
-        codeBookDetailsDTO.setFaresCheckingResult("RESDMM");
+       
         codeBookDetailsDTO.setGeneratingRetailItem("RETAILDMM");
         if (exclusion != null) {
             codeBookDetailsDTO
                     .setFcFullFare(Long.parseLong(exclusion.getFare()));
             Date effectFrom = exclusion.getWithEffectFrom();
             Date effectTo = exclusion.getWithEffectUntil();
-
+            codeBookDetailsDTO.setFaresCheckingResult("RESDMM");
             if (retailItem.getDateOfTravel().after(effectFrom)
                     && retailItem.getDateOfTravel().before(effectTo)) {
                 codeBookDetailsDTO.setCobId(1L);
