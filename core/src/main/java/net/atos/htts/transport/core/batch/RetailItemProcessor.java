@@ -1,5 +1,7 @@
 package net.atos.htts.transport.core.batch;
 
+import net.atos.htts.transport.common.exceptions.UTPException;
+
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.file.transform.FieldSet;
 import org.springframework.batch.item.file.transform.FixedLengthTokenizer;
@@ -14,17 +16,13 @@ public class RetailItemProcessor implements ItemProcessor<String, String>{
     private ZProcessorService zProcessorService;
     
     @Override
-    public String process(String item) throws Exception {
-        try{            
-            FieldSet dataSet = tokenizer.tokenize(item);
-                    
-            String strResult = zProcessorService.processZRecord(dataSet);
-            strResult=strResult.replace(", ", "").replace("[", "").replace("]", "");
-            return strResult;
-        }
-        catch (Exception e) {
-            throw e;
-        }
+    public String process(String item) throws UTPException {
+          
+        FieldSet dataSet = tokenizer.tokenize(item);
+                
+        String strResult = zProcessorService.processZRecord(dataSet);
+        strResult=strResult.replace(", ", "").replace("[", "").replace("]", "");
+        return strResult;
     }
 
     
