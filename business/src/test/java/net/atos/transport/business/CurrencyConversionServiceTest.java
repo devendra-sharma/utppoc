@@ -51,7 +51,6 @@ public class CurrencyConversionServiceTest {
 		conCurrency.setTargetCurrency(AppConstants.EUROS);
 		conCurrency.setSaleDate(new DateTime("2015-10-10").toDate());
 		BigDecimal convertedAmount  = currencyConversionService.convertCurrency(conCurrency);
-		System.out.println("convertedAmount.doubleValue()>>>>>"+convertedAmount.doubleValue());
 		Assert.assertTrue(convertedAmount.doubleValue() == 93.62d);
     }
     

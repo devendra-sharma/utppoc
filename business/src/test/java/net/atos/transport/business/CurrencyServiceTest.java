@@ -39,7 +39,6 @@ public class CurrencyServiceTest {
     
     @Test
     public void testIfConvertCurrency() throws Exception {
-    	System.out.println("hhhhhhhhhhhh"+AppConstants.EUROS_CURR_COB_ID.toString());
 		String strTargetCurrency = currencyService.ifConvertCurrency(AppConstants.EUROS_CURR_COB_ID.toString());
 		Assert.assertEquals(strTargetCurrency, AppConstants.STERLING);
     }
