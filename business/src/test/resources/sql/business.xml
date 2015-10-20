@@ -1,0 +1,70 @@
+
+<dataset>
+
+	<type typ_id="1" type="CURRENCY" />
+	
+	<type typ_id="2" type="TICKETTYPE" />
+	<type typ_id="3" type="TICKETSTATUS" />
+	
+	
+	
+	
+	<code_book cob_id="3" value ="ADULT_TIC" typ_id="2"/>
+	<code_book cob_id="4" value ="CHILD_TIC" typ_id="2"/>
+	
+	<code_book cob_id="300" value ="STERLING" typ_id="1"/>
+	
+	<code_book cob_id="400" value ="EUROS" typ_id="1"/>
+	
+	<code_book cob_id="500" value ="STERLING" typ_id="1"/>
+	
+	
+	<fares_checking_exclusion fares_checking_exclusion_id="1" value="val" issuing_location="pune"
+	selling_location = "pune" origin_location= "mumbai"  destination_location="kolkatta"  route="RC1" product="PROD1" ticket_status="ACT" fare="300" with_effect_from="2014-06-06" 
+	with_effect_until = "2014-08-08" />
+	
+	<business bus_id ="1" bus_id_tp="123"/>
+	
+	<location_type lot_id ="1" location_type_desc="City" />
+	
+	
+	<location loc_id="1" location="mumbai" lot_id ="1" location_description="India" cob_id_group_type="1"/>
+	<location loc_id="2" location="kolkatta" lot_id ="1" location_description="India" cob_id_group_type="1"/>
+	<location loc_id="3" location="pune" lot_id ="1" location_description="India" cob_id_group_type="1"/>
+	<location loc_id="50483" location="bnglr" lot_id ="1" location_description="India" cob_id_group_type="1"/>
+	<location loc_id="8" location="patna" lot_id ="1" location_description="India" cob_id_group_type="1"/>
+	<location loc_id="331" location="jaipur" lot_id ="1" location_description="India" cob_id_group_type="1"/>
+
+
+	<ticket_allocation_code tac_id="1" tac_code="T"/>
+
+	<ticket_class tic_id="1" ticket_class_description ="First Class" />
+	
+	<product_type prt_id="1" product_type_description="Product1"/>
+	
+	<product pro_id="1" product_code="PROD1" product_description="Prd1" business="1" prt_id="1" cob_id_debit_credit_type="1" cob_id_railcard_type="1" cob_id_suspendable_ind="1" 
+	tic_id ="1" tac_id="1"/>
+	
+	<product pro_id="320" product_code="PROD1" product_description="Prd1" business="1" prt_id="1" cob_id_debit_credit_type="1" cob_id_railcard_type="1" cob_id_suspendable_ind="1" 
+	tic_id ="1" tac_id="1"/>
+
+
+	<route rou_id="1" route_code ="RC1" tac_id="1" cob_id_route_type="1" />
+	
+	<route rou_id="2545" route_code ="RC1" tac_id="1" cob_id_route_type="1" />
+	
+	<route rou_id="320" route_code ="RC1" tac_id="1" cob_id_route_type="1" />
+	
+	
+	<ticket_status tis_id="1" expired="N" effective_from="2015-06-06" effective_to="2016-06-06" ticket_status_code="ACT" />
+	
+	
+	<year year="2015" start_date="2015-01-01" end_date="2015-12-31"/>
+	<period per_id="1" year="2015" period="2015"/>
+	
+	<week week_id="1" week="34" year="2015" period="1"/>
+	
+	
+	<calendar cal_id="1" calendar_date="2015-10-10" day_of_week="10" period="1" year="2015" week="1" currency_rate="334" conversion_power="22"/>
+	
+</dataset>
