@@ -146,12 +146,12 @@ public class ZProcessorServiceImpl implements ZProcessorService {
         retailItemDTO.setTransactionValue(Long.valueOf(fare.longValue()));
         retailItemDTO.setDeferredIssueTypeCobId(Long.valueOf(fieldSet
                 .readString("deferredIssueType")));
-        try{
-        retailItemDTO.setDateOfSale(fieldSet.readDate("dateOfSale",
-                AppConstants.DATE_FORMAT));
-        } catch(IllegalArgumentException e){
-        	 retailItemDTO.setDateOfSale(new Date());
-        	
+        try {
+            retailItemDTO.setDateOfSale(fieldSet.readDate("dateOfSale",
+                    AppConstants.DATE_FORMAT));
+        } catch (IllegalArgumentException e) {
+            logger.warn("Error Formatting DateOfSale Setting Date of Sale To Today",e);
+            retailItemDTO.setDateOfSale(new Date());
         }
         retailItemDTO.setDateOfIssue(CommonUtil.getDateForFormat(
                 fieldSet.readString("dateAndTime"),
