@@ -29,137 +29,155 @@ import org.mockito.runners.MockitoJUnitRunner;
  * Test : Implementation of ProcessControlService
  */
 @RunWith(MockitoJUnitRunner.class)
-public class ProcessControlServiceImplTest {
+public class ProcessControlServiceImplTest
+{
 
-	@InjectMocks
-	private ProcessControlServiceImpl processControlService;
-	@Mock
-	private ProcessControlJpaRepository processControlJpaRepository;
-	@Mock
-	private ProcessControlServiceMapper processControlServiceMapper;
-	
-	private ProcessControlFactoryForTest processControlFactoryForTest = new ProcessControlFactoryForTest();
+    @InjectMocks
+    private ProcessControlServiceImpl processControlService;
 
-	private ProcessControlEntityFactoryForTest processControlEntityFactoryForTest = new ProcessControlEntityFactoryForTest();
+    @Mock
+    private ProcessControlJpaRepository processControlJpaRepository;
 
-	private MockValues mockValues = new MockValues();
-	
-	@Test
-	public void findById() {
-		// Given
-		Integer processId = mockValues.nextInteger();
-		
-		ProcessControlEntity processControlEntity = processControlJpaRepository.findOne(processId);
-		
-		ProcessControl processControl = processControlFactoryForTest.newProcessControl();
-		when(processControlServiceMapper.mapProcessControlEntityToProcessControl(processControlEntity)).thenReturn(processControl);
+    @Mock
+    private ProcessControlServiceMapper processControlServiceMapper;
 
-		// When
-		ProcessControl processControlFound = processControlService.findById(processId);
+    private ProcessControlFactoryForTest processControlFactoryForTest = new ProcessControlFactoryForTest();
 
-		// Then
-		assertEquals(processControl.getProcessId(),processControlFound.getProcessId());
-	}
+    private ProcessControlEntityFactoryForTest processControlEntityFactoryForTest = new ProcessControlEntityFactoryForTest();
 
-	@Test
-	public void findAll() {
-		// Given
-		List<ProcessControlEntity> processControlEntitys = new ArrayList<ProcessControlEntity>();
-		ProcessControlEntity processControlEntity1 = processControlEntityFactoryForTest.newProcessControlEntity();
-		processControlEntitys.add(processControlEntity1);
-		ProcessControlEntity processControlEntity2 = processControlEntityFactoryForTest.newProcessControlEntity();
-		processControlEntitys.add(processControlEntity2);
-		when(processControlJpaRepository.findAll()).thenReturn(processControlEntitys);
-		
-		ProcessControl processControl1 = processControlFactoryForTest.newProcessControl();
-		when(processControlServiceMapper.mapProcessControlEntityToProcessControl(processControlEntity1)).thenReturn(processControl1);
-		ProcessControl processControl2 = processControlFactoryForTest.newProcessControl();
-		when(processControlServiceMapper.mapProcessControlEntityToProcessControl(processControlEntity2)).thenReturn(processControl2);
+    private MockValues mockValues = new MockValues();
 
-		// When
-		List<ProcessControl> processControlsFounds = processControlService.findAll();
+    @Test
+    public void findById()
+    {
+        // Given
+        Integer processId = mockValues.nextInteger();
 
-		// Then
-		assertTrue(processControl1 == processControlsFounds.get(0));
-		assertTrue(processControl2 == processControlsFounds.get(1));
-	}
+        ProcessControlEntity processControlEntity = processControlJpaRepository.findOne(processId);
 
-	@Test
-	public void create() {
-		// Given
-		ProcessControl processControl = processControlFactoryForTest.newProcessControl();
+        ProcessControl processControl = processControlFactoryForTest.newProcessControl();
+        when(processControlServiceMapper.mapProcessControlEntityToProcessControl(processControlEntity)).thenReturn(
+                processControl);
 
-		ProcessControlEntity processControlEntity = processControlEntityFactoryForTest.newProcessControlEntity();
-		when(processControlJpaRepository.findOne(processControl.getProcessId())).thenReturn(null);
-		
-		processControlEntity = new ProcessControlEntity();
-		processControlServiceMapper.mapProcessControlToProcessControlEntity(processControl, processControlEntity);
-		ProcessControlEntity processControlEntitySaved = processControlJpaRepository.save(processControlEntity);
-		
-		ProcessControl processControlSaved = processControlFactoryForTest.newProcessControl();
-		when(processControlServiceMapper.mapProcessControlEntityToProcessControl(processControlEntitySaved)).thenReturn(processControlSaved);
+        // When
+        ProcessControl processControlFound = processControlService.findById(processId);
 
-		// When
-		ProcessControl processControlResult = processControlService.create(processControl);
+        // Then
+        assertEquals(processControl.getProcessId(), processControlFound.getProcessId());
+    }
 
-		// Then
-		assertTrue(processControlResult == processControlSaved);
-	}
+    @Test
+    public void findAll()
+    {
+        // Given
+        List<ProcessControlEntity> processControlEntitys = new ArrayList<ProcessControlEntity>();
+        ProcessControlEntity processControlEntity1 = processControlEntityFactoryForTest.newProcessControlEntity();
+        processControlEntitys.add(processControlEntity1);
+        ProcessControlEntity processControlEntity2 = processControlEntityFactoryForTest.newProcessControlEntity();
+        processControlEntitys.add(processControlEntity2);
+        when(processControlJpaRepository.findAll()).thenReturn(processControlEntitys);
 
-	@Test
-	public void createKOExists() {
-		// Given
-		ProcessControl processControl = processControlFactoryForTest.newProcessControl();
+        ProcessControl processControl1 = processControlFactoryForTest.newProcessControl();
+        when(processControlServiceMapper.mapProcessControlEntityToProcessControl(processControlEntity1)).thenReturn(
+                processControl1);
+        ProcessControl processControl2 = processControlFactoryForTest.newProcessControl();
+        when(processControlServiceMapper.mapProcessControlEntityToProcessControl(processControlEntity2)).thenReturn(
+                processControl2);
 
-		ProcessControlEntity processControlEntity = processControlEntityFactoryForTest.newProcessControlEntity();
-		when(processControlJpaRepository.findOne(processControl.getProcessId())).thenReturn(processControlEntity);
+        // When
+        List<ProcessControl> processControlsFounds = processControlService.findAll();
 
-		// When
-		Exception exception = null;
-		try {
-			processControlService.create(processControl);
-		} catch(Exception e) {
-			exception = e;
-		}
+        // Then
+        assertTrue(processControl1 == processControlsFounds.get(0));
+        assertTrue(processControl2 == processControlsFounds.get(1));
+    }
 
-		// Then
-		assertTrue(exception instanceof IllegalStateException);
-		assertEquals("already.exists", exception.getMessage());
-	}
+    @Test
+    public void create()
+    {
+        // Given
+        ProcessControl processControl = processControlFactoryForTest.newProcessControl();
 
-	@Test
-	public void update() {
-		// Given
-		ProcessControl processControl = processControlFactoryForTest.newProcessControl();
+        ProcessControlEntity processControlEntity = processControlEntityFactoryForTest.newProcessControlEntity();
+        when(processControlJpaRepository.findOne(processControl.getProcessId())).thenReturn(null);
 
-		ProcessControlEntity processControlEntity = processControlEntityFactoryForTest.newProcessControlEntity();
-		when(processControlJpaRepository.findOne(processControl.getProcessId())).thenReturn(processControlEntity);
-		
-		ProcessControlEntity processControlEntitySaved = processControlEntityFactoryForTest.newProcessControlEntity();
-		when(processControlJpaRepository.save(processControlEntity)).thenReturn(processControlEntitySaved);
-		
-		ProcessControl processControlSaved = processControlFactoryForTest.newProcessControl();
-		when(processControlServiceMapper.mapProcessControlEntityToProcessControl(processControlEntitySaved)).thenReturn(processControlSaved);
+        processControlEntity = new ProcessControlEntity();
+        processControlServiceMapper.mapProcessControlToProcessControlEntity(processControl, processControlEntity);
+        ProcessControlEntity processControlEntitySaved = processControlJpaRepository.save(processControlEntity);
 
-		// When
-		ProcessControl processControlResult = processControlService.update(processControl);
+        ProcessControl processControlSaved = processControlFactoryForTest.newProcessControl();
+        when(processControlServiceMapper.mapProcessControlEntityToProcessControl(processControlEntitySaved))
+                .thenReturn(processControlSaved);
 
-		// Then
-		verify(processControlServiceMapper).mapProcessControlToProcessControlEntity(processControl, processControlEntity);
-		assertTrue(processControlResult == processControlSaved);
-	}
+        // When
+        ProcessControl processControlResult = processControlService.create(processControl);
 
-	@Test
-	public void delete() {
-		// Given
-		Integer processId = mockValues.nextInteger();
+        // Then
+        assertTrue(processControlResult == processControlSaved);
+    }
 
-		// When
-		processControlService.delete(processId);
+    @Test
+    public void createKOExists()
+    {
+        // Given
+        ProcessControl processControl = processControlFactoryForTest.newProcessControl();
 
-		// Then
-		verify(processControlJpaRepository).delete(processId);
-		
-	}
+        ProcessControlEntity processControlEntity = processControlEntityFactoryForTest.newProcessControlEntity();
+        when(processControlJpaRepository.findOne(processControl.getProcessId())).thenReturn(processControlEntity);
+
+        // When
+        Exception exception = null;
+        try
+        {
+            processControlService.create(processControl);
+        }
+        catch (Exception e)
+        {
+            exception = e;
+        }
+
+        // Then
+        assertTrue(exception instanceof IllegalStateException);
+        assertEquals("already.exists", exception.getMessage());
+    }
+
+    @Test
+    public void update()
+    {
+        // Given
+        ProcessControl processControl = processControlFactoryForTest.newProcessControl();
+
+        ProcessControlEntity processControlEntity = processControlEntityFactoryForTest.newProcessControlEntity();
+        when(processControlJpaRepository.findOne(processControl.getProcessId())).thenReturn(processControlEntity);
+
+        ProcessControlEntity processControlEntitySaved = processControlEntityFactoryForTest.newProcessControlEntity();
+        when(processControlJpaRepository.save(processControlEntity)).thenReturn(processControlEntitySaved);
+
+        ProcessControl processControlSaved = processControlFactoryForTest.newProcessControl();
+        when(processControlServiceMapper.mapProcessControlEntityToProcessControl(processControlEntitySaved))
+                .thenReturn(processControlSaved);
+
+        // When
+        ProcessControl processControlResult = processControlService.update(processControl);
+
+        // Then
+        verify(processControlServiceMapper).mapProcessControlToProcessControlEntity(processControl,
+                processControlEntity);
+        assertTrue(processControlResult == processControlSaved);
+    }
+
+    @Test
+    public void delete()
+    {
+        // Given
+        Integer processId = mockValues.nextInteger();
+
+        // When
+        processControlService.delete(processId);
+
+        // Then
+        verify(processControlJpaRepository).delete(processId);
+
+    }
 
 }

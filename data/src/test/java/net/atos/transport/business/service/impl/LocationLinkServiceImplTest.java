@@ -30,137 +30,154 @@ import org.mockito.runners.MockitoJUnitRunner;
  * Test : Implementation of LocationLinkService
  */
 @RunWith(MockitoJUnitRunner.class)
-public class LocationLinkServiceImplTest {
+public class LocationLinkServiceImplTest
+{
 
-	@InjectMocks
-	private LocationLinkServiceImpl locationLinkService;
-	@Mock
-	private LocationLinkJpaRepository locationLinkJpaRepository;
-	@Mock
-	private LocationLinkServiceMapper locationLinkServiceMapper;
-	
-	private LocationLinkFactoryForTest locationLinkFactoryForTest = new LocationLinkFactoryForTest();
+    @InjectMocks
+    private LocationLinkServiceImpl locationLinkService;
 
-	private LocationLinkEntityFactoryForTest locationLinkEntityFactoryForTest = new LocationLinkEntityFactoryForTest();
+    @Mock
+    private LocationLinkJpaRepository locationLinkJpaRepository;
 
-	private MockValues mockValues = new MockValues();
-	
-	@Test
-	public void findById() {
-		// Given
-		Integer lolId = mockValues.nextInteger();
-		
-		LocationLinkEntity locationLinkEntity = locationLinkJpaRepository.findOne(lolId);
-		
-		LocationLink locationLink = locationLinkFactoryForTest.newLocationLink();
-		when(locationLinkServiceMapper.mapLocationLinkEntityToLocationLink(locationLinkEntity)).thenReturn(locationLink);
+    @Mock
+    private LocationLinkServiceMapper locationLinkServiceMapper;
 
-		// When
-		LocationLink locationLinkFound = locationLinkService.findById(lolId);
+    private LocationLinkFactoryForTest locationLinkFactoryForTest = new LocationLinkFactoryForTest();
 
-		// Then
-		assertEquals(locationLink.getLolId(),locationLinkFound.getLolId());
-	}
+    private LocationLinkEntityFactoryForTest locationLinkEntityFactoryForTest = new LocationLinkEntityFactoryForTest();
 
-	@Test
-	public void findAll() {
-		// Given
-		List<LocationLinkEntity> locationLinkEntitys = new ArrayList<LocationLinkEntity>();
-		LocationLinkEntity locationLinkEntity1 = locationLinkEntityFactoryForTest.newLocationLinkEntity();
-		locationLinkEntitys.add(locationLinkEntity1);
-		LocationLinkEntity locationLinkEntity2 = locationLinkEntityFactoryForTest.newLocationLinkEntity();
-		locationLinkEntitys.add(locationLinkEntity2);
-		when(locationLinkJpaRepository.findAll()).thenReturn(locationLinkEntitys);
-		
-		LocationLink locationLink1 = locationLinkFactoryForTest.newLocationLink();
-		when(locationLinkServiceMapper.mapLocationLinkEntityToLocationLink(locationLinkEntity1)).thenReturn(locationLink1);
-		LocationLink locationLink2 = locationLinkFactoryForTest.newLocationLink();
-		when(locationLinkServiceMapper.mapLocationLinkEntityToLocationLink(locationLinkEntity2)).thenReturn(locationLink2);
+    private MockValues mockValues = new MockValues();
 
-		// When
-		List<LocationLink> locationLinksFounds = locationLinkService.findAll();
+    @Test
+    public void findById()
+    {
+        // Given
+        Integer lolId = mockValues.nextInteger();
 
-		// Then
-		assertTrue(locationLink1 == locationLinksFounds.get(0));
-		assertTrue(locationLink2 == locationLinksFounds.get(1));
-	}
+        LocationLinkEntity locationLinkEntity = locationLinkJpaRepository.findOne(lolId);
 
-	@Test
-	public void create() {
-		// Given
-		LocationLink locationLink = locationLinkFactoryForTest.newLocationLink();
+        LocationLink locationLink = locationLinkFactoryForTest.newLocationLink();
+        when(locationLinkServiceMapper.mapLocationLinkEntityToLocationLink(locationLinkEntity))
+                .thenReturn(locationLink);
 
-		LocationLinkEntity locationLinkEntity = locationLinkEntityFactoryForTest.newLocationLinkEntity();
-		when(locationLinkJpaRepository.findOne(locationLink.getLolId())).thenReturn(null);
-		
-		locationLinkEntity = new LocationLinkEntity();
-		locationLinkServiceMapper.mapLocationLinkToLocationLinkEntity(locationLink, locationLinkEntity);
-		LocationLinkEntity locationLinkEntitySaved = locationLinkJpaRepository.save(locationLinkEntity);
-		
-		LocationLink locationLinkSaved = locationLinkFactoryForTest.newLocationLink();
-		when(locationLinkServiceMapper.mapLocationLinkEntityToLocationLink(locationLinkEntitySaved)).thenReturn(locationLinkSaved);
+        // When
+        LocationLink locationLinkFound = locationLinkService.findById(lolId);
 
-		// When
-		LocationLink locationLinkResult = locationLinkService.create(locationLink);
+        // Then
+        assertEquals(locationLink.getLolId(), locationLinkFound.getLolId());
+    }
 
-		// Then
-		assertTrue(locationLinkResult == locationLinkSaved);
-	}
+    @Test
+    public void findAll()
+    {
+        // Given
+        List<LocationLinkEntity> locationLinkEntitys = new ArrayList<LocationLinkEntity>();
+        LocationLinkEntity locationLinkEntity1 = locationLinkEntityFactoryForTest.newLocationLinkEntity();
+        locationLinkEntitys.add(locationLinkEntity1);
+        LocationLinkEntity locationLinkEntity2 = locationLinkEntityFactoryForTest.newLocationLinkEntity();
+        locationLinkEntitys.add(locationLinkEntity2);
+        when(locationLinkJpaRepository.findAll()).thenReturn(locationLinkEntitys);
 
-	@Test
-	public void createKOExists() {
-		// Given
-		LocationLink locationLink = locationLinkFactoryForTest.newLocationLink();
+        LocationLink locationLink1 = locationLinkFactoryForTest.newLocationLink();
+        when(locationLinkServiceMapper.mapLocationLinkEntityToLocationLink(locationLinkEntity1)).thenReturn(
+                locationLink1);
+        LocationLink locationLink2 = locationLinkFactoryForTest.newLocationLink();
+        when(locationLinkServiceMapper.mapLocationLinkEntityToLocationLink(locationLinkEntity2)).thenReturn(
+                locationLink2);
 
-		LocationLinkEntity locationLinkEntity = locationLinkEntityFactoryForTest.newLocationLinkEntity();
-		when(locationLinkJpaRepository.findOne(locationLink.getLolId())).thenReturn(locationLinkEntity);
+        // When
+        List<LocationLink> locationLinksFounds = locationLinkService.findAll();
 
-		// When
-		Exception exception = null;
-		try {
-			locationLinkService.create(locationLink);
-		} catch(Exception e) {
-			exception = e;
-		}
+        // Then
+        assertTrue(locationLink1 == locationLinksFounds.get(0));
+        assertTrue(locationLink2 == locationLinksFounds.get(1));
+    }
 
-		// Then
-		assertTrue(exception instanceof IllegalStateException);
-		assertEquals("already.exists", exception.getMessage());
-	}
+    @Test
+    public void create()
+    {
+        // Given
+        LocationLink locationLink = locationLinkFactoryForTest.newLocationLink();
 
-	@Test
-	public void update() {
-		// Given
-		LocationLink locationLink = locationLinkFactoryForTest.newLocationLink();
+        LocationLinkEntity locationLinkEntity = locationLinkEntityFactoryForTest.newLocationLinkEntity();
+        when(locationLinkJpaRepository.findOne(locationLink.getLolId())).thenReturn(null);
 
-		LocationLinkEntity locationLinkEntity = locationLinkEntityFactoryForTest.newLocationLinkEntity();
-		when(locationLinkJpaRepository.findOne(locationLink.getLolId())).thenReturn(locationLinkEntity);
-		
-		LocationLinkEntity locationLinkEntitySaved = locationLinkEntityFactoryForTest.newLocationLinkEntity();
-		when(locationLinkJpaRepository.save(locationLinkEntity)).thenReturn(locationLinkEntitySaved);
-		
-		LocationLink locationLinkSaved = locationLinkFactoryForTest.newLocationLink();
-		when(locationLinkServiceMapper.mapLocationLinkEntityToLocationLink(locationLinkEntitySaved)).thenReturn(locationLinkSaved);
+        locationLinkEntity = new LocationLinkEntity();
+        locationLinkServiceMapper.mapLocationLinkToLocationLinkEntity(locationLink, locationLinkEntity);
+        LocationLinkEntity locationLinkEntitySaved = locationLinkJpaRepository.save(locationLinkEntity);
 
-		// When
-		LocationLink locationLinkResult = locationLinkService.update(locationLink);
+        LocationLink locationLinkSaved = locationLinkFactoryForTest.newLocationLink();
+        when(locationLinkServiceMapper.mapLocationLinkEntityToLocationLink(locationLinkEntitySaved)).thenReturn(
+                locationLinkSaved);
 
-		// Then
-		verify(locationLinkServiceMapper).mapLocationLinkToLocationLinkEntity(locationLink, locationLinkEntity);
-		assertTrue(locationLinkResult == locationLinkSaved);
-	}
+        // When
+        LocationLink locationLinkResult = locationLinkService.create(locationLink);
 
-	@Test
-	public void delete() {
-		// Given
-		Integer lolId = mockValues.nextInteger();
+        // Then
+        assertTrue(locationLinkResult == locationLinkSaved);
+    }
 
-		// When
-		locationLinkService.delete(lolId);
+    @Test
+    public void createKOExists()
+    {
+        // Given
+        LocationLink locationLink = locationLinkFactoryForTest.newLocationLink();
 
-		// Then
-		verify(locationLinkJpaRepository).delete(lolId);
-		
-	}
+        LocationLinkEntity locationLinkEntity = locationLinkEntityFactoryForTest.newLocationLinkEntity();
+        when(locationLinkJpaRepository.findOne(locationLink.getLolId())).thenReturn(locationLinkEntity);
+
+        // When
+        Exception exception = null;
+        try
+        {
+            locationLinkService.create(locationLink);
+        }
+        catch (Exception e)
+        {
+            exception = e;
+        }
+
+        // Then
+        assertTrue(exception instanceof IllegalStateException);
+        assertEquals("already.exists", exception.getMessage());
+    }
+
+    @Test
+    public void update()
+    {
+        // Given
+        LocationLink locationLink = locationLinkFactoryForTest.newLocationLink();
+
+        LocationLinkEntity locationLinkEntity = locationLinkEntityFactoryForTest.newLocationLinkEntity();
+        when(locationLinkJpaRepository.findOne(locationLink.getLolId())).thenReturn(locationLinkEntity);
+
+        LocationLinkEntity locationLinkEntitySaved = locationLinkEntityFactoryForTest.newLocationLinkEntity();
+        when(locationLinkJpaRepository.save(locationLinkEntity)).thenReturn(locationLinkEntitySaved);
+
+        LocationLink locationLinkSaved = locationLinkFactoryForTest.newLocationLink();
+        when(locationLinkServiceMapper.mapLocationLinkEntityToLocationLink(locationLinkEntitySaved)).thenReturn(
+                locationLinkSaved);
+
+        // When
+        LocationLink locationLinkResult = locationLinkService.update(locationLink);
+
+        // Then
+        verify(locationLinkServiceMapper).mapLocationLinkToLocationLinkEntity(locationLink, locationLinkEntity);
+        assertTrue(locationLinkResult == locationLinkSaved);
+    }
+
+    @Test
+    public void delete()
+    {
+        // Given
+        Integer lolId = mockValues.nextInteger();
+
+        // When
+        locationLinkService.delete(lolId);
+
+        // Then
+        verify(locationLinkJpaRepository).delete(lolId);
+
+    }
 
 }

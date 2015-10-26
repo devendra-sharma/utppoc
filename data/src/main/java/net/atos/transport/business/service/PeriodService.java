@@ -11,23 +11,27 @@ import net.atos.transport.entity.Period;
 /**
  * Business Service Interface for entity Period.
  */
-public interface PeriodService { 
+public interface PeriodService
+{
 
     /**
      * Loads an entity from the database using its Primary Key
+     * 
      * @param perId
      * @return entity
      */
-    Period findById( Integer perId  ) ;
+    Period findById(Integer perId);
 
     /**
      * Loads all entities.
+     * 
      * @return all entities
      */
     List<Period> findAll();
 
     /**
      * Saves the given entity in the database (create or update)
+     * 
      * @param entity
      * @return entity
      */
@@ -35,6 +39,7 @@ public interface PeriodService {
 
     /**
      * Updates the given entity in the database
+     * 
      * @param entity
      * @return
      */
@@ -42,6 +47,7 @@ public interface PeriodService {
 
     /**
      * Creates the given entity in the database
+     * 
      * @param entity
      * @return
      */
@@ -49,9 +55,9 @@ public interface PeriodService {
 
     /**
      * Deletes an entity using its Primary Key
+     * 
      * @param perId
      */
-    void delete( Integer perId );
-
+    void delete(Integer perId);
 
 }

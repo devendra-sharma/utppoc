@@ -11,23 +11,27 @@ import net.atos.transport.entity.GroupFunctionType;
 /**
  * Business Service Interface for entity GroupFunctionType.
  */
-public interface GroupFunctionTypeService { 
+public interface GroupFunctionTypeService
+{
 
     /**
      * Loads an entity from the database using its Primary Key
+     * 
      * @param gftId
      * @return entity
      */
-    GroupFunctionType findById( Integer gftId  ) ;
+    GroupFunctionType findById(Integer gftId);
 
     /**
      * Loads all entities.
+     * 
      * @return all entities
      */
     List<GroupFunctionType> findAll();
 
     /**
      * Saves the given entity in the database (create or update)
+     * 
      * @param entity
      * @return entity
      */
@@ -35,6 +39,7 @@ public interface GroupFunctionTypeService {
 
     /**
      * Updates the given entity in the database
+     * 
      * @param entity
      * @return
      */
@@ -42,6 +47,7 @@ public interface GroupFunctionTypeService {
 
     /**
      * Creates the given entity in the database
+     * 
      * @param entity
      * @return
      */
@@ -49,9 +55,9 @@ public interface GroupFunctionTypeService {
 
     /**
      * Deletes an entity using its Primary Key
+     * 
      * @param gftId
      */
-    void delete( Integer gftId );
-
+    void delete(Integer gftId);
 
 }

@@ -2,17 +2,19 @@ package net.atos.transport.test;
 
 import net.atos.transport.entity.TicketAllocationCode;
 
-public class TicketAllocationCodeFactoryForTest {
+public class TicketAllocationCodeFactoryForTest
+{
 
-	private MockValues mockValues = new MockValues();
-	
-	public TicketAllocationCode newTicketAllocationCode() {
+    private MockValues mockValues = new MockValues();
 
-		Integer tacId = mockValues.nextInteger();
+    public TicketAllocationCode newTicketAllocationCode()
+    {
 
-		TicketAllocationCode ticketAllocationCode = new TicketAllocationCode();
-		ticketAllocationCode.setTacId(tacId);
-		return ticketAllocationCode;
-	}
-	
+        Integer tacId = mockValues.nextInteger();
+
+        TicketAllocationCode ticketAllocationCode = new TicketAllocationCode();
+        ticketAllocationCode.setTacId(tacId);
+        return ticketAllocationCode;
+    }
+
 }

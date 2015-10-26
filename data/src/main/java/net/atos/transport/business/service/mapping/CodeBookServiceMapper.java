@@ -16,71 +16,87 @@ import org.springframework.stereotype.Component;
  * Mapping between entity beans and display beans.
  */
 @Component
-public class CodeBookServiceMapper extends AbstractServiceMapper {
+public class CodeBookServiceMapper extends AbstractServiceMapper
+{
 
     /**
      * ModelMapper : bean to bean mapping library.
      */
     private ModelMapper modelMapper;
-    
+
     /**
      * Constructor.
      */
-    public CodeBookServiceMapper() {
+    public CodeBookServiceMapper()
+    {
         modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
     }
 
     /**
      * Mapping from 'CodeBookEntity' to 'CodeBook'
+     * 
      * @param codeBookEntity
      */
-    public CodeBook mapCodeBookEntityToCodeBook(CodeBookEntity codeBookEntity) {
-        if(codeBookEntity == null) {
+    public CodeBook mapCodeBookEntityToCodeBook(CodeBookEntity codeBookEntity)
+    {
+        if (codeBookEntity == null)
+        {
             return null;
         }
 
-        //--- Generic mapping 
+        // --- Generic mapping
         CodeBook codeBook = map(codeBookEntity, CodeBook.class);
 
-        //--- Link mapping ( link to Type )
-        if(codeBookEntity.getType() != null) {
+        // --- Link mapping ( link to Type )
+        if (codeBookEntity.getType() != null)
+        {
             codeBook.setTypId(codeBookEntity.getType().getTypId());
         }
         return codeBook;
     }
-    
+
     /**
      * Mapping from 'CodeBook' to 'CodeBookEntity'
+     * 
      * @param codeBook
      * @param codeBookEntity
      */
-    public void mapCodeBookToCodeBookEntity(CodeBook codeBook, CodeBookEntity codeBookEntity) {
-        if(codeBook == null) {
+    public void mapCodeBookToCodeBookEntity(CodeBook codeBook, CodeBookEntity codeBookEntity)
+    {
+        if (codeBook == null)
+        {
             return;
         }
 
-        //--- Generic mapping 
+        // --- Generic mapping
         map(codeBook, codeBookEntity);
 
-        //--- Link mapping ( link : codeBook )
-        if( hasLinkToType(codeBook) ) {
+        // --- Link mapping ( link : codeBook )
+        if (hasLinkToType(codeBook))
+        {
             TypeEntity type1 = new TypeEntity();
-            type1.setTypId( codeBook.getTypId() );
-            codeBookEntity.setType( type1 );
-        } else {
-            codeBookEntity.setType( null );
+            type1.setTypId(codeBook.getTypId());
+            codeBookEntity.setType(type1);
+        }
+        else
+        {
+            codeBookEntity.setType(null);
         }
 
     }
-    
+
     /**
      * Verify that Type id is valid.
-     * @param Type Type
+     * 
+     * @param Type
+     *            Type
      * @return boolean
      */
-    private boolean hasLinkToType(CodeBook codeBook) {
-        if(codeBook.getTypId() != null) {
+    private boolean hasLinkToType(CodeBook codeBook)
+    {
+        if (codeBook.getTypId() != null)
+        {
             return true;
         }
         return false;
@@ -90,11 +106,13 @@ public class CodeBookServiceMapper extends AbstractServiceMapper {
      * {@inheritDoc}
      */
     @Override
-    protected ModelMapper getModelMapper() {
+    protected ModelMapper getModelMapper()
+    {
         return modelMapper;
     }
 
-    protected void setModelMapper(ModelMapper modelMapper) {
+    protected void setModelMapper(ModelMapper modelMapper)
+    {
         this.modelMapper = modelMapper;
     }
 

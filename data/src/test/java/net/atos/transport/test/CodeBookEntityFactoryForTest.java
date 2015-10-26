@@ -2,17 +2,19 @@ package net.atos.transport.test;
 
 import net.atos.transport.entity.jpa.CodeBookEntity;
 
-public class CodeBookEntityFactoryForTest {
+public class CodeBookEntityFactoryForTest
+{
 
-	private MockValues mockValues = new MockValues();
-	
-	public CodeBookEntity newCodeBookEntity() {
+    private MockValues mockValues = new MockValues();
 
-		Integer cobId = mockValues.nextInteger();
+    public CodeBookEntity newCodeBookEntity()
+    {
 
-		CodeBookEntity codeBookEntity = new CodeBookEntity();
-		codeBookEntity.setCobId(cobId);
-		return codeBookEntity;
-	}
-	
+        Integer cobId = mockValues.nextInteger();
+
+        CodeBookEntity codeBookEntity = new CodeBookEntity();
+        codeBookEntity.setCobId(cobId);
+        return codeBookEntity;
+    }
+
 }

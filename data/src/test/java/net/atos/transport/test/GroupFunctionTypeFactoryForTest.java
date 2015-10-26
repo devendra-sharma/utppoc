@@ -2,17 +2,19 @@ package net.atos.transport.test;
 
 import net.atos.transport.entity.GroupFunctionType;
 
-public class GroupFunctionTypeFactoryForTest {
+public class GroupFunctionTypeFactoryForTest
+{
 
-	private MockValues mockValues = new MockValues();
-	
-	public GroupFunctionType newGroupFunctionType() {
+    private MockValues mockValues = new MockValues();
 
-		Integer gftId = mockValues.nextInteger();
+    public GroupFunctionType newGroupFunctionType()
+    {
 
-		GroupFunctionType groupFunctionType = new GroupFunctionType();
-		groupFunctionType.setGftId(gftId);
-		return groupFunctionType;
-	}
-	
+        Integer gftId = mockValues.nextInteger();
+
+        GroupFunctionType groupFunctionType = new GroupFunctionType();
+        groupFunctionType.setGftId(gftId);
+        return groupFunctionType;
+    }
+
 }

@@ -11,23 +11,27 @@ import net.atos.transport.entity.CodeBook;
 /**
  * Business Service Interface for entity CodeBook.
  */
-public interface CodeBookService { 
+public interface CodeBookService
+{
 
     /**
      * Loads an entity from the database using its Primary Key
+     * 
      * @param cobId
      * @return entity
      */
-    CodeBook findById( Integer cobId  ) ;
+    CodeBook findById(Integer cobId);
 
     /**
      * Loads all entities.
+     * 
      * @return all entities
      */
     List<CodeBook> findAll();
 
     /**
      * Saves the given entity in the database (create or update)
+     * 
      * @param entity
      * @return entity
      */
@@ -35,6 +39,7 @@ public interface CodeBookService {
 
     /**
      * Updates the given entity in the database
+     * 
      * @param entity
      * @return
      */
@@ -42,6 +47,7 @@ public interface CodeBookService {
 
     /**
      * Creates the given entity in the database
+     * 
      * @param entity
      * @return
      */
@@ -49,9 +55,9 @@ public interface CodeBookService {
 
     /**
      * Deletes an entity using its Primary Key
+     * 
      * @param cobId
      */
-    void delete( Integer cobId );
-
+    void delete(Integer cobId);
 
 }

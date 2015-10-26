@@ -23,39 +23,46 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Component
 @Transactional
-public class ProcessControlServiceImpl implements ProcessControlService {
+public class ProcessControlServiceImpl implements ProcessControlService
+{
 
     @Resource
     private ProcessControlJpaRepository processControlJpaRepository;
 
     @Resource
     private ProcessControlServiceMapper processControlServiceMapper;
-    
+
     @Override
-    public ProcessControl findById(Integer processId) {
+    public ProcessControl findById(Integer processId)
+    {
         ProcessControlEntity processControlEntity = processControlJpaRepository.findOne(processId);
         return processControlServiceMapper.mapProcessControlEntityToProcessControl(processControlEntity);
     }
 
     @Override
-    public List<ProcessControl> findAll() {
+    public List<ProcessControl> findAll()
+    {
         Iterable<ProcessControlEntity> entities = processControlJpaRepository.findAll();
         List<ProcessControl> beans = new ArrayList<ProcessControl>();
-        for(ProcessControlEntity processControlEntity : entities) {
+        for (ProcessControlEntity processControlEntity : entities)
+        {
             beans.add(processControlServiceMapper.mapProcessControlEntityToProcessControl(processControlEntity));
         }
         return beans;
     }
 
     @Override
-    public ProcessControl save(ProcessControl processControl) {
-        return update(processControl) ;
+    public ProcessControl save(ProcessControl processControl)
+    {
+        return update(processControl);
     }
 
     @Override
-    public ProcessControl create(ProcessControl processControl) {
+    public ProcessControl create(ProcessControl processControl)
+    {
         ProcessControlEntity processControlEntity = processControlJpaRepository.findOne(processControl.getProcessId());
-        if( processControlEntity != null ) {
+        if (processControlEntity != null)
+        {
             throw new IllegalStateException("already.exists");
         }
         processControlEntity = new ProcessControlEntity();
@@ -65,7 +72,8 @@ public class ProcessControlServiceImpl implements ProcessControlService {
     }
 
     @Override
-    public ProcessControl update(ProcessControl processControl) {
+    public ProcessControl update(ProcessControl processControl)
+    {
         ProcessControlEntity processControlEntity = processControlJpaRepository.findOne(processControl.getProcessId());
         processControlServiceMapper.mapProcessControlToProcessControlEntity(processControl, processControlEntity);
         ProcessControlEntity processControlEntitySaved = processControlJpaRepository.save(processControlEntity);
@@ -73,23 +81,28 @@ public class ProcessControlServiceImpl implements ProcessControlService {
     }
 
     @Override
-    public void delete(Integer processId) {
+    public void delete(Integer processId)
+    {
         processControlJpaRepository.delete(processId);
     }
 
-    public ProcessControlJpaRepository getProcessControlJpaRepository() {
+    public ProcessControlJpaRepository getProcessControlJpaRepository()
+    {
         return processControlJpaRepository;
     }
 
-    public void setProcessControlJpaRepository(ProcessControlJpaRepository processControlJpaRepository) {
+    public void setProcessControlJpaRepository(ProcessControlJpaRepository processControlJpaRepository)
+    {
         this.processControlJpaRepository = processControlJpaRepository;
     }
 
-    public ProcessControlServiceMapper getProcessControlServiceMapper() {
+    public ProcessControlServiceMapper getProcessControlServiceMapper()
+    {
         return processControlServiceMapper;
     }
 
-    public void setProcessControlServiceMapper(ProcessControlServiceMapper processControlServiceMapper) {
+    public void setProcessControlServiceMapper(ProcessControlServiceMapper processControlServiceMapper)
+    {
         this.processControlServiceMapper = processControlServiceMapper;
     }
 

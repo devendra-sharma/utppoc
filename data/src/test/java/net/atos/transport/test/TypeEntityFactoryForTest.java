@@ -2,17 +2,19 @@ package net.atos.transport.test;
 
 import net.atos.transport.entity.jpa.TypeEntity;
 
-public class TypeEntityFactoryForTest {
+public class TypeEntityFactoryForTest
+{
 
-	private MockValues mockValues = new MockValues();
-	
-	public TypeEntity newTypeEntity() {
+    private MockValues mockValues = new MockValues();
 
-		Integer typId = mockValues.nextInteger();
+    public TypeEntity newTypeEntity()
+    {
 
-		TypeEntity typeEntity = new TypeEntity();
-		typeEntity.setTypId(typId);
-		return typeEntity;
-	}
-	
+        Integer typId = mockValues.nextInteger();
+
+        TypeEntity typeEntity = new TypeEntity();
+        typeEntity.setTypId(typId);
+        return typeEntity;
+    }
+
 }

@@ -7,6 +7,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 /**
  * Repository : RouteLink.
  */
-public interface RouteLinkJpaRepository extends PagingAndSortingRepository<RouteLinkEntity, Integer> {
+public interface RouteLinkJpaRepository extends PagingAndSortingRepository<RouteLinkEntity, Integer>
+{
 
 }

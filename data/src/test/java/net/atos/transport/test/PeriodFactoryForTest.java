@@ -2,17 +2,19 @@ package net.atos.transport.test;
 
 import net.atos.transport.entity.Period;
 
-public class PeriodFactoryForTest {
+public class PeriodFactoryForTest
+{
 
-	private MockValues mockValues = new MockValues();
-	
-	public Period newPeriod() {
+    private MockValues mockValues = new MockValues();
 
-		Integer perId = mockValues.nextInteger();
+    public Period newPeriod()
+    {
 
-		Period period = new Period();
-		period.setPerId(perId);
-		return period;
-	}
-	
+        Integer perId = mockValues.nextInteger();
+
+        Period period = new Period();
+        period.setPerId(perId);
+        return period;
+    }
+
 }

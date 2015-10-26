@@ -7,6 +7,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 /**
  * Repository : ProcessControl.
  */
-public interface ProcessControlJpaRepository extends PagingAndSortingRepository<ProcessControlEntity, Integer> {
+public interface ProcessControlJpaRepository extends PagingAndSortingRepository<ProcessControlEntity, Integer>
+{
 
 }

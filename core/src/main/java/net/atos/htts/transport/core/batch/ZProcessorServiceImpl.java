@@ -29,10 +29,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ZProcessorServiceImpl implements ZProcessorService {
+public class ZProcessorServiceImpl implements ZProcessorService
+{
 
-    private static final org.slf4j.Logger logger = LoggerFactory
-            .getLogger(ZProcessorServiceImpl.class);
+    private static final org.slf4j.Logger logger = LoggerFactory.getLogger(ZProcessorServiceImpl.class);
 
     @Autowired
     private CurrencyService currencyService;
@@ -51,25 +51,28 @@ public class ZProcessorServiceImpl implements ZProcessorService {
      * and returning the output.
      */
     @Override
-    public String processZRecord(FieldSet fieldSet) throws UTPException {
+    public String processZRecord(FieldSet fieldSet) throws UTPException
+    {
 
         logger.info("Inside ProcessZRecord");
         BigDecimal covertedAmount = null;
 
         // Call the CurrencyService to see if conversion required or not.
         String inputCurrency = fieldSet.readString("currency");
-        String strTargetCurrency = currencyService
-                .ifConvertCurrency(inputCurrency);
+        String strTargetCurrency = currencyService.ifConvertCurrency(inputCurrency);
 
         // Call the CurrencyConversionService to convert the actual
         // transactionValue
-        if (!strTargetCurrency.equals(AppConstants.NO_CONVERSION)) {
+        if (!strTargetCurrency.equals(AppConstants.NO_CONVERSION))
+        {
             ConvertCurrency convertCurrency;
-            try {
+            try
+            {
                 convertCurrency = populateConvertCurrency(fieldSet);
-                covertedAmount = currencyConversionService
-                        .convertCurrency(convertCurrency);
-            } catch (ParseException e) {
+                covertedAmount = currencyConversionService.convertCurrency(convertCurrency);
+            }
+            catch (ParseException e)
+            {
                 logger.error(e.getMessage());
             }
 
@@ -78,24 +81,19 @@ public class ZProcessorServiceImpl implements ZProcessorService {
         // value,correct fare
 
         // Call the PassengerCharter to calculate the value.
-        List<Object> dtoList = populatePassengerCharter(fieldSet,
-                covertedAmount);
-        BigDecimal fullFare = passengerCharterService
-                .calculatePassengerCharterFullFare(
-                        (PassengerCharterDTO) dtoList.get(0),
-                        (CodeBookDTO) dtoList.get(1));
+        List<Object> dtoList = populatePassengerCharter(fieldSet, covertedAmount);
+        BigDecimal fullFare = passengerCharterService.calculatePassengerCharterFullFare(
+                (PassengerCharterDTO) dtoList.get(0), (CodeBookDTO) dtoList.get(1));
         // The output of Passenger charter will be replaced in Correct Fare
 
         // Call CheckFares.
         CheckFaresDTO checkFaresDTO = populateCheckFares(fieldSet, fullFare);
-        CodeBookDetailsDTO codeBookDetailsDTO = checkFaresService
-                .checkFares(checkFaresDTO);
+        CodeBookDetailsDTO codeBookDetailsDTO = checkFaresService.checkFares(checkFaresDTO);
 
         checkFareInclusionRequired(codeBookDetailsDTO);
 
         // Populating the values in output FieldSet.
-        String[] fieldValuesArray = populateFinalValues(fieldSet,
-                covertedAmount, fullFare, codeBookDetailsDTO);
+        String[] fieldValuesArray = populateFinalValues(fieldSet, covertedAmount, fullFare, codeBookDetailsDTO);
         return Arrays.toString(fieldValuesArray);
     }
 
@@ -105,14 +103,12 @@ public class ZProcessorServiceImpl implements ZProcessorService {
      * @return
      * @throws ParseException
      */
-    private ConvertCurrency populateConvertCurrency(FieldSet fieldSet)
-            throws ParseException {
+    private ConvertCurrency populateConvertCurrency(FieldSet fieldSet) throws ParseException
+    {
         ConvertCurrency convertCurrency = new ConvertCurrency();
-        convertCurrency.setAmountInOrgCurr(new BigDecimal(fieldSet
-                .readString("transactionValue")));
+        convertCurrency.setAmountInOrgCurr(new BigDecimal(fieldSet.readString("transactionValue")));
         convertCurrency.setTargetCurrency(fieldSet.readString("currency"));
-        convertCurrency.setSaleDate(fieldSet.readDate("dateOfSale",
-                AppConstants.DATE_FORMAT));
+        convertCurrency.setSaleDate(fieldSet.readDate("dateOfSale", AppConstants.DATE_FORMAT));
 
         return convertCurrency;
     }
@@ -122,12 +118,15 @@ public class ZProcessorServiceImpl implements ZProcessorService {
      * 
      * @param codeBookDetailsDTO
      */
-    private void checkFareInclusionRequired(
-            CodeBookDetailsDTO codeBookDetailsDTO) {
+    private void checkFareInclusionRequired(CodeBookDetailsDTO codeBookDetailsDTO)
+    {
 
-        if (codeBookDetailsDTO.getCobId().equals(new Long(0))) {
+        if (codeBookDetailsDTO.getCobId().equals(new Long(0)))
+        {
             logger.info("checkFareInclusion is Required");
-        } else {
+        }
+        else
+        {
             logger.info("checkFareInclusion is not Required");
         }
     }
@@ -138,35 +137,30 @@ public class ZProcessorServiceImpl implements ZProcessorService {
      * @param fieldSet
      * @return
      */
-    private CheckFaresDTO populateCheckFares(FieldSet fieldSet, BigDecimal fare)
-            throws UTPException {
+    private CheckFaresDTO populateCheckFares(FieldSet fieldSet, BigDecimal fare) throws UTPException
+    {
         CheckFaresDTO checkFaresDTO = new CheckFaresDTO();
         RetailItemDTO retailItemDTO = new RetailItemDTO();
 
         retailItemDTO.setTransactionValue(Long.valueOf(fare.longValue()));
-        retailItemDTO.setDeferredIssueTypeCobId(Long.valueOf(fieldSet
-                .readString("deferredIssueType")));
-        try {
-            retailItemDTO.setDateOfSale(fieldSet.readDate("dateOfSale",
-                    AppConstants.DATE_FORMAT));
-        } catch (IllegalArgumentException e) {
-            logger.warn("Error Formatting DateOfSale Setting Date of Sale To Today",e);
+        retailItemDTO.setDeferredIssueTypeCobId(Long.valueOf(fieldSet.readString("deferredIssueType")));
+        try
+        {
+            retailItemDTO.setDateOfSale(fieldSet.readDate("dateOfSale", AppConstants.DATE_FORMAT));
+        }
+        catch (IllegalArgumentException e)
+        {
+            logger.warn("Error Formatting DateOfSale Setting Date of Sale To Today", e);
             retailItemDTO.setDateOfSale(new Date());
         }
-        retailItemDTO.setDateOfIssue(CommonUtil.getDateForFormat(
-                fieldSet.readString("dateAndTime"),
+        retailItemDTO.setDateOfIssue(CommonUtil.getDateForFormat(fieldSet.readString("dateAndTime"),
                 AppConstants.DATE_TIME_FORMAT));
-        retailItemDTO.setOriginLocId(Long.valueOf(fieldSet
-                .readLong("issuingLocation")));
-        retailItemDTO.setDestinationLocId(Long.valueOf(fieldSet
-                .readLong("destination")));
-        retailItemDTO.setSellingLocationLocId(Long.valueOf(fieldSet
-                .readLong("sellingLocation")));
+        retailItemDTO.setOriginLocId(Long.valueOf(fieldSet.readLong("issuingLocation")));
+        retailItemDTO.setDestinationLocId(Long.valueOf(fieldSet.readLong("destination")));
+        retailItemDTO.setSellingLocationLocId(Long.valueOf(fieldSet.readLong("sellingLocation")));
         retailItemDTO.setRouteRouId(Long.valueOf(fieldSet.readLong("route")));
-        retailItemDTO.setTicketStatusTisId(Long.valueOf(fieldSet
-                .readLong("ticketStatus")));
-        retailItemDTO
-                .setProductProId(Long.valueOf(fieldSet.readLong("product")));
+        retailItemDTO.setTicketStatusTisId(Long.valueOf(fieldSet.readLong("ticketStatus")));
+        retailItemDTO.setProductProId(Long.valueOf(fieldSet.readLong("product")));
 
         checkFaresDTO.setRetailItem(retailItemDTO);
         return checkFaresDTO;
@@ -175,24 +169,24 @@ public class ZProcessorServiceImpl implements ZProcessorService {
     /**
      * This method will populate the final values.
      */
-    private String[] populateFinalValues(FieldSet fieldSet,
-            BigDecimal transactionValue, BigDecimal correctFare,
-            CodeBookDetailsDTO codeBookDetailsDTO) {
+    private String[] populateFinalValues(FieldSet fieldSet, BigDecimal transactionValue, BigDecimal correctFare,
+            CodeBookDetailsDTO codeBookDetailsDTO)
+    {
         String[] fieldValues = fieldSet.getValues();
         String transactionValueString = null;
 
-        if (transactionValue != null) {
-            transactionValueString = StringUtils.leftPad(
-                    transactionValue.toString(), 14, "0");
-        } else {
-            transactionValueString = StringUtils.leftPad(
-                    correctFare.toString(), 14, "0");
+        if (transactionValue != null)
+        {
+            transactionValueString = StringUtils.leftPad(transactionValue.toString(), 14, "0");
+        }
+        else
+        {
+            transactionValueString = StringUtils.leftPad(correctFare.toString(), 14, "0");
         }
 
         fieldValues[UTPConstants.TRANSACTION_VALUE] = transactionValueString;
         fieldValues[UTPConstants.REFUND_VALUE] = transactionValueString;
-        fieldValues[UTPConstants.CORRECT_FARE] = StringUtils.leftPad(
-                correctFare.toString(), 14, "0");
+        fieldValues[UTPConstants.CORRECT_FARE] = StringUtils.leftPad(correctFare.toString(), 14, "0");
         fieldValues[UTPConstants.FARES_CHECKING_RESULT] = StringUtils.leftPad(
                 codeBookDetailsDTO.getFaresCheckingResult(), 6, " ");
         fieldValues[UTPConstants.GENERATE_RETAIL_ITEM] = StringUtils.leftPad(
@@ -204,23 +198,23 @@ public class ZProcessorServiceImpl implements ZProcessorService {
     /**
      * This method will populate the passenger charter.
      */
-    private List<Object> populatePassengerCharter(FieldSet fieldSet,
-            BigDecimal covertedAmount) {
+    private List<Object> populatePassengerCharter(FieldSet fieldSet, BigDecimal covertedAmount)
+    {
         List<Object> list = new ArrayList<Object>();
         PassengerCharterDTO passengerCharterDTO = new PassengerCharterDTO();
         CodeBookDTO codeBookDTO = new CodeBookDTO();
 
-        passengerCharterDTO.setDiscountPercent(Integer.valueOf(fieldSet
-                .readString("discountPercentage")));
+        passengerCharterDTO.setDiscountPercent(Integer.valueOf(fieldSet.readString("discountPercentage")));
         // Set the converted amount as input here.
-        if (covertedAmount != null) {
+        if (covertedAmount != null)
+        {
             passengerCharterDTO.setTransactionValue(covertedAmount);
-        } else {
-            passengerCharterDTO.setTransactionValue(new BigDecimal(fieldSet
-                    .readString("transactionValue")));
         }
-        codeBookDTO.setCobId(Integer.valueOf(fieldSet
-                .readString("originRecordType")));
+        else
+        {
+            passengerCharterDTO.setTransactionValue(new BigDecimal(fieldSet.readString("transactionValue")));
+        }
+        codeBookDTO.setCobId(Integer.valueOf(fieldSet.readString("originRecordType")));
 
         list.add(passengerCharterDTO);
         list.add(codeBookDTO);

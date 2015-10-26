@@ -7,6 +7,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 /**
  * Repository : Period.
  */
-public interface PeriodJpaRepository extends PagingAndSortingRepository<PeriodEntity, Integer> {
+public interface PeriodJpaRepository extends PagingAndSortingRepository<PeriodEntity, Integer>
+{
 
 }

@@ -23,39 +23,46 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Component
 @Transactional
-public class WeekServiceImpl implements WeekService {
+public class WeekServiceImpl implements WeekService
+{
 
     @Resource
     private WeekJpaRepository weekJpaRepository;
 
     @Resource
     private WeekServiceMapper weekServiceMapper;
-    
+
     @Override
-    public Week findById(Integer weekId) {
+    public Week findById(Integer weekId)
+    {
         WeekEntity weekEntity = weekJpaRepository.findOne(weekId);
         return weekServiceMapper.mapWeekEntityToWeek(weekEntity);
     }
 
     @Override
-    public List<Week> findAll() {
+    public List<Week> findAll()
+    {
         Iterable<WeekEntity> entities = weekJpaRepository.findAll();
         List<Week> beans = new ArrayList<Week>();
-        for(WeekEntity weekEntity : entities) {
+        for (WeekEntity weekEntity : entities)
+        {
             beans.add(weekServiceMapper.mapWeekEntityToWeek(weekEntity));
         }
         return beans;
     }
 
     @Override
-    public Week save(Week week) {
-        return update(week) ;
+    public Week save(Week week)
+    {
+        return update(week);
     }
 
     @Override
-    public Week create(Week week) {
+    public Week create(Week week)
+    {
         WeekEntity weekEntity = weekJpaRepository.findOne(week.getWeekId());
-        if( weekEntity != null ) {
+        if (weekEntity != null)
+        {
             throw new IllegalStateException("already.exists");
         }
         weekEntity = new WeekEntity();
@@ -65,7 +72,8 @@ public class WeekServiceImpl implements WeekService {
     }
 
     @Override
-    public Week update(Week week) {
+    public Week update(Week week)
+    {
         WeekEntity weekEntity = weekJpaRepository.findOne(week.getWeekId());
         weekServiceMapper.mapWeekToWeekEntity(week, weekEntity);
         WeekEntity weekEntitySaved = weekJpaRepository.save(weekEntity);
@@ -73,23 +81,28 @@ public class WeekServiceImpl implements WeekService {
     }
 
     @Override
-    public void delete(Integer weekId) {
+    public void delete(Integer weekId)
+    {
         weekJpaRepository.delete(weekId);
     }
 
-    public WeekJpaRepository getWeekJpaRepository() {
+    public WeekJpaRepository getWeekJpaRepository()
+    {
         return weekJpaRepository;
     }
 
-    public void setWeekJpaRepository(WeekJpaRepository weekJpaRepository) {
+    public void setWeekJpaRepository(WeekJpaRepository weekJpaRepository)
+    {
         this.weekJpaRepository = weekJpaRepository;
     }
 
-    public WeekServiceMapper getWeekServiceMapper() {
+    public WeekServiceMapper getWeekServiceMapper()
+    {
         return weekServiceMapper;
     }
 
-    public void setWeekServiceMapper(WeekServiceMapper weekServiceMapper) {
+    public void setWeekServiceMapper(WeekServiceMapper weekServiceMapper)
+    {
         this.weekServiceMapper = weekServiceMapper;
     }
 

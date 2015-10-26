@@ -23,39 +23,46 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Component
 @Transactional
-public class ProductTypeServiceImpl implements ProductTypeService {
+public class ProductTypeServiceImpl implements ProductTypeService
+{
 
     @Resource
     private ProductTypeJpaRepository productTypeJpaRepository;
 
     @Resource
     private ProductTypeServiceMapper productTypeServiceMapper;
-    
+
     @Override
-    public ProductType findById(Integer prtId) {
+    public ProductType findById(Integer prtId)
+    {
         ProductTypeEntity productTypeEntity = productTypeJpaRepository.findOne(prtId);
         return productTypeServiceMapper.mapProductTypeEntityToProductType(productTypeEntity);
     }
 
     @Override
-    public List<ProductType> findAll() {
+    public List<ProductType> findAll()
+    {
         Iterable<ProductTypeEntity> entities = productTypeJpaRepository.findAll();
         List<ProductType> beans = new ArrayList<ProductType>();
-        for(ProductTypeEntity productTypeEntity : entities) {
+        for (ProductTypeEntity productTypeEntity : entities)
+        {
             beans.add(productTypeServiceMapper.mapProductTypeEntityToProductType(productTypeEntity));
         }
         return beans;
     }
 
     @Override
-    public ProductType save(ProductType productType) {
-        return update(productType) ;
+    public ProductType save(ProductType productType)
+    {
+        return update(productType);
     }
 
     @Override
-    public ProductType create(ProductType productType) {
+    public ProductType create(ProductType productType)
+    {
         ProductTypeEntity productTypeEntity = productTypeJpaRepository.findOne(productType.getPrtId());
-        if( productTypeEntity != null ) {
+        if (productTypeEntity != null)
+        {
             throw new IllegalStateException("already.exists");
         }
         productTypeEntity = new ProductTypeEntity();
@@ -65,7 +72,8 @@ public class ProductTypeServiceImpl implements ProductTypeService {
     }
 
     @Override
-    public ProductType update(ProductType productType) {
+    public ProductType update(ProductType productType)
+    {
         ProductTypeEntity productTypeEntity = productTypeJpaRepository.findOne(productType.getPrtId());
         productTypeServiceMapper.mapProductTypeToProductTypeEntity(productType, productTypeEntity);
         ProductTypeEntity productTypeEntitySaved = productTypeJpaRepository.save(productTypeEntity);
@@ -73,23 +81,28 @@ public class ProductTypeServiceImpl implements ProductTypeService {
     }
 
     @Override
-    public void delete(Integer prtId) {
+    public void delete(Integer prtId)
+    {
         productTypeJpaRepository.delete(prtId);
     }
 
-    public ProductTypeJpaRepository getProductTypeJpaRepository() {
+    public ProductTypeJpaRepository getProductTypeJpaRepository()
+    {
         return productTypeJpaRepository;
     }
 
-    public void setProductTypeJpaRepository(ProductTypeJpaRepository productTypeJpaRepository) {
+    public void setProductTypeJpaRepository(ProductTypeJpaRepository productTypeJpaRepository)
+    {
         this.productTypeJpaRepository = productTypeJpaRepository;
     }
 
-    public ProductTypeServiceMapper getProductTypeServiceMapper() {
+    public ProductTypeServiceMapper getProductTypeServiceMapper()
+    {
         return productTypeServiceMapper;
     }
 
-    public void setProductTypeServiceMapper(ProductTypeServiceMapper productTypeServiceMapper) {
+    public void setProductTypeServiceMapper(ProductTypeServiceMapper productTypeServiceMapper)
+    {
         this.productTypeServiceMapper = productTypeServiceMapper;
     }
 

@@ -9,42 +9,54 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CurrencyServiceImpl implements CurrencyService{
-    
+public class CurrencyServiceImpl implements CurrencyService
+{
+
     private static final org.slf4j.Logger logger = LoggerFactory.getLogger(CurrencyServiceImpl.class);
+
     @Autowired
     CodeBookMap codeBookMap;
-    
-    public CurrencyServiceImpl(){
-        
+
+    public CurrencyServiceImpl()
+    {
+
     }
-    
+
     @Override
-    public String ifConvertCurrency(String currencyCode) throws UTPException{
-        try{            
-        
-            String lennonCurrency = codeBookMap.getCodeBookByTypeAndCobId(AppConstants.CURRENCY_GROUP, AppConstants.LENNON_CURR_COB_ID);            
-            String inputCurrency = codeBookMap.getCodeBookByTypeAndCobId(AppConstants.CURRENCY_GROUP, Integer.valueOf(currencyCode));
-        
-            if(inputCurrency.equals(lennonCurrency)){            
+    public String ifConvertCurrency(String currencyCode) throws UTPException
+    {
+        try
+        {
+
+            String lennonCurrency = codeBookMap.getCodeBookByTypeAndCobId(AppConstants.CURRENCY_GROUP,
+                    AppConstants.LENNON_CURR_COB_ID);
+            String inputCurrency = codeBookMap.getCodeBookByTypeAndCobId(AppConstants.CURRENCY_GROUP,
+                    Integer.valueOf(currencyCode));
+
+            if (inputCurrency.equals(lennonCurrency))
+            {
                 return AppConstants.NO_CONVERSION;
             }
-            else if(!inputCurrency.equals(lennonCurrency)){
-                if(inputCurrency.equals(AppConstants.STERLING)){    
+            else if (!inputCurrency.equals(lennonCurrency))
+            {
+                if (inputCurrency.equals(AppConstants.STERLING))
+                {
                     return AppConstants.EUROS;
                 }
-                else {
+                else
+                {
                     return AppConstants.STERLING;
                 }
             }
-            else{
+            else
+            {
                 return AppConstants.NO_CONVERSION;
             }
-            
-            
+
         }
-        catch(NumberFormatException nfe){
-            logger.error("Inside method [ifConvertCurrency] : Error :"+nfe.getMessage());
+        catch (NumberFormatException nfe)
+        {
+            logger.error("Inside method [ifConvertCurrency] : Error :" + nfe.getMessage());
             throw new UTPException(nfe.getMessage());
         }
     }

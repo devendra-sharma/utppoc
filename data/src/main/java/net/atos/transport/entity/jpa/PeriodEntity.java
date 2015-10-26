@@ -26,156 +26,180 @@ import javax.persistence.TemporalType;
  */
 
 @Entity
-@Table(name="period", catalog="mydb" )
+@Table(name = "period", catalog = "mydb")
 // Define named queries here
-@NamedQueries ( {
-  @NamedQuery ( name="PeriodEntity.countAll", query="SELECT COUNT(x) FROM PeriodEntity x" )
-} )
-public class PeriodEntity implements Serializable {
+@NamedQueries(
+{@NamedQuery(name = "PeriodEntity.countAll", query = "SELECT COUNT(x) FROM PeriodEntity x") })
+public class PeriodEntity implements Serializable
+{
 
     private static final long serialVersionUID = 1L;
 
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // ENTITY PRIMARY KEY ( BASED ON A SINGLE FIELD )
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="per_id", nullable=false)
-    private Integer    perId        ;
+    @Column(name = "per_id", nullable = false)
+    private Integer perId;
 
-
-    //----------------------------------------------------------------------
-    // ENTITY DATA FIELDS 
-    //----------------------------------------------------------------------    
-    @Column(name="period")
-    private Integer    period       ;
-
-    @Temporal(TemporalType.DATE)
-    @Column(name="start_date")
-    private Date       startDate    ;
+    // ----------------------------------------------------------------------
+    // ENTITY DATA FIELDS
+    // ----------------------------------------------------------------------
+    @Column(name = "period")
+    private Integer period;
 
     @Temporal(TemporalType.DATE)
-    @Column(name="end_date")
-    private Date       endDate      ;
+    @Column(name = "start_date")
+    private Date startDate;
 
-    @Column(name="status", length=6)
-    private String     status       ;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "end_date")
+    private Date endDate;
 
-    @Column(name="period_mask", length=8)
-    private String     periodMask   ;
+    @Column(name = "status", length = 6)
+    private String status;
 
-    // "year" (column "year") is not defined by itself because used as FK in a link 
+    @Column(name = "period_mask", length = 8)
+    private String periodMask;
 
+    // "year" (column "year") is not defined by itself because used as FK in a link
 
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // ENTITY LINKS ( RELATIONSHIP )
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     @ManyToOne
-    @JoinColumn(name="year", referencedColumnName="year")
-    private YearEntity year2       ;
+    @JoinColumn(name = "year", referencedColumnName = "year")
+    private YearEntity year2;
 
-    @OneToMany(mappedBy="period2", targetEntity=WeekEntity.class)
-    private transient List<WeekEntity> listOfWeek  ;
+    @OneToMany(mappedBy = "period2", targetEntity = WeekEntity.class)
+    private transient List<WeekEntity> listOfWeek;
 
-    @OneToMany(mappedBy="period2", targetEntity=CalendarEntity.class)
+    @OneToMany(mappedBy = "period2", targetEntity = CalendarEntity.class)
     private transient List<CalendarEntity> listOfCalendar;
 
-
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // CONSTRUCTOR(S)
-    //----------------------------------------------------------------------
-    public PeriodEntity() {
+    // ----------------------------------------------------------------------
+    public PeriodEntity()
+    {
         super();
     }
-    
-    //----------------------------------------------------------------------
+
+    // ----------------------------------------------------------------------
     // GETTER & SETTER FOR THE KEY FIELD
-    //----------------------------------------------------------------------
-    public void setPerId( Integer perId ) {
-        this.perId = perId ;
+    // ----------------------------------------------------------------------
+    public void setPerId(Integer perId)
+    {
+        this.perId = perId;
     }
-    public Integer getPerId() {
+
+    public Integer getPerId()
+    {
         return this.perId;
     }
 
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // GETTERS & SETTERS FOR FIELDS
-    //----------------------------------------------------------------------
-    //--- DATABASE MAPPING : period ( INT ) 
-    public void setPeriod( Integer period ) {
+    // ----------------------------------------------------------------------
+    // --- DATABASE MAPPING : period ( INT )
+    public void setPeriod(Integer period)
+    {
         this.period = period;
     }
-    public Integer getPeriod() {
+
+    public Integer getPeriod()
+    {
         return this.period;
     }
 
-    //--- DATABASE MAPPING : start_date ( DATE ) 
-    public void setStartDate( Date startDate ) {
+    // --- DATABASE MAPPING : start_date ( DATE )
+    public void setStartDate(Date startDate)
+    {
         this.startDate = startDate;
     }
-    public Date getStartDate() {
+
+    public Date getStartDate()
+    {
         return this.startDate;
     }
 
-    //--- DATABASE MAPPING : end_date ( DATE ) 
-    public void setEndDate( Date endDate ) {
+    // --- DATABASE MAPPING : end_date ( DATE )
+    public void setEndDate(Date endDate)
+    {
         this.endDate = endDate;
     }
-    public Date getEndDate() {
+
+    public Date getEndDate()
+    {
         return this.endDate;
     }
 
-    //--- DATABASE MAPPING : status ( VARCHAR ) 
-    public void setStatus( String status ) {
+    // --- DATABASE MAPPING : status ( VARCHAR )
+    public void setStatus(String status)
+    {
         this.status = status;
     }
-    public String getStatus() {
+
+    public String getStatus()
+    {
         return this.status;
     }
 
-    //--- DATABASE MAPPING : period_mask ( VARCHAR ) 
-    public void setPeriodMask( String periodMask ) {
+    // --- DATABASE MAPPING : period_mask ( VARCHAR )
+    public void setPeriodMask(String periodMask)
+    {
         this.periodMask = periodMask;
     }
-    public String getPeriodMask() {
+
+    public String getPeriodMask()
+    {
         return this.periodMask;
     }
 
-
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // GETTERS & SETTERS FOR LINKS
-    //----------------------------------------------------------------------
-    public void setYear2( YearEntity year2 ) {
+    // ----------------------------------------------------------------------
+    public void setYear2(YearEntity year2)
+    {
         this.year2 = year2;
     }
-    public YearEntity getYear2() {
+
+    public YearEntity getYear2()
+    {
         return this.year2;
     }
 
-    public void setListOfWeek( List<WeekEntity> listOfWeek ) {
+    public void setListOfWeek(List<WeekEntity> listOfWeek)
+    {
         this.listOfWeek = listOfWeek;
     }
-    public List<WeekEntity> getListOfWeek() {
+
+    public List<WeekEntity> getListOfWeek()
+    {
         return this.listOfWeek;
     }
 
-    public void setListOfCalendar( List<CalendarEntity> listOfCalendar ) {
+    public void setListOfCalendar(List<CalendarEntity> listOfCalendar)
+    {
         this.listOfCalendar = listOfCalendar;
     }
-    public List<CalendarEntity> getListOfCalendar() {
+
+    public List<CalendarEntity> getListOfCalendar()
+    {
         return this.listOfCalendar;
     }
 
-
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // toString METHOD
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     @Override
-    public String toString() { 
-        StringBuilder sb = new StringBuilder(); 
-        sb.append("["); 
+    public String toString()
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
         sb.append(perId);
-        sb.append("]:"); 
+        sb.append("]:");
         sb.append(period);
         sb.append("|");
         sb.append(startDate);
@@ -185,7 +209,7 @@ public class PeriodEntity implements Serializable {
         sb.append(status);
         sb.append("|");
         sb.append(periodMask);
-        return sb.toString(); 
-    } 
+        return sb.toString();
+    }
 
 }

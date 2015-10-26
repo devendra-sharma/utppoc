@@ -23,39 +23,46 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Component
 @Transactional
-public class RecordFieldServiceImpl implements RecordFieldService {
+public class RecordFieldServiceImpl implements RecordFieldService
+{
 
     @Resource
     private RecordFieldJpaRepository recordFieldJpaRepository;
 
     @Resource
     private RecordFieldServiceMapper recordFieldServiceMapper;
-    
+
     @Override
-    public RecordField findById(Integer refId) {
+    public RecordField findById(Integer refId)
+    {
         RecordFieldEntity recordFieldEntity = recordFieldJpaRepository.findOne(refId);
         return recordFieldServiceMapper.mapRecordFieldEntityToRecordField(recordFieldEntity);
     }
 
     @Override
-    public List<RecordField> findAll() {
+    public List<RecordField> findAll()
+    {
         Iterable<RecordFieldEntity> entities = recordFieldJpaRepository.findAll();
         List<RecordField> beans = new ArrayList<RecordField>();
-        for(RecordFieldEntity recordFieldEntity : entities) {
+        for (RecordFieldEntity recordFieldEntity : entities)
+        {
             beans.add(recordFieldServiceMapper.mapRecordFieldEntityToRecordField(recordFieldEntity));
         }
         return beans;
     }
 
     @Override
-    public RecordField save(RecordField recordField) {
-        return update(recordField) ;
+    public RecordField save(RecordField recordField)
+    {
+        return update(recordField);
     }
 
     @Override
-    public RecordField create(RecordField recordField) {
+    public RecordField create(RecordField recordField)
+    {
         RecordFieldEntity recordFieldEntity = recordFieldJpaRepository.findOne(recordField.getRefId());
-        if( recordFieldEntity != null ) {
+        if (recordFieldEntity != null)
+        {
             throw new IllegalStateException("already.exists");
         }
         recordFieldEntity = new RecordFieldEntity();
@@ -65,7 +72,8 @@ public class RecordFieldServiceImpl implements RecordFieldService {
     }
 
     @Override
-    public RecordField update(RecordField recordField) {
+    public RecordField update(RecordField recordField)
+    {
         RecordFieldEntity recordFieldEntity = recordFieldJpaRepository.findOne(recordField.getRefId());
         recordFieldServiceMapper.mapRecordFieldToRecordFieldEntity(recordField, recordFieldEntity);
         RecordFieldEntity recordFieldEntitySaved = recordFieldJpaRepository.save(recordFieldEntity);
@@ -73,23 +81,28 @@ public class RecordFieldServiceImpl implements RecordFieldService {
     }
 
     @Override
-    public void delete(Integer refId) {
+    public void delete(Integer refId)
+    {
         recordFieldJpaRepository.delete(refId);
     }
 
-    public RecordFieldJpaRepository getRecordFieldJpaRepository() {
+    public RecordFieldJpaRepository getRecordFieldJpaRepository()
+    {
         return recordFieldJpaRepository;
     }
 
-    public void setRecordFieldJpaRepository(RecordFieldJpaRepository recordFieldJpaRepository) {
+    public void setRecordFieldJpaRepository(RecordFieldJpaRepository recordFieldJpaRepository)
+    {
         this.recordFieldJpaRepository = recordFieldJpaRepository;
     }
 
-    public RecordFieldServiceMapper getRecordFieldServiceMapper() {
+    public RecordFieldServiceMapper getRecordFieldServiceMapper()
+    {
         return recordFieldServiceMapper;
     }
 
-    public void setRecordFieldServiceMapper(RecordFieldServiceMapper recordFieldServiceMapper) {
+    public void setRecordFieldServiceMapper(RecordFieldServiceMapper recordFieldServiceMapper)
+    {
         this.recordFieldServiceMapper = recordFieldServiceMapper;
     }
 

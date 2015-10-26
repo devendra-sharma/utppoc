@@ -11,23 +11,27 @@ import net.atos.transport.entity.ProcessControl;
 /**
  * Business Service Interface for entity ProcessControl.
  */
-public interface ProcessControlService { 
+public interface ProcessControlService
+{
 
     /**
      * Loads an entity from the database using its Primary Key
+     * 
      * @param processId
      * @return entity
      */
-    ProcessControl findById( Integer processId  ) ;
+    ProcessControl findById(Integer processId);
 
     /**
      * Loads all entities.
+     * 
      * @return all entities
      */
     List<ProcessControl> findAll();
 
     /**
      * Saves the given entity in the database (create or update)
+     * 
      * @param entity
      * @return entity
      */
@@ -35,6 +39,7 @@ public interface ProcessControlService {
 
     /**
      * Updates the given entity in the database
+     * 
      * @param entity
      * @return
      */
@@ -42,6 +47,7 @@ public interface ProcessControlService {
 
     /**
      * Creates the given entity in the database
+     * 
      * @param entity
      * @return
      */
@@ -49,9 +55,9 @@ public interface ProcessControlService {
 
     /**
      * Deletes an entity using its Primary Key
+     * 
      * @param processId
      */
-    void delete( Integer processId );
-
+    void delete(Integer processId);
 
 }

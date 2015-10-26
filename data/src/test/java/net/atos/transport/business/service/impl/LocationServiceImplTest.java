@@ -31,137 +31,149 @@ import org.mockito.runners.MockitoJUnitRunner;
  * Test : Implementation of LocationService
  */
 @RunWith(MockitoJUnitRunner.class)
-public class LocationServiceImplTest {
+public class LocationServiceImplTest
+{
 
-	@InjectMocks
-	private LocationServiceImpl locationService;
-	@Mock
-	private LocationJpaRepository locationJpaRepository;
-	@Mock
-	private LocationServiceMapper locationServiceMapper;
-	
-	private LocationFactoryForTest locationFactoryForTest = new LocationFactoryForTest();
+    @InjectMocks
+    private LocationServiceImpl locationService;
 
-	private LocationEntityFactoryForTest locationEntityFactoryForTest = new LocationEntityFactoryForTest();
+    @Mock
+    private LocationJpaRepository locationJpaRepository;
 
-	private MockValues mockValues = new MockValues();
-	
-	@Test
-	public void findById() {
-		// Given
-		Integer locId = mockValues.nextInteger();
-		
-		LocationEntity locationEntity = locationJpaRepository.findOne(locId);
-		
-		Location location = locationFactoryForTest.newLocation();
-		when(locationServiceMapper.mapLocationEntityToLocation(locationEntity)).thenReturn(location);
+    @Mock
+    private LocationServiceMapper locationServiceMapper;
 
-		// When
-		Location locationFound = locationService.findById(locId);
+    private LocationFactoryForTest locationFactoryForTest = new LocationFactoryForTest();
 
-		// Then
-		assertEquals(location.getLocId(),locationFound.getLocId());
-	}
+    private LocationEntityFactoryForTest locationEntityFactoryForTest = new LocationEntityFactoryForTest();
 
-	@Test
-	public void findAll() {
-		// Given
-		List<LocationEntity> locationEntitys = new ArrayList<LocationEntity>();
-		LocationEntity locationEntity1 = locationEntityFactoryForTest.newLocationEntity();
-		locationEntitys.add(locationEntity1);
-		LocationEntity locationEntity2 = locationEntityFactoryForTest.newLocationEntity();
-		locationEntitys.add(locationEntity2);
-		when(locationJpaRepository.findAll()).thenReturn(locationEntitys);
-		
-		Location location1 = locationFactoryForTest.newLocation();
-		when(locationServiceMapper.mapLocationEntityToLocation(locationEntity1)).thenReturn(location1);
-		Location location2 = locationFactoryForTest.newLocation();
-		when(locationServiceMapper.mapLocationEntityToLocation(locationEntity2)).thenReturn(location2);
+    private MockValues mockValues = new MockValues();
 
-		// When
-		List<Location> locationsFounds = locationService.findAll();
+    @Test
+    public void findById()
+    {
+        // Given
+        Integer locId = mockValues.nextInteger();
 
-		// Then
-		assertTrue(location1 == locationsFounds.get(0));
-		assertTrue(location2 == locationsFounds.get(1));
-	}
+        LocationEntity locationEntity = locationJpaRepository.findOne(locId);
 
-	@Test
-	public void create() {
-		// Given
-		Location location = locationFactoryForTest.newLocation();
+        Location location = locationFactoryForTest.newLocation();
+        when(locationServiceMapper.mapLocationEntityToLocation(locationEntity)).thenReturn(location);
 
-		LocationEntity locationEntity = locationEntityFactoryForTest.newLocationEntity();
-		when(locationJpaRepository.findOne(location.getLocId())).thenReturn(null);
-		
-		locationEntity = new LocationEntity();
-		locationServiceMapper.mapLocationToLocationEntity(location, locationEntity);
-		LocationEntity locationEntitySaved = locationJpaRepository.save(locationEntity);
-		
-		Location locationSaved = locationFactoryForTest.newLocation();
-		when(locationServiceMapper.mapLocationEntityToLocation(locationEntitySaved)).thenReturn(locationSaved);
+        // When
+        Location locationFound = locationService.findById(locId);
 
-		// When
-		Location locationResult = locationService.create(location);
+        // Then
+        assertEquals(location.getLocId(), locationFound.getLocId());
+    }
 
-		// Then
-		assertTrue(locationResult == locationSaved);
-	}
+    @Test
+    public void findAll()
+    {
+        // Given
+        List<LocationEntity> locationEntitys = new ArrayList<LocationEntity>();
+        LocationEntity locationEntity1 = locationEntityFactoryForTest.newLocationEntity();
+        locationEntitys.add(locationEntity1);
+        LocationEntity locationEntity2 = locationEntityFactoryForTest.newLocationEntity();
+        locationEntitys.add(locationEntity2);
+        when(locationJpaRepository.findAll()).thenReturn(locationEntitys);
 
-	@Test
-	public void createKOExists() {
-		// Given
-		Location location = locationFactoryForTest.newLocation();
+        Location location1 = locationFactoryForTest.newLocation();
+        when(locationServiceMapper.mapLocationEntityToLocation(locationEntity1)).thenReturn(location1);
+        Location location2 = locationFactoryForTest.newLocation();
+        when(locationServiceMapper.mapLocationEntityToLocation(locationEntity2)).thenReturn(location2);
 
-		LocationEntity locationEntity = locationEntityFactoryForTest.newLocationEntity();
-		when(locationJpaRepository.findOne(location.getLocId())).thenReturn(locationEntity);
+        // When
+        List<Location> locationsFounds = locationService.findAll();
 
-		// When
-		Exception exception = null;
-		try {
-			locationService.create(location);
-		} catch(Exception e) {
-			exception = e;
-		}
+        // Then
+        assertTrue(location1 == locationsFounds.get(0));
+        assertTrue(location2 == locationsFounds.get(1));
+    }
 
-		// Then
-		assertTrue(exception instanceof IllegalStateException);
-		assertEquals("already.exists", exception.getMessage());
-	}
+    @Test
+    public void create()
+    {
+        // Given
+        Location location = locationFactoryForTest.newLocation();
 
-	@Test
-	public void update() {
-		// Given
-		Location location = locationFactoryForTest.newLocation();
+        LocationEntity locationEntity = locationEntityFactoryForTest.newLocationEntity();
+        when(locationJpaRepository.findOne(location.getLocId())).thenReturn(null);
 
-		LocationEntity locationEntity = locationEntityFactoryForTest.newLocationEntity();
-		when(locationJpaRepository.findOne(location.getLocId())).thenReturn(locationEntity);
-		
-		LocationEntity locationEntitySaved = locationEntityFactoryForTest.newLocationEntity();
-		when(locationJpaRepository.save(locationEntity)).thenReturn(locationEntitySaved);
-		
-		Location locationSaved = locationFactoryForTest.newLocation();
-		when(locationServiceMapper.mapLocationEntityToLocation(locationEntitySaved)).thenReturn(locationSaved);
+        locationEntity = new LocationEntity();
+        locationServiceMapper.mapLocationToLocationEntity(location, locationEntity);
+        LocationEntity locationEntitySaved = locationJpaRepository.save(locationEntity);
 
-		// When
-		Location locationResult = locationService.update(location);
+        Location locationSaved = locationFactoryForTest.newLocation();
+        when(locationServiceMapper.mapLocationEntityToLocation(locationEntitySaved)).thenReturn(locationSaved);
 
-		// Then
-		verify(locationServiceMapper).mapLocationToLocationEntity(location, locationEntity);
-		assertTrue(locationResult == locationSaved);
-	}
+        // When
+        Location locationResult = locationService.create(location);
 
-	@Test
-	public void delete() {
-		// Given
-		Integer locId = mockValues.nextInteger();
+        // Then
+        assertTrue(locationResult == locationSaved);
+    }
 
-		// When
-		locationService.delete(locId);
+    @Test
+    public void createKOExists()
+    {
+        // Given
+        Location location = locationFactoryForTest.newLocation();
 
-		// Then
-		verify(locationJpaRepository).delete(locId);
-		
-	}
+        LocationEntity locationEntity = locationEntityFactoryForTest.newLocationEntity();
+        when(locationJpaRepository.findOne(location.getLocId())).thenReturn(locationEntity);
+
+        // When
+        Exception exception = null;
+        try
+        {
+            locationService.create(location);
+        }
+        catch (Exception e)
+        {
+            exception = e;
+        }
+
+        // Then
+        assertTrue(exception instanceof IllegalStateException);
+        assertEquals("already.exists", exception.getMessage());
+    }
+
+    @Test
+    public void update()
+    {
+        // Given
+        Location location = locationFactoryForTest.newLocation();
+
+        LocationEntity locationEntity = locationEntityFactoryForTest.newLocationEntity();
+        when(locationJpaRepository.findOne(location.getLocId())).thenReturn(locationEntity);
+
+        LocationEntity locationEntitySaved = locationEntityFactoryForTest.newLocationEntity();
+        when(locationJpaRepository.save(locationEntity)).thenReturn(locationEntitySaved);
+
+        Location locationSaved = locationFactoryForTest.newLocation();
+        when(locationServiceMapper.mapLocationEntityToLocation(locationEntitySaved)).thenReturn(locationSaved);
+
+        // When
+        Location locationResult = locationService.update(location);
+
+        // Then
+        verify(locationServiceMapper).mapLocationToLocationEntity(location, locationEntity);
+        assertTrue(locationResult == locationSaved);
+    }
+
+    @Test
+    public void delete()
+    {
+        // Given
+        Integer locId = mockValues.nextInteger();
+
+        // When
+        locationService.delete(locId);
+
+        // Then
+        verify(locationJpaRepository).delete(locId);
+
+    }
 
 }

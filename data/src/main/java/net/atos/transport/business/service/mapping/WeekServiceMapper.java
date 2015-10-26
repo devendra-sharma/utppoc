@@ -17,84 +17,104 @@ import org.springframework.stereotype.Component;
  * Mapping between entity beans and display beans.
  */
 @Component
-public class WeekServiceMapper extends AbstractServiceMapper {
+public class WeekServiceMapper extends AbstractServiceMapper
+{
 
     /**
      * ModelMapper : bean to bean mapping library.
      */
     private ModelMapper modelMapper;
-    
+
     /**
      * Constructor.
      */
-    public WeekServiceMapper() {
+    public WeekServiceMapper()
+    {
         modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
     }
 
     /**
      * Mapping from 'WeekEntity' to 'Week'
+     * 
      * @param weekEntity
      */
-    public Week mapWeekEntityToWeek(WeekEntity weekEntity) {
-        if(weekEntity == null) {
+    public Week mapWeekEntityToWeek(WeekEntity weekEntity)
+    {
+        if (weekEntity == null)
+        {
             return null;
         }
 
-        //--- Generic mapping 
+        // --- Generic mapping
         Week week = map(weekEntity, Week.class);
 
-        //--- Link mapping ( link to Year )
-        if(weekEntity.getYear2() != null) {
+        // --- Link mapping ( link to Year )
+        if (weekEntity.getYear2() != null)
+        {
             week.setYear(weekEntity.getYear2().getYear());
         }
-        //--- Link mapping ( link to Period )
-        if(weekEntity.getPeriod2() != null) {
+        // --- Link mapping ( link to Period )
+        if (weekEntity.getPeriod2() != null)
+        {
             week.setPeriod(weekEntity.getPeriod2().getPerId());
         }
         return week;
     }
-    
+
     /**
      * Mapping from 'Week' to 'WeekEntity'
+     * 
      * @param week
      * @param weekEntity
      */
-    public void mapWeekToWeekEntity(Week week, WeekEntity weekEntity) {
-        if(week == null) {
+    public void mapWeekToWeekEntity(Week week, WeekEntity weekEntity)
+    {
+        if (week == null)
+        {
             return;
         }
 
-        //--- Generic mapping 
+        // --- Generic mapping
         map(week, weekEntity);
 
-        //--- Link mapping ( link : week )
-        if( hasLinkToYear(week) ) {
+        // --- Link mapping ( link : week )
+        if (hasLinkToYear(week))
+        {
             YearEntity year1 = new YearEntity();
-            year1.setYear( week.getYear() );
-            weekEntity.setYear2( year1 );
-        } else {
-            weekEntity.setYear2( null );
+            year1.setYear(week.getYear());
+            weekEntity.setYear2(year1);
+        }
+        else
+        {
+            weekEntity.setYear2(null);
         }
 
-        //--- Link mapping ( link : week )
-        if( hasLinkToPeriod(week) ) {
+        // --- Link mapping ( link : week )
+        if (hasLinkToPeriod(week))
+        {
             PeriodEntity period2 = new PeriodEntity();
-            period2.setPerId( week.getPeriod() );
-            weekEntity.setPeriod2( period2 );
-        } else {
-            weekEntity.setPeriod2( null );
+            period2.setPerId(week.getPeriod());
+            weekEntity.setPeriod2(period2);
+        }
+        else
+        {
+            weekEntity.setPeriod2(null);
         }
 
     }
-    
+
     /**
      * Verify that Year id is valid.
-     * @param Year Year
+     * 
+     * @param Year
+     *            Year
      * @return boolean
      */
-    private boolean hasLinkToYear(Week week) {
-        if(week.getYear() != null) {
+    private boolean hasLinkToYear(Week week)
+    {
+        if (week.getYear() != null)
+        {
             return true;
         }
         return false;
@@ -102,11 +122,15 @@ public class WeekServiceMapper extends AbstractServiceMapper {
 
     /**
      * Verify that Period id is valid.
-     * @param Period Period
+     * 
+     * @param Period
+     *            Period
      * @return boolean
      */
-    private boolean hasLinkToPeriod(Week week) {
-        if(week.getPeriod() != null) {
+    private boolean hasLinkToPeriod(Week week)
+    {
+        if (week.getPeriod() != null)
+        {
             return true;
         }
         return false;
@@ -116,11 +140,13 @@ public class WeekServiceMapper extends AbstractServiceMapper {
      * {@inheritDoc}
      */
     @Override
-    protected ModelMapper getModelMapper() {
+    protected ModelMapper getModelMapper()
+    {
         return modelMapper;
     }
 
-    protected void setModelMapper(ModelMapper modelMapper) {
+    protected void setModelMapper(ModelMapper modelMapper)
+    {
         this.modelMapper = modelMapper;
     }
 

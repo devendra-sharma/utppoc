@@ -11,23 +11,27 @@ import net.atos.transport.entity.Week;
 /**
  * Business Service Interface for entity Week.
  */
-public interface WeekService { 
+public interface WeekService
+{
 
     /**
      * Loads an entity from the database using its Primary Key
+     * 
      * @param weekId
      * @return entity
      */
-    Week findById( Integer weekId  ) ;
+    Week findById(Integer weekId);
 
     /**
      * Loads all entities.
+     * 
      * @return all entities
      */
     List<Week> findAll();
 
     /**
      * Saves the given entity in the database (create or update)
+     * 
      * @param entity
      * @return entity
      */
@@ -35,6 +39,7 @@ public interface WeekService {
 
     /**
      * Updates the given entity in the database
+     * 
      * @param entity
      * @return
      */
@@ -42,6 +47,7 @@ public interface WeekService {
 
     /**
      * Creates the given entity in the database
+     * 
      * @param entity
      * @return
      */
@@ -49,9 +55,9 @@ public interface WeekService {
 
     /**
      * Deletes an entity using its Primary Key
+     * 
      * @param weekId
      */
-    void delete( Integer weekId );
-
+    void delete(Integer weekId);
 
 }

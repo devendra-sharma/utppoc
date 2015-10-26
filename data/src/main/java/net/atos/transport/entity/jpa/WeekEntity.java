@@ -26,147 +26,168 @@ import javax.persistence.TemporalType;
  */
 
 @Entity
-@Table(name="week", catalog="mydb" )
+@Table(name = "week", catalog = "mydb")
 // Define named queries here
-@NamedQueries ( {
-  @NamedQuery ( name="WeekEntity.countAll", query="SELECT COUNT(x) FROM WeekEntity x" )
-} )
-public class WeekEntity implements Serializable {
+@NamedQueries(
+{@NamedQuery(name = "WeekEntity.countAll", query = "SELECT COUNT(x) FROM WeekEntity x") })
+public class WeekEntity implements Serializable
+{
 
     private static final long serialVersionUID = 1L;
 
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // ENTITY PRIMARY KEY ( BASED ON A SINGLE FIELD )
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="week_id", nullable=false)
-    private Integer    weekId       ;
+    @Column(name = "week_id", nullable = false)
+    private Integer weekId;
 
-
-    //----------------------------------------------------------------------
-    // ENTITY DATA FIELDS 
-    //----------------------------------------------------------------------    
-    @Column(name="week")
-    private Integer    week         ;
-
-    @Temporal(TemporalType.DATE)
-    @Column(name="start_date")
-    private Date       startDate    ;
+    // ----------------------------------------------------------------------
+    // ENTITY DATA FIELDS
+    // ----------------------------------------------------------------------
+    @Column(name = "week")
+    private Integer week;
 
     @Temporal(TemporalType.DATE)
-    @Column(name="end_date")
-    private Date       endDate      ;
+    @Column(name = "start_date")
+    private Date startDate;
 
-    @Column(name="week_mask", length=8)
-    private String     weekMask     ;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "end_date")
+    private Date endDate;
 
-    // "year" (column "year") is not defined by itself because used as FK in a link 
-    // "period" (column "period") is not defined by itself because used as FK in a link 
+    @Column(name = "week_mask", length = 8)
+    private String weekMask;
 
+    // "year" (column "year") is not defined by itself because used as FK in a link
+    // "period" (column "period") is not defined by itself because used as FK in a link
 
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // ENTITY LINKS ( RELATIONSHIP )
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     @ManyToOne
-    @JoinColumn(name="year", referencedColumnName="year")
-    private YearEntity year2       ;
+    @JoinColumn(name = "year", referencedColumnName = "year")
+    private YearEntity year2;
 
     @ManyToOne
-    @JoinColumn(name="period", referencedColumnName="per_id")
-    private PeriodEntity period2     ;
+    @JoinColumn(name = "period", referencedColumnName = "per_id")
+    private PeriodEntity period2;
 
-    @OneToMany(mappedBy="week2", targetEntity=CalendarEntity.class)
+    @OneToMany(mappedBy = "week2", targetEntity = CalendarEntity.class)
     private transient List<CalendarEntity> listOfCalendar;
 
-
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // CONSTRUCTOR(S)
-    //----------------------------------------------------------------------
-    public WeekEntity() {
+    // ----------------------------------------------------------------------
+    public WeekEntity()
+    {
         super();
     }
-    
-    //----------------------------------------------------------------------
+
+    // ----------------------------------------------------------------------
     // GETTER & SETTER FOR THE KEY FIELD
-    //----------------------------------------------------------------------
-    public void setWeekId( Integer weekId ) {
-        this.weekId = weekId ;
+    // ----------------------------------------------------------------------
+    public void setWeekId(Integer weekId)
+    {
+        this.weekId = weekId;
     }
-    public Integer getWeekId() {
+
+    public Integer getWeekId()
+    {
         return this.weekId;
     }
 
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // GETTERS & SETTERS FOR FIELDS
-    //----------------------------------------------------------------------
-    //--- DATABASE MAPPING : week ( INT ) 
-    public void setWeek( Integer week ) {
+    // ----------------------------------------------------------------------
+    // --- DATABASE MAPPING : week ( INT )
+    public void setWeek(Integer week)
+    {
         this.week = week;
     }
-    public Integer getWeek() {
+
+    public Integer getWeek()
+    {
         return this.week;
     }
 
-    //--- DATABASE MAPPING : start_date ( DATE ) 
-    public void setStartDate( Date startDate ) {
+    // --- DATABASE MAPPING : start_date ( DATE )
+    public void setStartDate(Date startDate)
+    {
         this.startDate = startDate;
     }
-    public Date getStartDate() {
+
+    public Date getStartDate()
+    {
         return this.startDate;
     }
 
-    //--- DATABASE MAPPING : end_date ( DATE ) 
-    public void setEndDate( Date endDate ) {
+    // --- DATABASE MAPPING : end_date ( DATE )
+    public void setEndDate(Date endDate)
+    {
         this.endDate = endDate;
     }
-    public Date getEndDate() {
+
+    public Date getEndDate()
+    {
         return this.endDate;
     }
 
-    //--- DATABASE MAPPING : week_mask ( VARCHAR ) 
-    public void setWeekMask( String weekMask ) {
+    // --- DATABASE MAPPING : week_mask ( VARCHAR )
+    public void setWeekMask(String weekMask)
+    {
         this.weekMask = weekMask;
     }
-    public String getWeekMask() {
+
+    public String getWeekMask()
+    {
         return this.weekMask;
     }
 
-
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // GETTERS & SETTERS FOR LINKS
-    //----------------------------------------------------------------------
-    public void setYear2( YearEntity year2 ) {
+    // ----------------------------------------------------------------------
+    public void setYear2(YearEntity year2)
+    {
         this.year2 = year2;
     }
-    public YearEntity getYear2() {
+
+    public YearEntity getYear2()
+    {
         return this.year2;
     }
 
-    public void setPeriod2( PeriodEntity period2 ) {
+    public void setPeriod2(PeriodEntity period2)
+    {
         this.period2 = period2;
     }
-    public PeriodEntity getPeriod2() {
+
+    public PeriodEntity getPeriod2()
+    {
         return this.period2;
     }
 
-    public void setListOfCalendar( List<CalendarEntity> listOfCalendar ) {
+    public void setListOfCalendar(List<CalendarEntity> listOfCalendar)
+    {
         this.listOfCalendar = listOfCalendar;
     }
-    public List<CalendarEntity> getListOfCalendar() {
+
+    public List<CalendarEntity> getListOfCalendar()
+    {
         return this.listOfCalendar;
     }
 
-
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // toString METHOD
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     @Override
-    public String toString() { 
-        StringBuilder sb = new StringBuilder(); 
-        sb.append("["); 
+    public String toString()
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
         sb.append(weekId);
-        sb.append("]:"); 
+        sb.append("]:");
         sb.append(week);
         sb.append("|");
         sb.append(startDate);
@@ -174,7 +195,7 @@ public class WeekEntity implements Serializable {
         sb.append(endDate);
         sb.append("|");
         sb.append(weekMask);
-        return sb.toString(); 
-    } 
+        return sb.toString();
+    }
 
 }

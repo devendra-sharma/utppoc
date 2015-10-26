@@ -2,17 +2,19 @@ package net.atos.transport.test;
 
 import net.atos.transport.entity.ProcessControl;
 
-public class ProcessControlFactoryForTest {
+public class ProcessControlFactoryForTest
+{
 
-	private MockValues mockValues = new MockValues();
-	
-	public ProcessControl newProcessControl() {
+    private MockValues mockValues = new MockValues();
 
-		Integer processId = mockValues.nextInteger();
+    public ProcessControl newProcessControl()
+    {
 
-		ProcessControl processControl = new ProcessControl();
-		processControl.setProcessId(processId);
-		return processControl;
-	}
-	
+        Integer processId = mockValues.nextInteger();
+
+        ProcessControl processControl = new ProcessControl();
+        processControl.setProcessId(processId);
+        return processControl;
+    }
+
 }

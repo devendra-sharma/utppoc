@@ -29,137 +29,182 @@ import org.mockito.runners.MockitoJUnitRunner;
  * Test : Implementation of ApplicationParametersService
  */
 @RunWith(MockitoJUnitRunner.class)
-public class ApplicationParametersServiceImplTest {
+public class ApplicationParametersServiceImplTest
+{
 
-	@InjectMocks
-	private ApplicationParametersServiceImpl applicationParametersService;
-	@Mock
-	private ApplicationParametersJpaRepository applicationParametersJpaRepository;
-	@Mock
-	private ApplicationParametersServiceMapper applicationParametersServiceMapper;
-	
-	private ApplicationParametersFactoryForTest applicationParametersFactoryForTest = new ApplicationParametersFactoryForTest();
+    @InjectMocks
+    private ApplicationParametersServiceImpl applicationParametersService;
 
-	private ApplicationParametersEntityFactoryForTest applicationParametersEntityFactoryForTest = new ApplicationParametersEntityFactoryForTest();
+    @Mock
+    private ApplicationParametersJpaRepository applicationParametersJpaRepository;
 
-	private MockValues mockValues = new MockValues();
-	
-	@Test
-	public void findById() {
-		// Given
-		Integer applicationParametersId = mockValues.nextInteger();
-		
-		ApplicationParametersEntity applicationParametersEntity = applicationParametersJpaRepository.findOne(applicationParametersId);
-		
-		ApplicationParameters applicationParameters = applicationParametersFactoryForTest.newApplicationParameters();
-		when(applicationParametersServiceMapper.mapApplicationParametersEntityToApplicationParameters(applicationParametersEntity)).thenReturn(applicationParameters);
+    @Mock
+    private ApplicationParametersServiceMapper applicationParametersServiceMapper;
 
-		// When
-		ApplicationParameters applicationParametersFound = applicationParametersService.findById(applicationParametersId);
+    private ApplicationParametersFactoryForTest applicationParametersFactoryForTest = new ApplicationParametersFactoryForTest();
 
-		// Then
-		assertEquals(applicationParameters.getApplicationParametersId(),applicationParametersFound.getApplicationParametersId());
-	}
+    private ApplicationParametersEntityFactoryForTest applicationParametersEntityFactoryForTest = new ApplicationParametersEntityFactoryForTest();
 
-	@Test
-	public void findAll() {
-		// Given
-		List<ApplicationParametersEntity> applicationParametersEntitys = new ArrayList<ApplicationParametersEntity>();
-		ApplicationParametersEntity applicationParametersEntity1 = applicationParametersEntityFactoryForTest.newApplicationParametersEntity();
-		applicationParametersEntitys.add(applicationParametersEntity1);
-		ApplicationParametersEntity applicationParametersEntity2 = applicationParametersEntityFactoryForTest.newApplicationParametersEntity();
-		applicationParametersEntitys.add(applicationParametersEntity2);
-		when(applicationParametersJpaRepository.findAll()).thenReturn(applicationParametersEntitys);
-		
-		ApplicationParameters applicationParameters1 = applicationParametersFactoryForTest.newApplicationParameters();
-		when(applicationParametersServiceMapper.mapApplicationParametersEntityToApplicationParameters(applicationParametersEntity1)).thenReturn(applicationParameters1);
-		ApplicationParameters applicationParameters2 = applicationParametersFactoryForTest.newApplicationParameters();
-		when(applicationParametersServiceMapper.mapApplicationParametersEntityToApplicationParameters(applicationParametersEntity2)).thenReturn(applicationParameters2);
+    private MockValues mockValues = new MockValues();
 
-		// When
-		List<ApplicationParameters> applicationParameterssFounds = applicationParametersService.findAll();
+    @Test
+    public void findById()
+    {
+        // Given
+        Integer applicationParametersId = mockValues.nextInteger();
 
-		// Then
-		assertTrue(applicationParameters1 == applicationParameterssFounds.get(0));
-		assertTrue(applicationParameters2 == applicationParameterssFounds.get(1));
-	}
+        ApplicationParametersEntity applicationParametersEntity = applicationParametersJpaRepository
+                .findOne(applicationParametersId);
 
-	@Test
-	public void create() {
-		// Given
-		ApplicationParameters applicationParameters = applicationParametersFactoryForTest.newApplicationParameters();
+        ApplicationParameters applicationParameters = applicationParametersFactoryForTest.newApplicationParameters();
+        when(
+                applicationParametersServiceMapper
+                        .mapApplicationParametersEntityToApplicationParameters(applicationParametersEntity))
+                .thenReturn(applicationParameters);
 
-		ApplicationParametersEntity applicationParametersEntity = applicationParametersEntityFactoryForTest.newApplicationParametersEntity();
-		when(applicationParametersJpaRepository.findOne(applicationParameters.getApplicationParametersId())).thenReturn(null);
-		
-		applicationParametersEntity = new ApplicationParametersEntity();
-		applicationParametersServiceMapper.mapApplicationParametersToApplicationParametersEntity(applicationParameters, applicationParametersEntity);
-		ApplicationParametersEntity applicationParametersEntitySaved = applicationParametersJpaRepository.save(applicationParametersEntity);
-		
-		ApplicationParameters applicationParametersSaved = applicationParametersFactoryForTest.newApplicationParameters();
-		when(applicationParametersServiceMapper.mapApplicationParametersEntityToApplicationParameters(applicationParametersEntitySaved)).thenReturn(applicationParametersSaved);
+        // When
+        ApplicationParameters applicationParametersFound = applicationParametersService
+                .findById(applicationParametersId);
 
-		// When
-		ApplicationParameters applicationParametersResult = applicationParametersService.create(applicationParameters);
+        // Then
+        assertEquals(applicationParameters.getApplicationParametersId(),
+                applicationParametersFound.getApplicationParametersId());
+    }
 
-		// Then
-		assertTrue(applicationParametersResult == applicationParametersSaved);
-	}
+    @Test
+    public void findAll()
+    {
+        // Given
+        List<ApplicationParametersEntity> applicationParametersEntitys = new ArrayList<ApplicationParametersEntity>();
+        ApplicationParametersEntity applicationParametersEntity1 = applicationParametersEntityFactoryForTest
+                .newApplicationParametersEntity();
+        applicationParametersEntitys.add(applicationParametersEntity1);
+        ApplicationParametersEntity applicationParametersEntity2 = applicationParametersEntityFactoryForTest
+                .newApplicationParametersEntity();
+        applicationParametersEntitys.add(applicationParametersEntity2);
+        when(applicationParametersJpaRepository.findAll()).thenReturn(applicationParametersEntitys);
 
-	@Test
-	public void createKOExists() {
-		// Given
-		ApplicationParameters applicationParameters = applicationParametersFactoryForTest.newApplicationParameters();
+        ApplicationParameters applicationParameters1 = applicationParametersFactoryForTest.newApplicationParameters();
+        when(
+                applicationParametersServiceMapper
+                        .mapApplicationParametersEntityToApplicationParameters(applicationParametersEntity1))
+                .thenReturn(applicationParameters1);
+        ApplicationParameters applicationParameters2 = applicationParametersFactoryForTest.newApplicationParameters();
+        when(
+                applicationParametersServiceMapper
+                        .mapApplicationParametersEntityToApplicationParameters(applicationParametersEntity2))
+                .thenReturn(applicationParameters2);
 
-		ApplicationParametersEntity applicationParametersEntity = applicationParametersEntityFactoryForTest.newApplicationParametersEntity();
-		when(applicationParametersJpaRepository.findOne(applicationParameters.getApplicationParametersId())).thenReturn(applicationParametersEntity);
+        // When
+        List<ApplicationParameters> applicationParameterssFounds = applicationParametersService.findAll();
 
-		// When
-		Exception exception = null;
-		try {
-			applicationParametersService.create(applicationParameters);
-		} catch(Exception e) {
-			exception = e;
-		}
+        // Then
+        assertTrue(applicationParameters1 == applicationParameterssFounds.get(0));
+        assertTrue(applicationParameters2 == applicationParameterssFounds.get(1));
+    }
 
-		// Then
-		assertTrue(exception instanceof IllegalStateException);
-		assertEquals("already.exists", exception.getMessage());
-	}
+    @Test
+    public void create()
+    {
+        // Given
+        ApplicationParameters applicationParameters = applicationParametersFactoryForTest.newApplicationParameters();
 
-	@Test
-	public void update() {
-		// Given
-		ApplicationParameters applicationParameters = applicationParametersFactoryForTest.newApplicationParameters();
+        ApplicationParametersEntity applicationParametersEntity = applicationParametersEntityFactoryForTest
+                .newApplicationParametersEntity();
+        when(applicationParametersJpaRepository.findOne(applicationParameters.getApplicationParametersId()))
+                .thenReturn(null);
 
-		ApplicationParametersEntity applicationParametersEntity = applicationParametersEntityFactoryForTest.newApplicationParametersEntity();
-		when(applicationParametersJpaRepository.findOne(applicationParameters.getApplicationParametersId())).thenReturn(applicationParametersEntity);
-		
-		ApplicationParametersEntity applicationParametersEntitySaved = applicationParametersEntityFactoryForTest.newApplicationParametersEntity();
-		when(applicationParametersJpaRepository.save(applicationParametersEntity)).thenReturn(applicationParametersEntitySaved);
-		
-		ApplicationParameters applicationParametersSaved = applicationParametersFactoryForTest.newApplicationParameters();
-		when(applicationParametersServiceMapper.mapApplicationParametersEntityToApplicationParameters(applicationParametersEntitySaved)).thenReturn(applicationParametersSaved);
+        applicationParametersEntity = new ApplicationParametersEntity();
+        applicationParametersServiceMapper.mapApplicationParametersToApplicationParametersEntity(applicationParameters,
+                applicationParametersEntity);
+        ApplicationParametersEntity applicationParametersEntitySaved = applicationParametersJpaRepository
+                .save(applicationParametersEntity);
 
-		// When
-		ApplicationParameters applicationParametersResult = applicationParametersService.update(applicationParameters);
+        ApplicationParameters applicationParametersSaved = applicationParametersFactoryForTest
+                .newApplicationParameters();
+        when(
+                applicationParametersServiceMapper
+                        .mapApplicationParametersEntityToApplicationParameters(applicationParametersEntitySaved))
+                .thenReturn(applicationParametersSaved);
 
-		// Then
-		verify(applicationParametersServiceMapper).mapApplicationParametersToApplicationParametersEntity(applicationParameters, applicationParametersEntity);
-		assertTrue(applicationParametersResult == applicationParametersSaved);
-	}
+        // When
+        ApplicationParameters applicationParametersResult = applicationParametersService.create(applicationParameters);
 
-	@Test
-	public void delete() {
-		// Given
-		Integer applicationParametersId = mockValues.nextInteger();
+        // Then
+        assertTrue(applicationParametersResult == applicationParametersSaved);
+    }
 
-		// When
-		applicationParametersService.delete(applicationParametersId);
+    @Test
+    public void createKOExists()
+    {
+        // Given
+        ApplicationParameters applicationParameters = applicationParametersFactoryForTest.newApplicationParameters();
 
-		// Then
-		verify(applicationParametersJpaRepository).delete(applicationParametersId);
-		
-	}
+        ApplicationParametersEntity applicationParametersEntity = applicationParametersEntityFactoryForTest
+                .newApplicationParametersEntity();
+        when(applicationParametersJpaRepository.findOne(applicationParameters.getApplicationParametersId()))
+                .thenReturn(applicationParametersEntity);
+
+        // When
+        Exception exception = null;
+        try
+        {
+            applicationParametersService.create(applicationParameters);
+        }
+        catch (Exception e)
+        {
+            exception = e;
+        }
+
+        // Then
+        assertTrue(exception instanceof IllegalStateException);
+        assertEquals("already.exists", exception.getMessage());
+    }
+
+    @Test
+    public void update()
+    {
+        // Given
+        ApplicationParameters applicationParameters = applicationParametersFactoryForTest.newApplicationParameters();
+
+        ApplicationParametersEntity applicationParametersEntity = applicationParametersEntityFactoryForTest
+                .newApplicationParametersEntity();
+        when(applicationParametersJpaRepository.findOne(applicationParameters.getApplicationParametersId()))
+                .thenReturn(applicationParametersEntity);
+
+        ApplicationParametersEntity applicationParametersEntitySaved = applicationParametersEntityFactoryForTest
+                .newApplicationParametersEntity();
+        when(applicationParametersJpaRepository.save(applicationParametersEntity)).thenReturn(
+                applicationParametersEntitySaved);
+
+        ApplicationParameters applicationParametersSaved = applicationParametersFactoryForTest
+                .newApplicationParameters();
+        when(
+                applicationParametersServiceMapper
+                        .mapApplicationParametersEntityToApplicationParameters(applicationParametersEntitySaved))
+                .thenReturn(applicationParametersSaved);
+
+        // When
+        ApplicationParameters applicationParametersResult = applicationParametersService.update(applicationParameters);
+
+        // Then
+        verify(applicationParametersServiceMapper).mapApplicationParametersToApplicationParametersEntity(
+                applicationParameters, applicationParametersEntity);
+        assertTrue(applicationParametersResult == applicationParametersSaved);
+    }
+
+    @Test
+    public void delete()
+    {
+        // Given
+        Integer applicationParametersId = mockValues.nextInteger();
+
+        // When
+        applicationParametersService.delete(applicationParametersId);
+
+        // Then
+        verify(applicationParametersJpaRepository).delete(applicationParametersId);
+
+    }
 
 }

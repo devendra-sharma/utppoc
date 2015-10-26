@@ -15,59 +15,70 @@ import org.springframework.stereotype.Component;
  * Mapping between entity beans and display beans.
  */
 @Component
-public class ProcessControlServiceMapper extends AbstractServiceMapper {
+public class ProcessControlServiceMapper extends AbstractServiceMapper
+{
 
     /**
      * ModelMapper : bean to bean mapping library.
      */
     private ModelMapper modelMapper;
-    
+
     /**
      * Constructor.
      */
-    public ProcessControlServiceMapper() {
+    public ProcessControlServiceMapper()
+    {
         modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
     }
 
     /**
      * Mapping from 'ProcessControlEntity' to 'ProcessControl'
+     * 
      * @param processControlEntity
      */
-    public ProcessControl mapProcessControlEntityToProcessControl(ProcessControlEntity processControlEntity) {
-        if(processControlEntity == null) {
+    public ProcessControl mapProcessControlEntityToProcessControl(ProcessControlEntity processControlEntity)
+    {
+        if (processControlEntity == null)
+        {
             return null;
         }
 
-        //--- Generic mapping 
+        // --- Generic mapping
         return map(processControlEntity, ProcessControl.class);
 
     }
-    
+
     /**
      * Mapping from 'ProcessControl' to 'ProcessControlEntity'
+     * 
      * @param processControl
      * @param processControlEntity
      */
-    public void mapProcessControlToProcessControlEntity(ProcessControl processControl, ProcessControlEntity processControlEntity) {
-        if(processControl == null) {
+    public void mapProcessControlToProcessControlEntity(ProcessControl processControl,
+            ProcessControlEntity processControlEntity)
+    {
+        if (processControl == null)
+        {
             return;
         }
 
-        //--- Generic mapping 
+        // --- Generic mapping
         map(processControl, processControlEntity);
 
     }
-    
+
     /**
      * {@inheritDoc}
      */
     @Override
-    protected ModelMapper getModelMapper() {
+    protected ModelMapper getModelMapper()
+    {
         return modelMapper;
     }
 
-    protected void setModelMapper(ModelMapper modelMapper) {
+    protected void setModelMapper(ModelMapper modelMapper)
+    {
         this.modelMapper = modelMapper;
     }
 

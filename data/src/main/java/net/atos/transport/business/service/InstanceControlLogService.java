@@ -11,23 +11,27 @@ import net.atos.transport.entity.InstanceControlLog;
 /**
  * Business Service Interface for entity InstanceControlLog.
  */
-public interface InstanceControlLogService { 
+public interface InstanceControlLogService
+{
 
     /**
      * Loads an entity from the database using its Primary Key
+     * 
      * @param iclId
      * @return entity
      */
-    InstanceControlLog findById( Integer iclId  ) ;
+    InstanceControlLog findById(Integer iclId);
 
     /**
      * Loads all entities.
+     * 
      * @return all entities
      */
     List<InstanceControlLog> findAll();
 
     /**
      * Saves the given entity in the database (create or update)
+     * 
      * @param entity
      * @return entity
      */
@@ -35,6 +39,7 @@ public interface InstanceControlLogService {
 
     /**
      * Updates the given entity in the database
+     * 
      * @param entity
      * @return
      */
@@ -42,6 +47,7 @@ public interface InstanceControlLogService {
 
     /**
      * Creates the given entity in the database
+     * 
      * @param entity
      * @return
      */
@@ -49,9 +55,9 @@ public interface InstanceControlLogService {
 
     /**
      * Deletes an entity using its Primary Key
+     * 
      * @param iclId
      */
-    void delete( Integer iclId );
-
+    void delete(Integer iclId);
 
 }

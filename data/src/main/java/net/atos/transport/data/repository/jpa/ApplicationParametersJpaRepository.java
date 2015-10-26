@@ -7,6 +7,8 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 /**
  * Repository : ApplicationParameters.
  */
-public interface ApplicationParametersJpaRepository extends PagingAndSortingRepository<ApplicationParametersEntity, Integer> {
+public interface ApplicationParametersJpaRepository extends
+        PagingAndSortingRepository<ApplicationParametersEntity, Integer>
+{
 
 }

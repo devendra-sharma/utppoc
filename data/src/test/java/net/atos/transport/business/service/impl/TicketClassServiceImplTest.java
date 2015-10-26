@@ -31,137 +31,151 @@ import org.mockito.runners.MockitoJUnitRunner;
  * Test : Implementation of TicketClassService
  */
 @RunWith(MockitoJUnitRunner.class)
-public class TicketClassServiceImplTest {
+public class TicketClassServiceImplTest
+{
 
-	@InjectMocks
-	private TicketClassServiceImpl ticketClassService;
-	@Mock
-	private TicketClassJpaRepository ticketClassJpaRepository;
-	@Mock
-	private TicketClassServiceMapper ticketClassServiceMapper;
-	
-	private TicketClassFactoryForTest ticketClassFactoryForTest = new TicketClassFactoryForTest();
+    @InjectMocks
+    private TicketClassServiceImpl ticketClassService;
 
-	private TicketClassEntityFactoryForTest ticketClassEntityFactoryForTest = new TicketClassEntityFactoryForTest();
+    @Mock
+    private TicketClassJpaRepository ticketClassJpaRepository;
 
-	private MockValues mockValues = new MockValues();
-	
-	@Test
-	public void findById() {
-		// Given
-		Integer ticId = mockValues.nextInteger();
-		
-		TicketClassEntity ticketClassEntity = ticketClassJpaRepository.findOne(ticId);
-		
-		TicketClass ticketClass = ticketClassFactoryForTest.newTicketClass();
-		when(ticketClassServiceMapper.mapTicketClassEntityToTicketClass(ticketClassEntity)).thenReturn(ticketClass);
+    @Mock
+    private TicketClassServiceMapper ticketClassServiceMapper;
 
-		// When
-		TicketClass ticketClassFound = ticketClassService.findById(ticId);
+    private TicketClassFactoryForTest ticketClassFactoryForTest = new TicketClassFactoryForTest();
 
-		// Then
-		assertEquals(ticketClass.getTicId(),ticketClassFound.getTicId());
-	}
+    private TicketClassEntityFactoryForTest ticketClassEntityFactoryForTest = new TicketClassEntityFactoryForTest();
 
-	@Test
-	public void findAll() {
-		// Given
-		List<TicketClassEntity> ticketClassEntitys = new ArrayList<TicketClassEntity>();
-		TicketClassEntity ticketClassEntity1 = ticketClassEntityFactoryForTest.newTicketClassEntity();
-		ticketClassEntitys.add(ticketClassEntity1);
-		TicketClassEntity ticketClassEntity2 = ticketClassEntityFactoryForTest.newTicketClassEntity();
-		ticketClassEntitys.add(ticketClassEntity2);
-		when(ticketClassJpaRepository.findAll()).thenReturn(ticketClassEntitys);
-		
-		TicketClass ticketClass1 = ticketClassFactoryForTest.newTicketClass();
-		when(ticketClassServiceMapper.mapTicketClassEntityToTicketClass(ticketClassEntity1)).thenReturn(ticketClass1);
-		TicketClass ticketClass2 = ticketClassFactoryForTest.newTicketClass();
-		when(ticketClassServiceMapper.mapTicketClassEntityToTicketClass(ticketClassEntity2)).thenReturn(ticketClass2);
+    private MockValues mockValues = new MockValues();
 
-		// When
-		List<TicketClass> ticketClasssFounds = ticketClassService.findAll();
+    @Test
+    public void findById()
+    {
+        // Given
+        Integer ticId = mockValues.nextInteger();
 
-		// Then
-		assertTrue(ticketClass1 == ticketClasssFounds.get(0));
-		assertTrue(ticketClass2 == ticketClasssFounds.get(1));
-	}
+        TicketClassEntity ticketClassEntity = ticketClassJpaRepository.findOne(ticId);
 
-	@Test
-	public void create() {
-		// Given
-		TicketClass ticketClass = ticketClassFactoryForTest.newTicketClass();
+        TicketClass ticketClass = ticketClassFactoryForTest.newTicketClass();
+        when(ticketClassServiceMapper.mapTicketClassEntityToTicketClass(ticketClassEntity)).thenReturn(ticketClass);
 
-		TicketClassEntity ticketClassEntity = ticketClassEntityFactoryForTest.newTicketClassEntity();
-		when(ticketClassJpaRepository.findOne(ticketClass.getTicId())).thenReturn(null);
-		
-		ticketClassEntity = new TicketClassEntity();
-		ticketClassServiceMapper.mapTicketClassToTicketClassEntity(ticketClass, ticketClassEntity);
-		TicketClassEntity ticketClassEntitySaved = ticketClassJpaRepository.save(ticketClassEntity);
-		
-		TicketClass ticketClassSaved = ticketClassFactoryForTest.newTicketClass();
-		when(ticketClassServiceMapper.mapTicketClassEntityToTicketClass(ticketClassEntitySaved)).thenReturn(ticketClassSaved);
+        // When
+        TicketClass ticketClassFound = ticketClassService.findById(ticId);
 
-		// When
-		TicketClass ticketClassResult = ticketClassService.create(ticketClass);
+        // Then
+        assertEquals(ticketClass.getTicId(), ticketClassFound.getTicId());
+    }
 
-		// Then
-		assertTrue(ticketClassResult == ticketClassSaved);
-	}
+    @Test
+    public void findAll()
+    {
+        // Given
+        List<TicketClassEntity> ticketClassEntitys = new ArrayList<TicketClassEntity>();
+        TicketClassEntity ticketClassEntity1 = ticketClassEntityFactoryForTest.newTicketClassEntity();
+        ticketClassEntitys.add(ticketClassEntity1);
+        TicketClassEntity ticketClassEntity2 = ticketClassEntityFactoryForTest.newTicketClassEntity();
+        ticketClassEntitys.add(ticketClassEntity2);
+        when(ticketClassJpaRepository.findAll()).thenReturn(ticketClassEntitys);
 
-	@Test
-	public void createKOExists() {
-		// Given
-		TicketClass ticketClass = ticketClassFactoryForTest.newTicketClass();
+        TicketClass ticketClass1 = ticketClassFactoryForTest.newTicketClass();
+        when(ticketClassServiceMapper.mapTicketClassEntityToTicketClass(ticketClassEntity1)).thenReturn(ticketClass1);
+        TicketClass ticketClass2 = ticketClassFactoryForTest.newTicketClass();
+        when(ticketClassServiceMapper.mapTicketClassEntityToTicketClass(ticketClassEntity2)).thenReturn(ticketClass2);
 
-		TicketClassEntity ticketClassEntity = ticketClassEntityFactoryForTest.newTicketClassEntity();
-		when(ticketClassJpaRepository.findOne(ticketClass.getTicId())).thenReturn(ticketClassEntity);
+        // When
+        List<TicketClass> ticketClasssFounds = ticketClassService.findAll();
 
-		// When
-		Exception exception = null;
-		try {
-			ticketClassService.create(ticketClass);
-		} catch(Exception e) {
-			exception = e;
-		}
+        // Then
+        assertTrue(ticketClass1 == ticketClasssFounds.get(0));
+        assertTrue(ticketClass2 == ticketClasssFounds.get(1));
+    }
 
-		// Then
-		assertTrue(exception instanceof IllegalStateException);
-		assertEquals("already.exists", exception.getMessage());
-	}
+    @Test
+    public void create()
+    {
+        // Given
+        TicketClass ticketClass = ticketClassFactoryForTest.newTicketClass();
 
-	@Test
-	public void update() {
-		// Given
-		TicketClass ticketClass = ticketClassFactoryForTest.newTicketClass();
+        TicketClassEntity ticketClassEntity = ticketClassEntityFactoryForTest.newTicketClassEntity();
+        when(ticketClassJpaRepository.findOne(ticketClass.getTicId())).thenReturn(null);
 
-		TicketClassEntity ticketClassEntity = ticketClassEntityFactoryForTest.newTicketClassEntity();
-		when(ticketClassJpaRepository.findOne(ticketClass.getTicId())).thenReturn(ticketClassEntity);
-		
-		TicketClassEntity ticketClassEntitySaved = ticketClassEntityFactoryForTest.newTicketClassEntity();
-		when(ticketClassJpaRepository.save(ticketClassEntity)).thenReturn(ticketClassEntitySaved);
-		
-		TicketClass ticketClassSaved = ticketClassFactoryForTest.newTicketClass();
-		when(ticketClassServiceMapper.mapTicketClassEntityToTicketClass(ticketClassEntitySaved)).thenReturn(ticketClassSaved);
+        ticketClassEntity = new TicketClassEntity();
+        ticketClassServiceMapper.mapTicketClassToTicketClassEntity(ticketClass, ticketClassEntity);
+        TicketClassEntity ticketClassEntitySaved = ticketClassJpaRepository.save(ticketClassEntity);
 
-		// When
-		TicketClass ticketClassResult = ticketClassService.update(ticketClass);
+        TicketClass ticketClassSaved = ticketClassFactoryForTest.newTicketClass();
+        when(ticketClassServiceMapper.mapTicketClassEntityToTicketClass(ticketClassEntitySaved)).thenReturn(
+                ticketClassSaved);
 
-		// Then
-		verify(ticketClassServiceMapper).mapTicketClassToTicketClassEntity(ticketClass, ticketClassEntity);
-		assertTrue(ticketClassResult == ticketClassSaved);
-	}
+        // When
+        TicketClass ticketClassResult = ticketClassService.create(ticketClass);
 
-	@Test
-	public void delete() {
-		// Given
-		Integer ticId = mockValues.nextInteger();
+        // Then
+        assertTrue(ticketClassResult == ticketClassSaved);
+    }
 
-		// When
-		ticketClassService.delete(ticId);
+    @Test
+    public void createKOExists()
+    {
+        // Given
+        TicketClass ticketClass = ticketClassFactoryForTest.newTicketClass();
 
-		// Then
-		verify(ticketClassJpaRepository).delete(ticId);
-		
-	}
+        TicketClassEntity ticketClassEntity = ticketClassEntityFactoryForTest.newTicketClassEntity();
+        when(ticketClassJpaRepository.findOne(ticketClass.getTicId())).thenReturn(ticketClassEntity);
+
+        // When
+        Exception exception = null;
+        try
+        {
+            ticketClassService.create(ticketClass);
+        }
+        catch (Exception e)
+        {
+            exception = e;
+        }
+
+        // Then
+        assertTrue(exception instanceof IllegalStateException);
+        assertEquals("already.exists", exception.getMessage());
+    }
+
+    @Test
+    public void update()
+    {
+        // Given
+        TicketClass ticketClass = ticketClassFactoryForTest.newTicketClass();
+
+        TicketClassEntity ticketClassEntity = ticketClassEntityFactoryForTest.newTicketClassEntity();
+        when(ticketClassJpaRepository.findOne(ticketClass.getTicId())).thenReturn(ticketClassEntity);
+
+        TicketClassEntity ticketClassEntitySaved = ticketClassEntityFactoryForTest.newTicketClassEntity();
+        when(ticketClassJpaRepository.save(ticketClassEntity)).thenReturn(ticketClassEntitySaved);
+
+        TicketClass ticketClassSaved = ticketClassFactoryForTest.newTicketClass();
+        when(ticketClassServiceMapper.mapTicketClassEntityToTicketClass(ticketClassEntitySaved)).thenReturn(
+                ticketClassSaved);
+
+        // When
+        TicketClass ticketClassResult = ticketClassService.update(ticketClass);
+
+        // Then
+        verify(ticketClassServiceMapper).mapTicketClassToTicketClassEntity(ticketClass, ticketClassEntity);
+        assertTrue(ticketClassResult == ticketClassSaved);
+    }
+
+    @Test
+    public void delete()
+    {
+        // Given
+        Integer ticId = mockValues.nextInteger();
+
+        // When
+        ticketClassService.delete(ticId);
+
+        // Then
+        verify(ticketClassJpaRepository).delete(ticId);
+
+    }
 
 }

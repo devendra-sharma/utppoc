@@ -23,39 +23,46 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Component
 @Transactional
-public class YearServiceImpl implements YearService {
+public class YearServiceImpl implements YearService
+{
 
     @Resource
     private YearJpaRepository yearJpaRepository;
 
     @Resource
     private YearServiceMapper yearServiceMapper;
-    
+
     @Override
-    public Year findById(Integer year) {
+    public Year findById(Integer year)
+    {
         YearEntity yearEntity = yearJpaRepository.findOne(year);
         return yearServiceMapper.mapYearEntityToYear(yearEntity);
     }
 
     @Override
-    public List<Year> findAll() {
+    public List<Year> findAll()
+    {
         Iterable<YearEntity> entities = yearJpaRepository.findAll();
         List<Year> beans = new ArrayList<Year>();
-        for(YearEntity yearEntity : entities) {
+        for (YearEntity yearEntity : entities)
+        {
             beans.add(yearServiceMapper.mapYearEntityToYear(yearEntity));
         }
         return beans;
     }
 
     @Override
-    public Year save(Year year) {
-        return update(year) ;
+    public Year save(Year year)
+    {
+        return update(year);
     }
 
     @Override
-    public Year create(Year year) {
+    public Year create(Year year)
+    {
         YearEntity yearEntity = yearJpaRepository.findOne(year.getYear());
-        if( yearEntity != null ) {
+        if (yearEntity != null)
+        {
             throw new IllegalStateException("already.exists");
         }
         yearEntity = new YearEntity();
@@ -65,7 +72,8 @@ public class YearServiceImpl implements YearService {
     }
 
     @Override
-    public Year update(Year year) {
+    public Year update(Year year)
+    {
         YearEntity yearEntity = yearJpaRepository.findOne(year.getYear());
         yearServiceMapper.mapYearToYearEntity(year, yearEntity);
         YearEntity yearEntitySaved = yearJpaRepository.save(yearEntity);
@@ -73,23 +81,28 @@ public class YearServiceImpl implements YearService {
     }
 
     @Override
-    public void delete(Integer year) {
+    public void delete(Integer year)
+    {
         yearJpaRepository.delete(year);
     }
 
-    public YearJpaRepository getYearJpaRepository() {
+    public YearJpaRepository getYearJpaRepository()
+    {
         return yearJpaRepository;
     }
 
-    public void setYearJpaRepository(YearJpaRepository yearJpaRepository) {
+    public void setYearJpaRepository(YearJpaRepository yearJpaRepository)
+    {
         this.yearJpaRepository = yearJpaRepository;
     }
 
-    public YearServiceMapper getYearServiceMapper() {
+    public YearServiceMapper getYearServiceMapper()
+    {
         return yearServiceMapper;
     }
 
-    public void setYearServiceMapper(YearServiceMapper yearServiceMapper) {
+    public void setYearServiceMapper(YearServiceMapper yearServiceMapper)
+    {
         this.yearServiceMapper = yearServiceMapper;
     }
 

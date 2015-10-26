@@ -23,39 +23,46 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Component
 @Transactional
-public class TicketStatusServiceImpl implements TicketStatusService {
+public class TicketStatusServiceImpl implements TicketStatusService
+{
 
     @Resource
     private TicketStatusJpaRepository ticketStatusJpaRepository;
 
     @Resource
     private TicketStatusServiceMapper ticketStatusServiceMapper;
-    
+
     @Override
-    public TicketStatus findById(Integer tisId) {
+    public TicketStatus findById(Integer tisId)
+    {
         TicketStatusEntity ticketStatusEntity = ticketStatusJpaRepository.findOne(tisId);
         return ticketStatusServiceMapper.mapTicketStatusEntityToTicketStatus(ticketStatusEntity);
     }
 
     @Override
-    public List<TicketStatus> findAll() {
+    public List<TicketStatus> findAll()
+    {
         Iterable<TicketStatusEntity> entities = ticketStatusJpaRepository.findAll();
         List<TicketStatus> beans = new ArrayList<TicketStatus>();
-        for(TicketStatusEntity ticketStatusEntity : entities) {
+        for (TicketStatusEntity ticketStatusEntity : entities)
+        {
             beans.add(ticketStatusServiceMapper.mapTicketStatusEntityToTicketStatus(ticketStatusEntity));
         }
         return beans;
     }
 
     @Override
-    public TicketStatus save(TicketStatus ticketStatus) {
-        return update(ticketStatus) ;
+    public TicketStatus save(TicketStatus ticketStatus)
+    {
+        return update(ticketStatus);
     }
 
     @Override
-    public TicketStatus create(TicketStatus ticketStatus) {
+    public TicketStatus create(TicketStatus ticketStatus)
+    {
         TicketStatusEntity ticketStatusEntity = ticketStatusJpaRepository.findOne(ticketStatus.getTisId());
-        if( ticketStatusEntity != null ) {
+        if (ticketStatusEntity != null)
+        {
             throw new IllegalStateException("already.exists");
         }
         ticketStatusEntity = new TicketStatusEntity();
@@ -65,7 +72,8 @@ public class TicketStatusServiceImpl implements TicketStatusService {
     }
 
     @Override
-    public TicketStatus update(TicketStatus ticketStatus) {
+    public TicketStatus update(TicketStatus ticketStatus)
+    {
         TicketStatusEntity ticketStatusEntity = ticketStatusJpaRepository.findOne(ticketStatus.getTisId());
         ticketStatusServiceMapper.mapTicketStatusToTicketStatusEntity(ticketStatus, ticketStatusEntity);
         TicketStatusEntity ticketStatusEntitySaved = ticketStatusJpaRepository.save(ticketStatusEntity);
@@ -73,23 +81,28 @@ public class TicketStatusServiceImpl implements TicketStatusService {
     }
 
     @Override
-    public void delete(Integer tisId) {
+    public void delete(Integer tisId)
+    {
         ticketStatusJpaRepository.delete(tisId);
     }
 
-    public TicketStatusJpaRepository getTicketStatusJpaRepository() {
+    public TicketStatusJpaRepository getTicketStatusJpaRepository()
+    {
         return ticketStatusJpaRepository;
     }
 
-    public void setTicketStatusJpaRepository(TicketStatusJpaRepository ticketStatusJpaRepository) {
+    public void setTicketStatusJpaRepository(TicketStatusJpaRepository ticketStatusJpaRepository)
+    {
         this.ticketStatusJpaRepository = ticketStatusJpaRepository;
     }
 
-    public TicketStatusServiceMapper getTicketStatusServiceMapper() {
+    public TicketStatusServiceMapper getTicketStatusServiceMapper()
+    {
         return ticketStatusServiceMapper;
     }
 
-    public void setTicketStatusServiceMapper(TicketStatusServiceMapper ticketStatusServiceMapper) {
+    public void setTicketStatusServiceMapper(TicketStatusServiceMapper ticketStatusServiceMapper)
+    {
         this.ticketStatusServiceMapper = ticketStatusServiceMapper;
     }
 

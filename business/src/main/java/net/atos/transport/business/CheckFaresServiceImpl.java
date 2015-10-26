@@ -23,7 +23,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CheckFaresServiceImpl implements CheckFaresService {
+public class CheckFaresServiceImpl implements CheckFaresService
+{
 
     @Autowired
     private LocationService locationService;
@@ -41,98 +42,115 @@ public class CheckFaresServiceImpl implements CheckFaresService {
     private FaresCheckingExclusionService faresService;
 
     private AtomicInteger counter = new AtomicInteger();
-    
+
     @Override
-    public CodeBookDetailsDTO checkFares(CheckFaresDTO checkFares)
-            throws UTPException {
+    public CodeBookDetailsDTO checkFares(CheckFaresDTO checkFares) throws UTPException
+    {
         RetailItemDTO retailItem = checkFares.getRetailItem();
 
         String originlocation = this.getLocation(retailItem.getOriginLocId());
-        String destinationLocation = this.getLocation(retailItem
-                .getDestinationLocId());
-        String sellingLocation = this.getLocation(retailItem
-                .getSellingLocationLocId());
+        String destinationLocation = this.getLocation(retailItem.getDestinationLocId());
+        String sellingLocation = this.getLocation(retailItem.getSellingLocationLocId());
         String routeCode = this.getRouteCode(retailItem.getRouteRouId());
         String ticketCode = this.getTicketCode(retailItem.getTicketStatusTisId());
         String productCode = this.getProductCode(retailItem.getProductProId());
 
-        return this.getCodeBookDetailsDTO(originlocation, destinationLocation,
-                sellingLocation, routeCode, ticketCode, productCode, retailItem);
+        return this.getCodeBookDetailsDTO(originlocation, destinationLocation, sellingLocation, routeCode, ticketCode,
+                productCode, retailItem);
 
     }
 
-    private String getLocation(Long id) throws UTPException {
+    private String getLocation(Long id) throws UTPException
+    {
         Location location = locationService.findById(id.intValue());
-        if (location != null) {
+        if (location != null)
+        {
 
             return location.getLocation();
-        } else {
-            throw new UTPException("Location entry not found for location Id: "
-                    + id);
+        }
+        else
+        {
+            throw new UTPException("Location entry not found for location Id: " + id);
         }
     }
 
-    private String getRouteCode(Long id) throws UTPException {
+    private String getRouteCode(Long id) throws UTPException
+    {
         Route route = routeService.findById(id.intValue());
-        if (route != null) {
+        if (route != null)
+        {
             return route.getRouteCode();
-        } else {
+        }
+        else
+        {
             throw new UTPException(AppConstants.ROUTE_ENTRY_EXCEPTION + id);
         }
     }
 
-    private String getTicketCode(Long id) throws UTPException {
+    private String getTicketCode(Long id) throws UTPException
+    {
         TicketStatus tickStatus = ticketStatusService.findById(id.intValue());
-        if (tickStatus != null) {
+        if (tickStatus != null)
+        {
             return tickStatus.getTicketStatusCode();
-        } else {
+        }
+        else
+        {
             throw new UTPException(AppConstants.ROUTE_ENTRY_EXCEPTION + id);
         }
     }
 
-    private String getProductCode(Long id) throws UTPException {
+    private String getProductCode(Long id) throws UTPException
+    {
         Product tickStatus = productService.findById(id.intValue());
-        if (tickStatus != null) {
+        if (tickStatus != null)
+        {
             return tickStatus.getProductCode();
-        } else {
+        }
+        else
+        {
             throw new UTPException(AppConstants.ROUTE_ENTRY_EXCEPTION + id);
         }
     }
 
-    private CodeBookDetailsDTO getCodeBookDetailsDTO(String originlocation,
-            String destinationLocation, String sellingLocation,
-            String routeCode, String ticketCode, String productCode, RetailItemDTO retailItem) {
+    private CodeBookDetailsDTO getCodeBookDetailsDTO(String originlocation, String destinationLocation,
+            String sellingLocation, String routeCode, String ticketCode, String productCode, RetailItemDTO retailItem)
+    {
 
-        FaresCheckingExclusion exclusion = faresService
-                .getFaresExclusionByParams(sellingLocation, originlocation,
-                        destinationLocation, routeCode, productCode, ticketCode);
+        FaresCheckingExclusion exclusion = faresService.getFaresExclusionByParams(sellingLocation, originlocation,
+                destinationLocation, routeCode, productCode, ticketCode);
         CodeBookDetailsDTO codeBookDetailsDTO = new CodeBookDetailsDTO();
-        codeBookDetailsDTO.setFaresCheckingResult(productCode+"0");
+        codeBookDetailsDTO.setFaresCheckingResult(productCode + "0");
         codeBookDetailsDTO.setGeneratingRetailItem(getRetailItemValue());
-        if (exclusion != null) {
-            codeBookDetailsDTO
-                    .setFcFullFare(Long.parseLong(exclusion.getFare()));
+        if (exclusion != null)
+        {
+            codeBookDetailsDTO.setFcFullFare(Long.parseLong(exclusion.getFare()));
             Date effectFrom = exclusion.getWithEffectFrom();
             Date effectTo = exclusion.getWithEffectUntil();
-            
-            if (retailItem.getDateOfTravel().after(effectFrom)
-                    && retailItem.getDateOfTravel().before(effectTo)) {
+
+            if (retailItem.getDateOfTravel().after(effectFrom) && retailItem.getDateOfTravel().before(effectTo))
+            {
                 codeBookDetailsDTO.setCobId(1L);
-            } else {
+            }
+            else
+            {
                 codeBookDetailsDTO.setCobId(0L);
             }
-        } else {
+        }
+        else
+        {
             codeBookDetailsDTO.setCobId(0L);
         }
 
         return codeBookDetailsDTO;
     }
-    
-    private String getRetailItemValue() {
-        StringBuilder value = new StringBuilder(String.valueOf(counter
-                .getAndIncrement()));
+
+    private String getRetailItemValue()
+    {
+        StringBuilder value = new StringBuilder(String.valueOf(counter.getAndIncrement()));
         int length = value.length();
-        for (int i = 1; i <= 10 - length; i++) {
+        for (int i = 1; i <= 10 - length; i++)
+        {
             value.append("0");
         }
         return value.toString();

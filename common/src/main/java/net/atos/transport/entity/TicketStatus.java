@@ -10,97 +10,109 @@ import java.math.BigDecimal;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-public class TicketStatus extends Common implements Serializable {
+public class TicketStatus extends Common implements Serializable
+{
 
     private static final long serialVersionUID = 1L;
 
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // ENTITY PRIMARY KEY ( BASED ON A SINGLE FIELD )
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     @NotNull
     private Integer tisId;
 
-    //----------------------------------------------------------------------
-    // ENTITY DATA FIELDS 
-    //----------------------------------------------------------------------    
-    
+    // ----------------------------------------------------------------------
+    // ENTITY DATA FIELDS
+    // ----------------------------------------------------------------------
 
-    @Size( max = 3 )
+    @Size(max = 3)
     private String ticketStatusCode;
 
-    @Size( max = 32 )
+    @Size(max = 32)
     private String ticketStatusDescription;
-
 
     private BigDecimal percentDiscount;
 
-    @Size( max = 32 )
+    @Size(max = 32)
     private String ratRailcardTypeDesc;
 
-    @Size( max = 32 )
+    @Size(max = 32)
     private String ticketStatusTypeDesc;
 
-
-
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // GETTER & SETTER FOR THE KEY FIELD
-    //----------------------------------------------------------------------
-    public void setTisId( Integer tisId ) {
-        this.tisId = tisId ;
+    // ----------------------------------------------------------------------
+    public void setTisId(Integer tisId)
+    {
+        this.tisId = tisId;
     }
 
-    public Integer getTisId() {
+    public Integer getTisId()
+    {
         return this.tisId;
     }
 
-
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // GETTERS & SETTERS FOR FIELDS
-    //----------------------------------------------------------------------
-    
+    // ----------------------------------------------------------------------
 
-    public void setTicketStatusCode( String ticketStatusCode ) {
+    public void setTicketStatusCode(String ticketStatusCode)
+    {
         this.ticketStatusCode = ticketStatusCode;
     }
-    public String getTicketStatusCode() {
+
+    public String getTicketStatusCode()
+    {
         return this.ticketStatusCode;
     }
 
-    public void setTicketStatusDescription( String ticketStatusDescription ) {
+    public void setTicketStatusDescription(String ticketStatusDescription)
+    {
         this.ticketStatusDescription = ticketStatusDescription;
     }
-    public String getTicketStatusDescription() {
+
+    public String getTicketStatusDescription()
+    {
         return this.ticketStatusDescription;
     }
 
-    public void setPercentDiscount( BigDecimal percentDiscount ) {
+    public void setPercentDiscount(BigDecimal percentDiscount)
+    {
         this.percentDiscount = percentDiscount;
     }
-    public BigDecimal getPercentDiscount() {
+
+    public BigDecimal getPercentDiscount()
+    {
         return this.percentDiscount;
     }
 
-    public void setRatRailcardTypeDesc( String ratRailcardTypeDesc ) {
+    public void setRatRailcardTypeDesc(String ratRailcardTypeDesc)
+    {
         this.ratRailcardTypeDesc = ratRailcardTypeDesc;
     }
-    public String getRatRailcardTypeDesc() {
+
+    public String getRatRailcardTypeDesc()
+    {
         return this.ratRailcardTypeDesc;
     }
 
-    public void setTicketStatusTypeDesc( String ticketStatusTypeDesc ) {
+    public void setTicketStatusTypeDesc(String ticketStatusTypeDesc)
+    {
         this.ticketStatusTypeDesc = ticketStatusTypeDesc;
     }
-    public String getTicketStatusTypeDesc() {
+
+    public String getTicketStatusTypeDesc()
+    {
         return this.ticketStatusTypeDesc;
     }
 
-
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // toString METHOD
-    //----------------------------------------------------------------------
-        @Override
-        public String toString() { 
-        StringBuilder sb = new StringBuilder(); 
+    // ----------------------------------------------------------------------
+    @Override
+    public String toString()
+    {
+        StringBuilder sb = new StringBuilder();
         sb.append(tisId);
         sb.append("|");
         sb.append(getExpired());
@@ -118,8 +130,7 @@ public class TicketStatus extends Common implements Serializable {
         sb.append(ratRailcardTypeDesc);
         sb.append("|");
         sb.append(ticketStatusTypeDesc);
-        return sb.toString(); 
-    } 
-
+        return sb.toString();
+    }
 
 }

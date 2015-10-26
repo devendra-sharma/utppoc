@@ -23,73 +23,96 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Component
 @Transactional
-public class InstanceControlLogServiceImpl implements InstanceControlLogService {
+public class InstanceControlLogServiceImpl implements InstanceControlLogService
+{
 
     @Resource
     private InstanceControlLogJpaRepository instanceControlLogJpaRepository;
 
     @Resource
     private InstanceControlLogServiceMapper instanceControlLogServiceMapper;
-    
+
     @Override
-    public InstanceControlLog findById(Integer iclId) {
+    public InstanceControlLog findById(Integer iclId)
+    {
         InstanceControlLogEntity instanceControlLogEntity = instanceControlLogJpaRepository.findOne(iclId);
-        return instanceControlLogServiceMapper.mapInstanceControlLogEntityToInstanceControlLog(instanceControlLogEntity);
+        return instanceControlLogServiceMapper
+                .mapInstanceControlLogEntityToInstanceControlLog(instanceControlLogEntity);
     }
 
     @Override
-    public List<InstanceControlLog> findAll() {
+    public List<InstanceControlLog> findAll()
+    {
         Iterable<InstanceControlLogEntity> entities = instanceControlLogJpaRepository.findAll();
         List<InstanceControlLog> beans = new ArrayList<InstanceControlLog>();
-        for(InstanceControlLogEntity instanceControlLogEntity : entities) {
-            beans.add(instanceControlLogServiceMapper.mapInstanceControlLogEntityToInstanceControlLog(instanceControlLogEntity));
+        for (InstanceControlLogEntity instanceControlLogEntity : entities)
+        {
+            beans.add(instanceControlLogServiceMapper
+                    .mapInstanceControlLogEntityToInstanceControlLog(instanceControlLogEntity));
         }
         return beans;
     }
 
     @Override
-    public InstanceControlLog save(InstanceControlLog instanceControlLog) {
-        return update(instanceControlLog) ;
+    public InstanceControlLog save(InstanceControlLog instanceControlLog)
+    {
+        return update(instanceControlLog);
     }
 
     @Override
-    public InstanceControlLog create(InstanceControlLog instanceControlLog) {
-        InstanceControlLogEntity instanceControlLogEntity = instanceControlLogJpaRepository.findOne(instanceControlLog.getIclId());
-        if( instanceControlLogEntity != null ) {
+    public InstanceControlLog create(InstanceControlLog instanceControlLog)
+    {
+        InstanceControlLogEntity instanceControlLogEntity = instanceControlLogJpaRepository.findOne(instanceControlLog
+                .getIclId());
+        if (instanceControlLogEntity != null)
+        {
             throw new IllegalStateException("already.exists");
         }
         instanceControlLogEntity = new InstanceControlLogEntity();
-        instanceControlLogServiceMapper.mapInstanceControlLogToInstanceControlLogEntity(instanceControlLog, instanceControlLogEntity);
-        InstanceControlLogEntity instanceControlLogEntitySaved = instanceControlLogJpaRepository.save(instanceControlLogEntity);
-        return instanceControlLogServiceMapper.mapInstanceControlLogEntityToInstanceControlLog(instanceControlLogEntitySaved);
+        instanceControlLogServiceMapper.mapInstanceControlLogToInstanceControlLogEntity(instanceControlLog,
+                instanceControlLogEntity);
+        InstanceControlLogEntity instanceControlLogEntitySaved = instanceControlLogJpaRepository
+                .save(instanceControlLogEntity);
+        return instanceControlLogServiceMapper
+                .mapInstanceControlLogEntityToInstanceControlLog(instanceControlLogEntitySaved);
     }
 
     @Override
-    public InstanceControlLog update(InstanceControlLog instanceControlLog) {
-        InstanceControlLogEntity instanceControlLogEntity = instanceControlLogJpaRepository.findOne(instanceControlLog.getIclId());
-        instanceControlLogServiceMapper.mapInstanceControlLogToInstanceControlLogEntity(instanceControlLog, instanceControlLogEntity);
-        InstanceControlLogEntity instanceControlLogEntitySaved = instanceControlLogJpaRepository.save(instanceControlLogEntity);
-        return instanceControlLogServiceMapper.mapInstanceControlLogEntityToInstanceControlLog(instanceControlLogEntitySaved);
+    public InstanceControlLog update(InstanceControlLog instanceControlLog)
+    {
+        InstanceControlLogEntity instanceControlLogEntity = instanceControlLogJpaRepository.findOne(instanceControlLog
+                .getIclId());
+        instanceControlLogServiceMapper.mapInstanceControlLogToInstanceControlLogEntity(instanceControlLog,
+                instanceControlLogEntity);
+        InstanceControlLogEntity instanceControlLogEntitySaved = instanceControlLogJpaRepository
+                .save(instanceControlLogEntity);
+        return instanceControlLogServiceMapper
+                .mapInstanceControlLogEntityToInstanceControlLog(instanceControlLogEntitySaved);
     }
 
     @Override
-    public void delete(Integer iclId) {
+    public void delete(Integer iclId)
+    {
         instanceControlLogJpaRepository.delete(iclId);
     }
 
-    public InstanceControlLogJpaRepository getInstanceControlLogJpaRepository() {
+    public InstanceControlLogJpaRepository getInstanceControlLogJpaRepository()
+    {
         return instanceControlLogJpaRepository;
     }
 
-    public void setInstanceControlLogJpaRepository(InstanceControlLogJpaRepository instanceControlLogJpaRepository) {
+    public void setInstanceControlLogJpaRepository(InstanceControlLogJpaRepository instanceControlLogJpaRepository)
+    {
         this.instanceControlLogJpaRepository = instanceControlLogJpaRepository;
     }
 
-    public InstanceControlLogServiceMapper getInstanceControlLogServiceMapper() {
+    public InstanceControlLogServiceMapper getInstanceControlLogServiceMapper()
+    {
         return instanceControlLogServiceMapper;
     }
 
-    public void setInstanceControlLogServiceMapper(InstanceControlLogServiceMapper instanceControlLogServiceMapper) {
+    public void setInstanceControlLogServiceMapper(InstanceControlLogServiceMapper instanceControlLogServiceMapper)
+    {
         this.instanceControlLogServiceMapper = instanceControlLogServiceMapper;
     }
 

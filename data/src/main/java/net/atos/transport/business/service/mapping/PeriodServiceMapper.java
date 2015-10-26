@@ -16,71 +16,87 @@ import org.springframework.stereotype.Component;
  * Mapping between entity beans and display beans.
  */
 @Component
-public class PeriodServiceMapper extends AbstractServiceMapper {
+public class PeriodServiceMapper extends AbstractServiceMapper
+{
 
     /**
      * ModelMapper : bean to bean mapping library.
      */
     private ModelMapper modelMapper;
-    
+
     /**
      * Constructor.
      */
-    public PeriodServiceMapper() {
+    public PeriodServiceMapper()
+    {
         modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
     }
 
     /**
      * Mapping from 'PeriodEntity' to 'Period'
+     * 
      * @param periodEntity
      */
-    public Period mapPeriodEntityToPeriod(PeriodEntity periodEntity) {
-        if(periodEntity == null) {
+    public Period mapPeriodEntityToPeriod(PeriodEntity periodEntity)
+    {
+        if (periodEntity == null)
+        {
             return null;
         }
 
-        //--- Generic mapping 
+        // --- Generic mapping
         Period period = map(periodEntity, Period.class);
 
-        //--- Link mapping ( link to Year )
-        if(periodEntity.getYear2() != null) {
+        // --- Link mapping ( link to Year )
+        if (periodEntity.getYear2() != null)
+        {
             period.setYear(periodEntity.getYear2().getYear());
         }
         return period;
     }
-    
+
     /**
      * Mapping from 'Period' to 'PeriodEntity'
+     * 
      * @param period
      * @param periodEntity
      */
-    public void mapPeriodToPeriodEntity(Period period, PeriodEntity periodEntity) {
-        if(period == null) {
+    public void mapPeriodToPeriodEntity(Period period, PeriodEntity periodEntity)
+    {
+        if (period == null)
+        {
             return;
         }
 
-        //--- Generic mapping 
+        // --- Generic mapping
         map(period, periodEntity);
 
-        //--- Link mapping ( link : period )
-        if( hasLinkToYear(period) ) {
+        // --- Link mapping ( link : period )
+        if (hasLinkToYear(period))
+        {
             YearEntity year1 = new YearEntity();
-            year1.setYear( period.getYear() );
-            periodEntity.setYear2( year1 );
-        } else {
-            periodEntity.setYear2( null );
+            year1.setYear(period.getYear());
+            periodEntity.setYear2(year1);
+        }
+        else
+        {
+            periodEntity.setYear2(null);
         }
 
     }
-    
+
     /**
      * Verify that Year id is valid.
-     * @param Year Year
+     * 
+     * @param Year
+     *            Year
      * @return boolean
      */
-    private boolean hasLinkToYear(Period period) {
-        if(period.getYear() != null) {
+    private boolean hasLinkToYear(Period period)
+    {
+        if (period.getYear() != null)
+        {
             return true;
         }
         return false;
@@ -90,11 +106,13 @@ public class PeriodServiceMapper extends AbstractServiceMapper {
      * {@inheritDoc}
      */
     @Override
-    protected ModelMapper getModelMapper() {
+    protected ModelMapper getModelMapper()
+    {
         return modelMapper;
     }
 
-    protected void setModelMapper(ModelMapper modelMapper) {
+    protected void setModelMapper(ModelMapper modelMapper)
+    {
         this.modelMapper = modelMapper;
     }
 

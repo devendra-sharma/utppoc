@@ -15,59 +15,69 @@ import org.springframework.stereotype.Component;
  * Mapping between entity beans and display beans.
  */
 @Component
-public class RecordFieldServiceMapper extends AbstractServiceMapper {
+public class RecordFieldServiceMapper extends AbstractServiceMapper
+{
 
     /**
      * ModelMapper : bean to bean mapping library.
      */
     private ModelMapper modelMapper;
-    
+
     /**
      * Constructor.
      */
-    public RecordFieldServiceMapper() {
+    public RecordFieldServiceMapper()
+    {
         modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
     }
 
     /**
      * Mapping from 'RecordFieldEntity' to 'RecordField'
+     * 
      * @param recordFieldEntity
      */
-    public RecordField mapRecordFieldEntityToRecordField(RecordFieldEntity recordFieldEntity) {
-        if(recordFieldEntity == null) {
+    public RecordField mapRecordFieldEntityToRecordField(RecordFieldEntity recordFieldEntity)
+    {
+        if (recordFieldEntity == null)
+        {
             return null;
         }
 
-        //--- Generic mapping 
+        // --- Generic mapping
         return map(recordFieldEntity, RecordField.class);
 
     }
-    
+
     /**
      * Mapping from 'RecordField' to 'RecordFieldEntity'
+     * 
      * @param recordField
      * @param recordFieldEntity
      */
-    public void mapRecordFieldToRecordFieldEntity(RecordField recordField, RecordFieldEntity recordFieldEntity) {
-        if(recordField == null) {
+    public void mapRecordFieldToRecordFieldEntity(RecordField recordField, RecordFieldEntity recordFieldEntity)
+    {
+        if (recordField == null)
+        {
             return;
         }
 
-        //--- Generic mapping 
+        // --- Generic mapping
         map(recordField, recordFieldEntity);
 
     }
-    
+
     /**
      * {@inheritDoc}
      */
     @Override
-    protected ModelMapper getModelMapper() {
+    protected ModelMapper getModelMapper()
+    {
         return modelMapper;
     }
 
-    protected void setModelMapper(ModelMapper modelMapper) {
+    protected void setModelMapper(ModelMapper modelMapper)
+    {
         this.modelMapper = modelMapper;
     }
 

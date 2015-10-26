@@ -1,7 +1,5 @@
 package net.atos.transport.business;
 
-
-
 import java.math.BigDecimal;
 
 import net.atos.htts.transport.common.domain.CodeBookDTO;
@@ -29,32 +27,32 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:/spring/testBusinessApplicationContext.xml")
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-    DirtiesContextTestExecutionListener.class,
-    TransactionalTestExecutionListener.class,
-    DbUnitTestExecutionListener.class })
-@DbUnitConfiguration(databaseConnection="dataSource")
+@TestExecutionListeners(
+{DependencyInjectionTestExecutionListener.class , DirtiesContextTestExecutionListener.class ,
+        TransactionalTestExecutionListener.class , DbUnitTestExecutionListener.class })
+@DbUnitConfiguration(databaseConnection = "dataSource")
 @Transactional
 @DatabaseSetup("/sql/business.xml")
-public class PassengerCharterServiceTest {
- 
+public class PassengerCharterServiceTest
+{
+
     @Autowired
     private PassengerCharterService passengerCharterService;
+
     @Ignore
     @Test
-    public void testIfConvertCurrency() {
-    	PassengerCharterDTO passengerCharterDTO = new PassengerCharterDTO();
-    	passengerCharterDTO.setDiscountPercent(10);
-    	passengerCharterDTO.setTicketStatus("ACTIVE");
-    	passengerCharterDTO.setTransactionValue(new BigDecimal("10.9"));
-    	CodeBookDTO codeBookDTO = new CodeBookDTO(); 
-    	codeBookDTO.setCobId(1);
-    	codeBookDTO.setValue("134");;
-    	BigDecimal result = passengerCharterService.calculatePassengerCharterFullFare(passengerCharterDTO, codeBookDTO);
-    	System.out.println(">>>>>>>>>>>>>> "+result);
+    public void testIfConvertCurrency()
+    {
+        PassengerCharterDTO passengerCharterDTO = new PassengerCharterDTO();
+        passengerCharterDTO.setDiscountPercent(10);
+        passengerCharterDTO.setTicketStatus("ACTIVE");
+        passengerCharterDTO.setTransactionValue(new BigDecimal("10.9"));
+        CodeBookDTO codeBookDTO = new CodeBookDTO();
+        codeBookDTO.setCobId(1);
+        codeBookDTO.setValue("134");
+        ;
+        BigDecimal result = passengerCharterService.calculatePassengerCharterFullFare(passengerCharterDTO, codeBookDTO);
+        System.out.println(">>>>>>>>>>>>>> " + result);
     }
 
-    
-   
-    
 }

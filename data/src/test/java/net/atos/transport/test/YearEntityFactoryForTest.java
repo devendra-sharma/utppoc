@@ -2,17 +2,19 @@ package net.atos.transport.test;
 
 import net.atos.transport.entity.jpa.YearEntity;
 
-public class YearEntityFactoryForTest {
+public class YearEntityFactoryForTest
+{
 
-	private MockValues mockValues = new MockValues();
-	
-	public YearEntity newYearEntity() {
+    private MockValues mockValues = new MockValues();
 
-		Integer year = mockValues.nextInteger();
+    public YearEntity newYearEntity()
+    {
 
-		YearEntity yearEntity = new YearEntity();
-		yearEntity.setYear(year);
-		return yearEntity;
-	}
-	
+        Integer year = mockValues.nextInteger();
+
+        YearEntity yearEntity = new YearEntity();
+        yearEntity.setYear(year);
+        return yearEntity;
+    }
+
 }

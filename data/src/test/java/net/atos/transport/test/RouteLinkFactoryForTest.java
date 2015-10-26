@@ -2,17 +2,19 @@ package net.atos.transport.test;
 
 import net.atos.transport.entity.RouteLink;
 
-public class RouteLinkFactoryForTest {
+public class RouteLinkFactoryForTest
+{
 
-	private MockValues mockValues = new MockValues();
-	
-	public RouteLink newRouteLink() {
+    private MockValues mockValues = new MockValues();
 
-		Integer rolId = mockValues.nextInteger();
+    public RouteLink newRouteLink()
+    {
 
-		RouteLink routeLink = new RouteLink();
-		routeLink.setRolId(rolId);
-		return routeLink;
-	}
-	
+        Integer rolId = mockValues.nextInteger();
+
+        RouteLink routeLink = new RouteLink();
+        routeLink.setRolId(rolId);
+        return routeLink;
+    }
+
 }

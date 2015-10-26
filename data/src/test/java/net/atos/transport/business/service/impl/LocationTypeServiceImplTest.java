@@ -31,137 +31,154 @@ import org.mockito.runners.MockitoJUnitRunner;
  * Test : Implementation of LocationTypeService
  */
 @RunWith(MockitoJUnitRunner.class)
-public class LocationTypeServiceImplTest {
+public class LocationTypeServiceImplTest
+{
 
-	@InjectMocks
-	private LocationTypeServiceImpl locationTypeService;
-	@Mock
-	private LocationTypeJpaRepository locationTypeJpaRepository;
-	@Mock
-	private LocationTypeServiceMapper locationTypeServiceMapper;
-	
-	private LocationTypeFactoryForTest locationTypeFactoryForTest = new LocationTypeFactoryForTest();
+    @InjectMocks
+    private LocationTypeServiceImpl locationTypeService;
 
-	private LocationTypeEntityFactoryForTest locationTypeEntityFactoryForTest = new LocationTypeEntityFactoryForTest();
+    @Mock
+    private LocationTypeJpaRepository locationTypeJpaRepository;
 
-	private MockValues mockValues = new MockValues();
-	
-	@Test
-	public void findById() {
-		// Given
-		Integer lotId = mockValues.nextInteger();
-		
-		LocationTypeEntity locationTypeEntity = locationTypeJpaRepository.findOne(lotId);
-		
-		LocationType locationType = locationTypeFactoryForTest.newLocationType();
-		when(locationTypeServiceMapper.mapLocationTypeEntityToLocationType(locationTypeEntity)).thenReturn(locationType);
+    @Mock
+    private LocationTypeServiceMapper locationTypeServiceMapper;
 
-		// When
-		LocationType locationTypeFound = locationTypeService.findById(lotId);
+    private LocationTypeFactoryForTest locationTypeFactoryForTest = new LocationTypeFactoryForTest();
 
-		// Then
-		assertEquals(locationType.getLotId(),locationTypeFound.getLotId());
-	}
+    private LocationTypeEntityFactoryForTest locationTypeEntityFactoryForTest = new LocationTypeEntityFactoryForTest();
 
-	@Test
-	public void findAll() {
-		// Given
-		List<LocationTypeEntity> locationTypeEntitys = new ArrayList<LocationTypeEntity>();
-		LocationTypeEntity locationTypeEntity1 = locationTypeEntityFactoryForTest.newLocationTypeEntity();
-		locationTypeEntitys.add(locationTypeEntity1);
-		LocationTypeEntity locationTypeEntity2 = locationTypeEntityFactoryForTest.newLocationTypeEntity();
-		locationTypeEntitys.add(locationTypeEntity2);
-		when(locationTypeJpaRepository.findAll()).thenReturn(locationTypeEntitys);
-		
-		LocationType locationType1 = locationTypeFactoryForTest.newLocationType();
-		when(locationTypeServiceMapper.mapLocationTypeEntityToLocationType(locationTypeEntity1)).thenReturn(locationType1);
-		LocationType locationType2 = locationTypeFactoryForTest.newLocationType();
-		when(locationTypeServiceMapper.mapLocationTypeEntityToLocationType(locationTypeEntity2)).thenReturn(locationType2);
+    private MockValues mockValues = new MockValues();
 
-		// When
-		List<LocationType> locationTypesFounds = locationTypeService.findAll();
+    @Test
+    public void findById()
+    {
+        // Given
+        Integer lotId = mockValues.nextInteger();
 
-		// Then
-		assertTrue(locationType1 == locationTypesFounds.get(0));
-		assertTrue(locationType2 == locationTypesFounds.get(1));
-	}
+        LocationTypeEntity locationTypeEntity = locationTypeJpaRepository.findOne(lotId);
 
-	@Test
-	public void create() {
-		// Given
-		LocationType locationType = locationTypeFactoryForTest.newLocationType();
+        LocationType locationType = locationTypeFactoryForTest.newLocationType();
+        when(locationTypeServiceMapper.mapLocationTypeEntityToLocationType(locationTypeEntity))
+                .thenReturn(locationType);
 
-		LocationTypeEntity locationTypeEntity = locationTypeEntityFactoryForTest.newLocationTypeEntity();
-		when(locationTypeJpaRepository.findOne(locationType.getLotId())).thenReturn(null);
-		
-		locationTypeEntity = new LocationTypeEntity();
-		locationTypeServiceMapper.mapLocationTypeToLocationTypeEntity(locationType, locationTypeEntity);
-		LocationTypeEntity locationTypeEntitySaved = locationTypeJpaRepository.save(locationTypeEntity);
-		
-		LocationType locationTypeSaved = locationTypeFactoryForTest.newLocationType();
-		when(locationTypeServiceMapper.mapLocationTypeEntityToLocationType(locationTypeEntitySaved)).thenReturn(locationTypeSaved);
+        // When
+        LocationType locationTypeFound = locationTypeService.findById(lotId);
 
-		// When
-		LocationType locationTypeResult = locationTypeService.create(locationType);
+        // Then
+        assertEquals(locationType.getLotId(), locationTypeFound.getLotId());
+    }
 
-		// Then
-		assertTrue(locationTypeResult == locationTypeSaved);
-	}
+    @Test
+    public void findAll()
+    {
+        // Given
+        List<LocationTypeEntity> locationTypeEntitys = new ArrayList<LocationTypeEntity>();
+        LocationTypeEntity locationTypeEntity1 = locationTypeEntityFactoryForTest.newLocationTypeEntity();
+        locationTypeEntitys.add(locationTypeEntity1);
+        LocationTypeEntity locationTypeEntity2 = locationTypeEntityFactoryForTest.newLocationTypeEntity();
+        locationTypeEntitys.add(locationTypeEntity2);
+        when(locationTypeJpaRepository.findAll()).thenReturn(locationTypeEntitys);
 
-	@Test
-	public void createKOExists() {
-		// Given
-		LocationType locationType = locationTypeFactoryForTest.newLocationType();
+        LocationType locationType1 = locationTypeFactoryForTest.newLocationType();
+        when(locationTypeServiceMapper.mapLocationTypeEntityToLocationType(locationTypeEntity1)).thenReturn(
+                locationType1);
+        LocationType locationType2 = locationTypeFactoryForTest.newLocationType();
+        when(locationTypeServiceMapper.mapLocationTypeEntityToLocationType(locationTypeEntity2)).thenReturn(
+                locationType2);
 
-		LocationTypeEntity locationTypeEntity = locationTypeEntityFactoryForTest.newLocationTypeEntity();
-		when(locationTypeJpaRepository.findOne(locationType.getLotId())).thenReturn(locationTypeEntity);
+        // When
+        List<LocationType> locationTypesFounds = locationTypeService.findAll();
 
-		// When
-		Exception exception = null;
-		try {
-			locationTypeService.create(locationType);
-		} catch(Exception e) {
-			exception = e;
-		}
+        // Then
+        assertTrue(locationType1 == locationTypesFounds.get(0));
+        assertTrue(locationType2 == locationTypesFounds.get(1));
+    }
 
-		// Then
-		assertTrue(exception instanceof IllegalStateException);
-		assertEquals("already.exists", exception.getMessage());
-	}
+    @Test
+    public void create()
+    {
+        // Given
+        LocationType locationType = locationTypeFactoryForTest.newLocationType();
 
-	@Test
-	public void update() {
-		// Given
-		LocationType locationType = locationTypeFactoryForTest.newLocationType();
+        LocationTypeEntity locationTypeEntity = locationTypeEntityFactoryForTest.newLocationTypeEntity();
+        when(locationTypeJpaRepository.findOne(locationType.getLotId())).thenReturn(null);
 
-		LocationTypeEntity locationTypeEntity = locationTypeEntityFactoryForTest.newLocationTypeEntity();
-		when(locationTypeJpaRepository.findOne(locationType.getLotId())).thenReturn(locationTypeEntity);
-		
-		LocationTypeEntity locationTypeEntitySaved = locationTypeEntityFactoryForTest.newLocationTypeEntity();
-		when(locationTypeJpaRepository.save(locationTypeEntity)).thenReturn(locationTypeEntitySaved);
-		
-		LocationType locationTypeSaved = locationTypeFactoryForTest.newLocationType();
-		when(locationTypeServiceMapper.mapLocationTypeEntityToLocationType(locationTypeEntitySaved)).thenReturn(locationTypeSaved);
+        locationTypeEntity = new LocationTypeEntity();
+        locationTypeServiceMapper.mapLocationTypeToLocationTypeEntity(locationType, locationTypeEntity);
+        LocationTypeEntity locationTypeEntitySaved = locationTypeJpaRepository.save(locationTypeEntity);
 
-		// When
-		LocationType locationTypeResult = locationTypeService.update(locationType);
+        LocationType locationTypeSaved = locationTypeFactoryForTest.newLocationType();
+        when(locationTypeServiceMapper.mapLocationTypeEntityToLocationType(locationTypeEntitySaved)).thenReturn(
+                locationTypeSaved);
 
-		// Then
-		verify(locationTypeServiceMapper).mapLocationTypeToLocationTypeEntity(locationType, locationTypeEntity);
-		assertTrue(locationTypeResult == locationTypeSaved);
-	}
+        // When
+        LocationType locationTypeResult = locationTypeService.create(locationType);
 
-	@Test
-	public void delete() {
-		// Given
-		Integer lotId = mockValues.nextInteger();
+        // Then
+        assertTrue(locationTypeResult == locationTypeSaved);
+    }
 
-		// When
-		locationTypeService.delete(lotId);
+    @Test
+    public void createKOExists()
+    {
+        // Given
+        LocationType locationType = locationTypeFactoryForTest.newLocationType();
 
-		// Then
-		verify(locationTypeJpaRepository).delete(lotId);
-		
-	}
+        LocationTypeEntity locationTypeEntity = locationTypeEntityFactoryForTest.newLocationTypeEntity();
+        when(locationTypeJpaRepository.findOne(locationType.getLotId())).thenReturn(locationTypeEntity);
+
+        // When
+        Exception exception = null;
+        try
+        {
+            locationTypeService.create(locationType);
+        }
+        catch (Exception e)
+        {
+            exception = e;
+        }
+
+        // Then
+        assertTrue(exception instanceof IllegalStateException);
+        assertEquals("already.exists", exception.getMessage());
+    }
+
+    @Test
+    public void update()
+    {
+        // Given
+        LocationType locationType = locationTypeFactoryForTest.newLocationType();
+
+        LocationTypeEntity locationTypeEntity = locationTypeEntityFactoryForTest.newLocationTypeEntity();
+        when(locationTypeJpaRepository.findOne(locationType.getLotId())).thenReturn(locationTypeEntity);
+
+        LocationTypeEntity locationTypeEntitySaved = locationTypeEntityFactoryForTest.newLocationTypeEntity();
+        when(locationTypeJpaRepository.save(locationTypeEntity)).thenReturn(locationTypeEntitySaved);
+
+        LocationType locationTypeSaved = locationTypeFactoryForTest.newLocationType();
+        when(locationTypeServiceMapper.mapLocationTypeEntityToLocationType(locationTypeEntitySaved)).thenReturn(
+                locationTypeSaved);
+
+        // When
+        LocationType locationTypeResult = locationTypeService.update(locationType);
+
+        // Then
+        verify(locationTypeServiceMapper).mapLocationTypeToLocationTypeEntity(locationType, locationTypeEntity);
+        assertTrue(locationTypeResult == locationTypeSaved);
+    }
+
+    @Test
+    public void delete()
+    {
+        // Given
+        Integer lotId = mockValues.nextInteger();
+
+        // When
+        locationTypeService.delete(lotId);
+
+        // Then
+        verify(locationTypeJpaRepository).delete(lotId);
+
+    }
 
 }

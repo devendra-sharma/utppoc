@@ -11,23 +11,27 @@ import net.atos.transport.entity.Business;
 /**
  * Business Service Interface for entity Business.
  */
-public interface BusinessService { 
+public interface BusinessService
+{
 
     /**
      * Loads an entity from the database using its Primary Key
+     * 
      * @param busId
      * @return entity
      */
-    Business findById( Integer busId  ) ;
+    Business findById(Integer busId);
 
     /**
      * Loads all entities.
+     * 
      * @return all entities
      */
     List<Business> findAll();
 
     /**
      * Saves the given entity in the database (create or update)
+     * 
      * @param entity
      * @return entity
      */
@@ -35,6 +39,7 @@ public interface BusinessService {
 
     /**
      * Updates the given entity in the database
+     * 
      * @param entity
      * @return
      */
@@ -42,6 +47,7 @@ public interface BusinessService {
 
     /**
      * Creates the given entity in the database
+     * 
      * @param entity
      * @return
      */
@@ -49,9 +55,9 @@ public interface BusinessService {
 
     /**
      * Deletes an entity using its Primary Key
+     * 
      * @param busId
      */
-    void delete( Integer busId );
-
+    void delete(Integer busId);
 
 }

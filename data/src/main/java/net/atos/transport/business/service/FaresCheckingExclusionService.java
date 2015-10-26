@@ -11,23 +11,27 @@ import net.atos.transport.entity.FaresCheckingExclusion;
 /**
  * Business Service Interface for entity FaresCheckingExclusion.
  */
-public interface FaresCheckingExclusionService { 
+public interface FaresCheckingExclusionService
+{
 
     /**
      * Loads an entity from the database using its Primary Key
+     * 
      * @param faresCheckingExclusionId
      * @return entity
      */
-    FaresCheckingExclusion findById( Long faresCheckingExclusionId  ) ;
+    FaresCheckingExclusion findById(Long faresCheckingExclusionId);
 
     /**
      * Loads all entities.
+     * 
      * @return all entities
      */
     List<FaresCheckingExclusion> findAll();
 
     /**
      * Saves the given entity in the database (create or update)
+     * 
      * @param entity
      * @return entity
      */
@@ -35,6 +39,7 @@ public interface FaresCheckingExclusionService {
 
     /**
      * Updates the given entity in the database
+     * 
      * @param entity
      * @return
      */
@@ -42,6 +47,7 @@ public interface FaresCheckingExclusionService {
 
     /**
      * Creates the given entity in the database
+     * 
      * @param entity
      * @return
      */
@@ -49,18 +55,17 @@ public interface FaresCheckingExclusionService {
 
     /**
      * Deletes an entity using its Primary Key
+     * 
      * @param faresCheckingExclusionId
      */
-    void delete( Long faresCheckingExclusionId );
+    void delete(Long faresCheckingExclusionId);
 
     /**
      * Gets an entity using the parameters
      * 
      * @param faresCheckingExclusionId
      */
-    FaresCheckingExclusion getFaresExclusionByParams(
-            String sellingLocation, String originLocation,
-            String destinationLocation, String route, String product,
-            String ticketStatus);
+    FaresCheckingExclusion getFaresExclusionByParams(String sellingLocation, String originLocation,
+            String destinationLocation, String route, String product, String ticketStatus);
 
 }

@@ -10,23 +10,24 @@ import javax.validation.constraints.*;
 
 import java.util.Date;
 
-public class Calendar implements Serializable {
+public class Calendar implements Serializable
+{
 
     private static final long serialVersionUID = 1L;
 
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // ENTITY PRIMARY KEY ( BASED ON A SINGLE FIELD )
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     @NotNull
     private Integer calId;
 
-    //----------------------------------------------------------------------
-    // ENTITY DATA FIELDS 
-    //----------------------------------------------------------------------    
+    // ----------------------------------------------------------------------
+    // ENTITY DATA FIELDS
+    // ----------------------------------------------------------------------
 
     private Date calendarDate;
 
-    @Size( max = 32 )
+    @Size(max = 32)
     private String dayOfWeek;
 
     @NotNull
@@ -39,84 +40,103 @@ public class Calendar implements Serializable {
     private Integer week;
 
     private Integer currencyRate;
-    
+
     private Integer conversionPower;
 
-
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // GETTER & SETTER FOR THE KEY FIELD
-    //----------------------------------------------------------------------
-    public void setCalId( Integer calId ) {
-        this.calId = calId ;
+    // ----------------------------------------------------------------------
+    public void setCalId(Integer calId)
+    {
+        this.calId = calId;
     }
 
-    public Integer getCalId() {
+    public Integer getCalId()
+    {
         return this.calId;
     }
 
-
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // GETTERS & SETTERS FOR FIELDS
-    //----------------------------------------------------------------------
-    public void setCalendarDate( Date calendarDate ) {
+    // ----------------------------------------------------------------------
+    public void setCalendarDate(Date calendarDate)
+    {
         this.calendarDate = calendarDate;
     }
-    public Date getCalendarDate() {
+
+    public Date getCalendarDate()
+    {
         return this.calendarDate;
     }
 
-    public void setDayOfWeek( String dayOfWeek ) {
+    public void setDayOfWeek(String dayOfWeek)
+    {
         this.dayOfWeek = dayOfWeek;
     }
-    public String getDayOfWeek() {
+
+    public String getDayOfWeek()
+    {
         return this.dayOfWeek;
     }
 
-    public void setPeriod( Integer period ) {
+    public void setPeriod(Integer period)
+    {
         this.period = period;
     }
-    public Integer getPeriod() {
+
+    public Integer getPeriod()
+    {
         return this.period;
     }
 
-    public void setYear( Integer year ) {
+    public void setYear(Integer year)
+    {
         this.year = year;
     }
-    public Integer getYear() {
+
+    public Integer getYear()
+    {
         return this.year;
     }
 
-    public void setWeek( Integer week ) {
+    public void setWeek(Integer week)
+    {
         this.week = week;
     }
-    public Integer getWeek() {
+
+    public Integer getWeek()
+    {
         return this.week;
     }
 
-
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // toString METHOD
-    //----------------------------------------------------------------------
- 
-        public Integer getCurrencyRate() {
+    // ----------------------------------------------------------------------
+
+    public Integer getCurrencyRate()
+    {
         return currencyRate;
     }
 
-    public void setCurrencyRate(Integer currencyRate) {
+    public void setCurrencyRate(Integer currencyRate)
+    {
         this.currencyRate = currencyRate;
     }
 
-    public Integer getConversionPower() {
+    public Integer getConversionPower()
+    {
         return conversionPower;
     }
 
-    public void setConversionPower(Integer conversionPower) {
+    public void setConversionPower(Integer conversionPower)
+    {
         this.conversionPower = conversionPower;
     }
-    
-        @Override
-        public String toString() { 
-        StringBuilder sb = new StringBuilder(); 
+
+    @Override
+    public String toString()
+    {
+        StringBuilder sb = new StringBuilder();
         sb.append(calId);
         sb.append("|");
         sb.append(calendarDate);
@@ -128,10 +148,7 @@ public class Calendar implements Serializable {
         sb.append(year);
         sb.append("|");
         sb.append(week);
-        return sb.toString(); 
+        return sb.toString();
     }
-
-        
-
 
 }

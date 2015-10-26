@@ -11,23 +11,27 @@ import net.atos.transport.entity.LocationLink;
 /**
  * Business Service Interface for entity LocationLink.
  */
-public interface LocationLinkService { 
+public interface LocationLinkService
+{
 
     /**
      * Loads an entity from the database using its Primary Key
+     * 
      * @param lolId
      * @return entity
      */
-    LocationLink findById( Integer lolId  ) ;
+    LocationLink findById(Integer lolId);
 
     /**
      * Loads all entities.
+     * 
      * @return all entities
      */
     List<LocationLink> findAll();
 
     /**
      * Saves the given entity in the database (create or update)
+     * 
      * @param entity
      * @return entity
      */
@@ -35,6 +39,7 @@ public interface LocationLinkService {
 
     /**
      * Updates the given entity in the database
+     * 
      * @param entity
      * @return
      */
@@ -42,6 +47,7 @@ public interface LocationLinkService {
 
     /**
      * Creates the given entity in the database
+     * 
      * @param entity
      * @return
      */
@@ -49,9 +55,9 @@ public interface LocationLinkService {
 
     /**
      * Deletes an entity using its Primary Key
+     * 
      * @param lolId
      */
-    void delete( Integer lolId );
-
+    void delete(Integer lolId);
 
 }

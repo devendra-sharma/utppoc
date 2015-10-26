@@ -15,59 +15,69 @@ import org.springframework.stereotype.Component;
  * Mapping between entity beans and display beans.
  */
 @Component
-public class TypeServiceMapper extends AbstractServiceMapper {
+public class TypeServiceMapper extends AbstractServiceMapper
+{
 
     /**
      * ModelMapper : bean to bean mapping library.
      */
     private ModelMapper modelMapper;
-    
+
     /**
      * Constructor.
      */
-    public TypeServiceMapper() {
+    public TypeServiceMapper()
+    {
         modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
     }
 
     /**
      * Mapping from 'TypeEntity' to 'Type'
+     * 
      * @param typeEntity
      */
-    public Type mapTypeEntityToType(TypeEntity typeEntity) {
-        if(typeEntity == null) {
+    public Type mapTypeEntityToType(TypeEntity typeEntity)
+    {
+        if (typeEntity == null)
+        {
             return null;
         }
 
-        //--- Generic mapping 
+        // --- Generic mapping
         return map(typeEntity, Type.class);
 
     }
-    
+
     /**
      * Mapping from 'Type' to 'TypeEntity'
+     * 
      * @param type
      * @param typeEntity
      */
-    public void mapTypeToTypeEntity(Type type, TypeEntity typeEntity) {
-        if(type == null) {
+    public void mapTypeToTypeEntity(Type type, TypeEntity typeEntity)
+    {
+        if (type == null)
+        {
             return;
         }
 
-        //--- Generic mapping 
+        // --- Generic mapping
         map(type, typeEntity);
 
     }
-    
+
     /**
      * {@inheritDoc}
      */
     @Override
-    protected ModelMapper getModelMapper() {
+    protected ModelMapper getModelMapper()
+    {
         return modelMapper;
     }
 
-    protected void setModelMapper(ModelMapper modelMapper) {
+    protected void setModelMapper(ModelMapper modelMapper)
+    {
         this.modelMapper = modelMapper;
     }
 

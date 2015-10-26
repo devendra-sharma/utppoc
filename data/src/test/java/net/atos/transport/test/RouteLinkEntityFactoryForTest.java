@@ -2,17 +2,19 @@ package net.atos.transport.test;
 
 import net.atos.transport.entity.jpa.RouteLinkEntity;
 
-public class RouteLinkEntityFactoryForTest {
+public class RouteLinkEntityFactoryForTest
+{
 
-	private MockValues mockValues = new MockValues();
-	
-	public RouteLinkEntity newRouteLinkEntity() {
+    private MockValues mockValues = new MockValues();
 
-		Integer rolId = mockValues.nextInteger();
+    public RouteLinkEntity newRouteLinkEntity()
+    {
 
-		RouteLinkEntity routeLinkEntity = new RouteLinkEntity();
-		routeLinkEntity.setRolId(rolId);
-		return routeLinkEntity;
-	}
-	
+        Integer rolId = mockValues.nextInteger();
+
+        RouteLinkEntity routeLinkEntity = new RouteLinkEntity();
+        routeLinkEntity.setRolId(rolId);
+        return routeLinkEntity;
+    }
+
 }

@@ -30,137 +30,151 @@ import org.mockito.runners.MockitoJUnitRunner;
  * Test : Implementation of RecordFieldService
  */
 @RunWith(MockitoJUnitRunner.class)
-public class RecordFieldServiceImplTest {
+public class RecordFieldServiceImplTest
+{
 
-	@InjectMocks
-	private RecordFieldServiceImpl recordFieldService;
-	@Mock
-	private RecordFieldJpaRepository recordFieldJpaRepository;
-	@Mock
-	private RecordFieldServiceMapper recordFieldServiceMapper;
-	
-	private RecordFieldFactoryForTest recordFieldFactoryForTest = new RecordFieldFactoryForTest();
+    @InjectMocks
+    private RecordFieldServiceImpl recordFieldService;
 
-	private RecordFieldEntityFactoryForTest recordFieldEntityFactoryForTest = new RecordFieldEntityFactoryForTest();
+    @Mock
+    private RecordFieldJpaRepository recordFieldJpaRepository;
 
-	private MockValues mockValues = new MockValues();
-	
-	@Test
-	public void findById() {
-		// Given
-		Integer refId = mockValues.nextInteger();
-		
-		RecordFieldEntity recordFieldEntity = recordFieldJpaRepository.findOne(refId);
-		
-		RecordField recordField = recordFieldFactoryForTest.newRecordField();
-		when(recordFieldServiceMapper.mapRecordFieldEntityToRecordField(recordFieldEntity)).thenReturn(recordField);
+    @Mock
+    private RecordFieldServiceMapper recordFieldServiceMapper;
 
-		// When
-		RecordField recordFieldFound = recordFieldService.findById(refId);
+    private RecordFieldFactoryForTest recordFieldFactoryForTest = new RecordFieldFactoryForTest();
 
-		// Then
-		assertEquals(recordField.getRefId(),recordFieldFound.getRefId());
-	}
+    private RecordFieldEntityFactoryForTest recordFieldEntityFactoryForTest = new RecordFieldEntityFactoryForTest();
 
-	@Test
-	public void findAll() {
-		// Given
-		List<RecordFieldEntity> recordFieldEntitys = new ArrayList<RecordFieldEntity>();
-		RecordFieldEntity recordFieldEntity1 = recordFieldEntityFactoryForTest.newRecordFieldEntity();
-		recordFieldEntitys.add(recordFieldEntity1);
-		RecordFieldEntity recordFieldEntity2 = recordFieldEntityFactoryForTest.newRecordFieldEntity();
-		recordFieldEntitys.add(recordFieldEntity2);
-		when(recordFieldJpaRepository.findAll()).thenReturn(recordFieldEntitys);
-		
-		RecordField recordField1 = recordFieldFactoryForTest.newRecordField();
-		when(recordFieldServiceMapper.mapRecordFieldEntityToRecordField(recordFieldEntity1)).thenReturn(recordField1);
-		RecordField recordField2 = recordFieldFactoryForTest.newRecordField();
-		when(recordFieldServiceMapper.mapRecordFieldEntityToRecordField(recordFieldEntity2)).thenReturn(recordField2);
+    private MockValues mockValues = new MockValues();
 
-		// When
-		List<RecordField> recordFieldsFounds = recordFieldService.findAll();
+    @Test
+    public void findById()
+    {
+        // Given
+        Integer refId = mockValues.nextInteger();
 
-		// Then
-		assertTrue(recordField1 == recordFieldsFounds.get(0));
-		assertTrue(recordField2 == recordFieldsFounds.get(1));
-	}
+        RecordFieldEntity recordFieldEntity = recordFieldJpaRepository.findOne(refId);
 
-	@Test
-	public void create() {
-		// Given
-		RecordField recordField = recordFieldFactoryForTest.newRecordField();
+        RecordField recordField = recordFieldFactoryForTest.newRecordField();
+        when(recordFieldServiceMapper.mapRecordFieldEntityToRecordField(recordFieldEntity)).thenReturn(recordField);
 
-		RecordFieldEntity recordFieldEntity = recordFieldEntityFactoryForTest.newRecordFieldEntity();
-		when(recordFieldJpaRepository.findOne(recordField.getRefId())).thenReturn(null);
-		
-		recordFieldEntity = new RecordFieldEntity();
-		recordFieldServiceMapper.mapRecordFieldToRecordFieldEntity(recordField, recordFieldEntity);
-		RecordFieldEntity recordFieldEntitySaved = recordFieldJpaRepository.save(recordFieldEntity);
-		
-		RecordField recordFieldSaved = recordFieldFactoryForTest.newRecordField();
-		when(recordFieldServiceMapper.mapRecordFieldEntityToRecordField(recordFieldEntitySaved)).thenReturn(recordFieldSaved);
+        // When
+        RecordField recordFieldFound = recordFieldService.findById(refId);
 
-		// When
-		RecordField recordFieldResult = recordFieldService.create(recordField);
+        // Then
+        assertEquals(recordField.getRefId(), recordFieldFound.getRefId());
+    }
 
-		// Then
-		assertTrue(recordFieldResult == recordFieldSaved);
-	}
+    @Test
+    public void findAll()
+    {
+        // Given
+        List<RecordFieldEntity> recordFieldEntitys = new ArrayList<RecordFieldEntity>();
+        RecordFieldEntity recordFieldEntity1 = recordFieldEntityFactoryForTest.newRecordFieldEntity();
+        recordFieldEntitys.add(recordFieldEntity1);
+        RecordFieldEntity recordFieldEntity2 = recordFieldEntityFactoryForTest.newRecordFieldEntity();
+        recordFieldEntitys.add(recordFieldEntity2);
+        when(recordFieldJpaRepository.findAll()).thenReturn(recordFieldEntitys);
 
-	@Test
-	public void createKOExists() {
-		// Given
-		RecordField recordField = recordFieldFactoryForTest.newRecordField();
+        RecordField recordField1 = recordFieldFactoryForTest.newRecordField();
+        when(recordFieldServiceMapper.mapRecordFieldEntityToRecordField(recordFieldEntity1)).thenReturn(recordField1);
+        RecordField recordField2 = recordFieldFactoryForTest.newRecordField();
+        when(recordFieldServiceMapper.mapRecordFieldEntityToRecordField(recordFieldEntity2)).thenReturn(recordField2);
 
-		RecordFieldEntity recordFieldEntity = recordFieldEntityFactoryForTest.newRecordFieldEntity();
-		when(recordFieldJpaRepository.findOne(recordField.getRefId())).thenReturn(recordFieldEntity);
+        // When
+        List<RecordField> recordFieldsFounds = recordFieldService.findAll();
 
-		// When
-		Exception exception = null;
-		try {
-			recordFieldService.create(recordField);
-		} catch(Exception e) {
-			exception = e;
-		}
+        // Then
+        assertTrue(recordField1 == recordFieldsFounds.get(0));
+        assertTrue(recordField2 == recordFieldsFounds.get(1));
+    }
 
-		// Then
-		assertTrue(exception instanceof IllegalStateException);
-		assertEquals("already.exists", exception.getMessage());
-	}
+    @Test
+    public void create()
+    {
+        // Given
+        RecordField recordField = recordFieldFactoryForTest.newRecordField();
 
-	@Test
-	public void update() {
-		// Given
-		RecordField recordField = recordFieldFactoryForTest.newRecordField();
+        RecordFieldEntity recordFieldEntity = recordFieldEntityFactoryForTest.newRecordFieldEntity();
+        when(recordFieldJpaRepository.findOne(recordField.getRefId())).thenReturn(null);
 
-		RecordFieldEntity recordFieldEntity = recordFieldEntityFactoryForTest.newRecordFieldEntity();
-		when(recordFieldJpaRepository.findOne(recordField.getRefId())).thenReturn(recordFieldEntity);
-		
-		RecordFieldEntity recordFieldEntitySaved = recordFieldEntityFactoryForTest.newRecordFieldEntity();
-		when(recordFieldJpaRepository.save(recordFieldEntity)).thenReturn(recordFieldEntitySaved);
-		
-		RecordField recordFieldSaved = recordFieldFactoryForTest.newRecordField();
-		when(recordFieldServiceMapper.mapRecordFieldEntityToRecordField(recordFieldEntitySaved)).thenReturn(recordFieldSaved);
+        recordFieldEntity = new RecordFieldEntity();
+        recordFieldServiceMapper.mapRecordFieldToRecordFieldEntity(recordField, recordFieldEntity);
+        RecordFieldEntity recordFieldEntitySaved = recordFieldJpaRepository.save(recordFieldEntity);
 
-		// When
-		RecordField recordFieldResult = recordFieldService.update(recordField);
+        RecordField recordFieldSaved = recordFieldFactoryForTest.newRecordField();
+        when(recordFieldServiceMapper.mapRecordFieldEntityToRecordField(recordFieldEntitySaved)).thenReturn(
+                recordFieldSaved);
 
-		// Then
-		verify(recordFieldServiceMapper).mapRecordFieldToRecordFieldEntity(recordField, recordFieldEntity);
-		assertTrue(recordFieldResult == recordFieldSaved);
-	}
+        // When
+        RecordField recordFieldResult = recordFieldService.create(recordField);
 
-	@Test
-	public void delete() {
-		// Given
-		Integer refId = mockValues.nextInteger();
+        // Then
+        assertTrue(recordFieldResult == recordFieldSaved);
+    }
 
-		// When
-		recordFieldService.delete(refId);
+    @Test
+    public void createKOExists()
+    {
+        // Given
+        RecordField recordField = recordFieldFactoryForTest.newRecordField();
 
-		// Then
-		verify(recordFieldJpaRepository).delete(refId);
-		
-	}
+        RecordFieldEntity recordFieldEntity = recordFieldEntityFactoryForTest.newRecordFieldEntity();
+        when(recordFieldJpaRepository.findOne(recordField.getRefId())).thenReturn(recordFieldEntity);
+
+        // When
+        Exception exception = null;
+        try
+        {
+            recordFieldService.create(recordField);
+        }
+        catch (Exception e)
+        {
+            exception = e;
+        }
+
+        // Then
+        assertTrue(exception instanceof IllegalStateException);
+        assertEquals("already.exists", exception.getMessage());
+    }
+
+    @Test
+    public void update()
+    {
+        // Given
+        RecordField recordField = recordFieldFactoryForTest.newRecordField();
+
+        RecordFieldEntity recordFieldEntity = recordFieldEntityFactoryForTest.newRecordFieldEntity();
+        when(recordFieldJpaRepository.findOne(recordField.getRefId())).thenReturn(recordFieldEntity);
+
+        RecordFieldEntity recordFieldEntitySaved = recordFieldEntityFactoryForTest.newRecordFieldEntity();
+        when(recordFieldJpaRepository.save(recordFieldEntity)).thenReturn(recordFieldEntitySaved);
+
+        RecordField recordFieldSaved = recordFieldFactoryForTest.newRecordField();
+        when(recordFieldServiceMapper.mapRecordFieldEntityToRecordField(recordFieldEntitySaved)).thenReturn(
+                recordFieldSaved);
+
+        // When
+        RecordField recordFieldResult = recordFieldService.update(recordField);
+
+        // Then
+        verify(recordFieldServiceMapper).mapRecordFieldToRecordFieldEntity(recordField, recordFieldEntity);
+        assertTrue(recordFieldResult == recordFieldSaved);
+    }
+
+    @Test
+    public void delete()
+    {
+        // Given
+        Integer refId = mockValues.nextInteger();
+
+        // When
+        recordFieldService.delete(refId);
+
+        // Then
+        verify(recordFieldJpaRepository).delete(refId);
+
+    }
 
 }

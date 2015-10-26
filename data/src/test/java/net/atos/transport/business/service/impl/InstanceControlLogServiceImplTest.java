@@ -29,137 +29,169 @@ import org.mockito.runners.MockitoJUnitRunner;
  * Test : Implementation of InstanceControlLogService
  */
 @RunWith(MockitoJUnitRunner.class)
-public class InstanceControlLogServiceImplTest {
+public class InstanceControlLogServiceImplTest
+{
 
-	@InjectMocks
-	private InstanceControlLogServiceImpl instanceControlLogService;
-	@Mock
-	private InstanceControlLogJpaRepository instanceControlLogJpaRepository;
-	@Mock
-	private InstanceControlLogServiceMapper instanceControlLogServiceMapper;
-	
-	private InstanceControlLogFactoryForTest instanceControlLogFactoryForTest = new InstanceControlLogFactoryForTest();
+    @InjectMocks
+    private InstanceControlLogServiceImpl instanceControlLogService;
 
-	private InstanceControlLogEntityFactoryForTest instanceControlLogEntityFactoryForTest = new InstanceControlLogEntityFactoryForTest();
+    @Mock
+    private InstanceControlLogJpaRepository instanceControlLogJpaRepository;
 
-	private MockValues mockValues = new MockValues();
-	
-	@Test
-	public void findById() {
-		// Given
-		Integer iclId = mockValues.nextInteger();
-		
-		InstanceControlLogEntity instanceControlLogEntity = instanceControlLogJpaRepository.findOne(iclId);
-		
-		InstanceControlLog instanceControlLog = instanceControlLogFactoryForTest.newInstanceControlLog();
-		when(instanceControlLogServiceMapper.mapInstanceControlLogEntityToInstanceControlLog(instanceControlLogEntity)).thenReturn(instanceControlLog);
+    @Mock
+    private InstanceControlLogServiceMapper instanceControlLogServiceMapper;
 
-		// When
-		InstanceControlLog instanceControlLogFound = instanceControlLogService.findById(iclId);
+    private InstanceControlLogFactoryForTest instanceControlLogFactoryForTest = new InstanceControlLogFactoryForTest();
 
-		// Then
-		assertEquals(instanceControlLog.getIclId(),instanceControlLogFound.getIclId());
-	}
+    private InstanceControlLogEntityFactoryForTest instanceControlLogEntityFactoryForTest = new InstanceControlLogEntityFactoryForTest();
 
-	@Test
-	public void findAll() {
-		// Given
-		List<InstanceControlLogEntity> instanceControlLogEntitys = new ArrayList<InstanceControlLogEntity>();
-		InstanceControlLogEntity instanceControlLogEntity1 = instanceControlLogEntityFactoryForTest.newInstanceControlLogEntity();
-		instanceControlLogEntitys.add(instanceControlLogEntity1);
-		InstanceControlLogEntity instanceControlLogEntity2 = instanceControlLogEntityFactoryForTest.newInstanceControlLogEntity();
-		instanceControlLogEntitys.add(instanceControlLogEntity2);
-		when(instanceControlLogJpaRepository.findAll()).thenReturn(instanceControlLogEntitys);
-		
-		InstanceControlLog instanceControlLog1 = instanceControlLogFactoryForTest.newInstanceControlLog();
-		when(instanceControlLogServiceMapper.mapInstanceControlLogEntityToInstanceControlLog(instanceControlLogEntity1)).thenReturn(instanceControlLog1);
-		InstanceControlLog instanceControlLog2 = instanceControlLogFactoryForTest.newInstanceControlLog();
-		when(instanceControlLogServiceMapper.mapInstanceControlLogEntityToInstanceControlLog(instanceControlLogEntity2)).thenReturn(instanceControlLog2);
+    private MockValues mockValues = new MockValues();
 
-		// When
-		List<InstanceControlLog> instanceControlLogsFounds = instanceControlLogService.findAll();
+    @Test
+    public void findById()
+    {
+        // Given
+        Integer iclId = mockValues.nextInteger();
 
-		// Then
-		assertTrue(instanceControlLog1 == instanceControlLogsFounds.get(0));
-		assertTrue(instanceControlLog2 == instanceControlLogsFounds.get(1));
-	}
+        InstanceControlLogEntity instanceControlLogEntity = instanceControlLogJpaRepository.findOne(iclId);
 
-	@Test
-	public void create() {
-		// Given
-		InstanceControlLog instanceControlLog = instanceControlLogFactoryForTest.newInstanceControlLog();
+        InstanceControlLog instanceControlLog = instanceControlLogFactoryForTest.newInstanceControlLog();
+        when(instanceControlLogServiceMapper.mapInstanceControlLogEntityToInstanceControlLog(instanceControlLogEntity))
+                .thenReturn(instanceControlLog);
 
-		InstanceControlLogEntity instanceControlLogEntity = instanceControlLogEntityFactoryForTest.newInstanceControlLogEntity();
-		when(instanceControlLogJpaRepository.findOne(instanceControlLog.getIclId())).thenReturn(null);
-		
-		instanceControlLogEntity = new InstanceControlLogEntity();
-		instanceControlLogServiceMapper.mapInstanceControlLogToInstanceControlLogEntity(instanceControlLog, instanceControlLogEntity);
-		InstanceControlLogEntity instanceControlLogEntitySaved = instanceControlLogJpaRepository.save(instanceControlLogEntity);
-		
-		InstanceControlLog instanceControlLogSaved = instanceControlLogFactoryForTest.newInstanceControlLog();
-		when(instanceControlLogServiceMapper.mapInstanceControlLogEntityToInstanceControlLog(instanceControlLogEntitySaved)).thenReturn(instanceControlLogSaved);
+        // When
+        InstanceControlLog instanceControlLogFound = instanceControlLogService.findById(iclId);
 
-		// When
-		InstanceControlLog instanceControlLogResult = instanceControlLogService.create(instanceControlLog);
+        // Then
+        assertEquals(instanceControlLog.getIclId(), instanceControlLogFound.getIclId());
+    }
 
-		// Then
-		assertTrue(instanceControlLogResult == instanceControlLogSaved);
-	}
+    @Test
+    public void findAll()
+    {
+        // Given
+        List<InstanceControlLogEntity> instanceControlLogEntitys = new ArrayList<InstanceControlLogEntity>();
+        InstanceControlLogEntity instanceControlLogEntity1 = instanceControlLogEntityFactoryForTest
+                .newInstanceControlLogEntity();
+        instanceControlLogEntitys.add(instanceControlLogEntity1);
+        InstanceControlLogEntity instanceControlLogEntity2 = instanceControlLogEntityFactoryForTest
+                .newInstanceControlLogEntity();
+        instanceControlLogEntitys.add(instanceControlLogEntity2);
+        when(instanceControlLogJpaRepository.findAll()).thenReturn(instanceControlLogEntitys);
 
-	@Test
-	public void createKOExists() {
-		// Given
-		InstanceControlLog instanceControlLog = instanceControlLogFactoryForTest.newInstanceControlLog();
+        InstanceControlLog instanceControlLog1 = instanceControlLogFactoryForTest.newInstanceControlLog();
+        when(instanceControlLogServiceMapper.mapInstanceControlLogEntityToInstanceControlLog(instanceControlLogEntity1))
+                .thenReturn(instanceControlLog1);
+        InstanceControlLog instanceControlLog2 = instanceControlLogFactoryForTest.newInstanceControlLog();
+        when(instanceControlLogServiceMapper.mapInstanceControlLogEntityToInstanceControlLog(instanceControlLogEntity2))
+                .thenReturn(instanceControlLog2);
 
-		InstanceControlLogEntity instanceControlLogEntity = instanceControlLogEntityFactoryForTest.newInstanceControlLogEntity();
-		when(instanceControlLogJpaRepository.findOne(instanceControlLog.getIclId())).thenReturn(instanceControlLogEntity);
+        // When
+        List<InstanceControlLog> instanceControlLogsFounds = instanceControlLogService.findAll();
 
-		// When
-		Exception exception = null;
-		try {
-			instanceControlLogService.create(instanceControlLog);
-		} catch(Exception e) {
-			exception = e;
-		}
+        // Then
+        assertTrue(instanceControlLog1 == instanceControlLogsFounds.get(0));
+        assertTrue(instanceControlLog2 == instanceControlLogsFounds.get(1));
+    }
 
-		// Then
-		assertTrue(exception instanceof IllegalStateException);
-		assertEquals("already.exists", exception.getMessage());
-	}
+    @Test
+    public void create()
+    {
+        // Given
+        InstanceControlLog instanceControlLog = instanceControlLogFactoryForTest.newInstanceControlLog();
 
-	@Test
-	public void update() {
-		// Given
-		InstanceControlLog instanceControlLog = instanceControlLogFactoryForTest.newInstanceControlLog();
+        InstanceControlLogEntity instanceControlLogEntity = instanceControlLogEntityFactoryForTest
+                .newInstanceControlLogEntity();
+        when(instanceControlLogJpaRepository.findOne(instanceControlLog.getIclId())).thenReturn(null);
 
-		InstanceControlLogEntity instanceControlLogEntity = instanceControlLogEntityFactoryForTest.newInstanceControlLogEntity();
-		when(instanceControlLogJpaRepository.findOne(instanceControlLog.getIclId())).thenReturn(instanceControlLogEntity);
-		
-		InstanceControlLogEntity instanceControlLogEntitySaved = instanceControlLogEntityFactoryForTest.newInstanceControlLogEntity();
-		when(instanceControlLogJpaRepository.save(instanceControlLogEntity)).thenReturn(instanceControlLogEntitySaved);
-		
-		InstanceControlLog instanceControlLogSaved = instanceControlLogFactoryForTest.newInstanceControlLog();
-		when(instanceControlLogServiceMapper.mapInstanceControlLogEntityToInstanceControlLog(instanceControlLogEntitySaved)).thenReturn(instanceControlLogSaved);
+        instanceControlLogEntity = new InstanceControlLogEntity();
+        instanceControlLogServiceMapper.mapInstanceControlLogToInstanceControlLogEntity(instanceControlLog,
+                instanceControlLogEntity);
+        InstanceControlLogEntity instanceControlLogEntitySaved = instanceControlLogJpaRepository
+                .save(instanceControlLogEntity);
 
-		// When
-		InstanceControlLog instanceControlLogResult = instanceControlLogService.update(instanceControlLog);
+        InstanceControlLog instanceControlLogSaved = instanceControlLogFactoryForTest.newInstanceControlLog();
+        when(
+                instanceControlLogServiceMapper
+                        .mapInstanceControlLogEntityToInstanceControlLog(instanceControlLogEntitySaved)).thenReturn(
+                instanceControlLogSaved);
 
-		// Then
-		verify(instanceControlLogServiceMapper).mapInstanceControlLogToInstanceControlLogEntity(instanceControlLog, instanceControlLogEntity);
-		assertTrue(instanceControlLogResult == instanceControlLogSaved);
-	}
+        // When
+        InstanceControlLog instanceControlLogResult = instanceControlLogService.create(instanceControlLog);
 
-	@Test
-	public void delete() {
-		// Given
-		Integer iclId = mockValues.nextInteger();
+        // Then
+        assertTrue(instanceControlLogResult == instanceControlLogSaved);
+    }
 
-		// When
-		instanceControlLogService.delete(iclId);
+    @Test
+    public void createKOExists()
+    {
+        // Given
+        InstanceControlLog instanceControlLog = instanceControlLogFactoryForTest.newInstanceControlLog();
 
-		// Then
-		verify(instanceControlLogJpaRepository).delete(iclId);
-		
-	}
+        InstanceControlLogEntity instanceControlLogEntity = instanceControlLogEntityFactoryForTest
+                .newInstanceControlLogEntity();
+        when(instanceControlLogJpaRepository.findOne(instanceControlLog.getIclId())).thenReturn(
+                instanceControlLogEntity);
+
+        // When
+        Exception exception = null;
+        try
+        {
+            instanceControlLogService.create(instanceControlLog);
+        }
+        catch (Exception e)
+        {
+            exception = e;
+        }
+
+        // Then
+        assertTrue(exception instanceof IllegalStateException);
+        assertEquals("already.exists", exception.getMessage());
+    }
+
+    @Test
+    public void update()
+    {
+        // Given
+        InstanceControlLog instanceControlLog = instanceControlLogFactoryForTest.newInstanceControlLog();
+
+        InstanceControlLogEntity instanceControlLogEntity = instanceControlLogEntityFactoryForTest
+                .newInstanceControlLogEntity();
+        when(instanceControlLogJpaRepository.findOne(instanceControlLog.getIclId())).thenReturn(
+                instanceControlLogEntity);
+
+        InstanceControlLogEntity instanceControlLogEntitySaved = instanceControlLogEntityFactoryForTest
+                .newInstanceControlLogEntity();
+        when(instanceControlLogJpaRepository.save(instanceControlLogEntity)).thenReturn(instanceControlLogEntitySaved);
+
+        InstanceControlLog instanceControlLogSaved = instanceControlLogFactoryForTest.newInstanceControlLog();
+        when(
+                instanceControlLogServiceMapper
+                        .mapInstanceControlLogEntityToInstanceControlLog(instanceControlLogEntitySaved)).thenReturn(
+                instanceControlLogSaved);
+
+        // When
+        InstanceControlLog instanceControlLogResult = instanceControlLogService.update(instanceControlLog);
+
+        // Then
+        verify(instanceControlLogServiceMapper).mapInstanceControlLogToInstanceControlLogEntity(instanceControlLog,
+                instanceControlLogEntity);
+        assertTrue(instanceControlLogResult == instanceControlLogSaved);
+    }
+
+    @Test
+    public void delete()
+    {
+        // Given
+        Integer iclId = mockValues.nextInteger();
+
+        // When
+        instanceControlLogService.delete(iclId);
+
+        // Then
+        verify(instanceControlLogJpaRepository).delete(iclId);
+
+    }
 
 }

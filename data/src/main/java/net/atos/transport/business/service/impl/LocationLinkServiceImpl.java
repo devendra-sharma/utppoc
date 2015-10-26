@@ -23,39 +23,46 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Component
 @Transactional
-public class LocationLinkServiceImpl implements LocationLinkService {
+public class LocationLinkServiceImpl implements LocationLinkService
+{
 
     @Resource
     private LocationLinkJpaRepository locationLinkJpaRepository;
 
     @Resource
     private LocationLinkServiceMapper locationLinkServiceMapper;
-    
+
     @Override
-    public LocationLink findById(Integer lolId) {
+    public LocationLink findById(Integer lolId)
+    {
         LocationLinkEntity locationLinkEntity = locationLinkJpaRepository.findOne(lolId);
         return locationLinkServiceMapper.mapLocationLinkEntityToLocationLink(locationLinkEntity);
     }
 
     @Override
-    public List<LocationLink> findAll() {
+    public List<LocationLink> findAll()
+    {
         Iterable<LocationLinkEntity> entities = locationLinkJpaRepository.findAll();
         List<LocationLink> beans = new ArrayList<LocationLink>();
-        for(LocationLinkEntity locationLinkEntity : entities) {
+        for (LocationLinkEntity locationLinkEntity : entities)
+        {
             beans.add(locationLinkServiceMapper.mapLocationLinkEntityToLocationLink(locationLinkEntity));
         }
         return beans;
     }
 
     @Override
-    public LocationLink save(LocationLink locationLink) {
-        return update(locationLink) ;
+    public LocationLink save(LocationLink locationLink)
+    {
+        return update(locationLink);
     }
 
     @Override
-    public LocationLink create(LocationLink locationLink) {
+    public LocationLink create(LocationLink locationLink)
+    {
         LocationLinkEntity locationLinkEntity = locationLinkJpaRepository.findOne(locationLink.getLolId());
-        if( locationLinkEntity != null ) {
+        if (locationLinkEntity != null)
+        {
             throw new IllegalStateException("already.exists");
         }
         locationLinkEntity = new LocationLinkEntity();
@@ -65,7 +72,8 @@ public class LocationLinkServiceImpl implements LocationLinkService {
     }
 
     @Override
-    public LocationLink update(LocationLink locationLink) {
+    public LocationLink update(LocationLink locationLink)
+    {
         LocationLinkEntity locationLinkEntity = locationLinkJpaRepository.findOne(locationLink.getLolId());
         locationLinkServiceMapper.mapLocationLinkToLocationLinkEntity(locationLink, locationLinkEntity);
         LocationLinkEntity locationLinkEntitySaved = locationLinkJpaRepository.save(locationLinkEntity);
@@ -73,23 +81,28 @@ public class LocationLinkServiceImpl implements LocationLinkService {
     }
 
     @Override
-    public void delete(Integer lolId) {
+    public void delete(Integer lolId)
+    {
         locationLinkJpaRepository.delete(lolId);
     }
 
-    public LocationLinkJpaRepository getLocationLinkJpaRepository() {
+    public LocationLinkJpaRepository getLocationLinkJpaRepository()
+    {
         return locationLinkJpaRepository;
     }
 
-    public void setLocationLinkJpaRepository(LocationLinkJpaRepository locationLinkJpaRepository) {
+    public void setLocationLinkJpaRepository(LocationLinkJpaRepository locationLinkJpaRepository)
+    {
         this.locationLinkJpaRepository = locationLinkJpaRepository;
     }
 
-    public LocationLinkServiceMapper getLocationLinkServiceMapper() {
+    public LocationLinkServiceMapper getLocationLinkServiceMapper()
+    {
         return locationLinkServiceMapper;
     }
 
-    public void setLocationLinkServiceMapper(LocationLinkServiceMapper locationLinkServiceMapper) {
+    public void setLocationLinkServiceMapper(LocationLinkServiceMapper locationLinkServiceMapper)
+    {
         this.locationLinkServiceMapper = locationLinkServiceMapper;
     }
 

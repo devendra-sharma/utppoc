@@ -2,17 +2,19 @@ package net.atos.transport.test;
 
 import net.atos.transport.entity.FaresCheckingExclusion;
 
-public class FaresCheckingExclusionFactoryForTest {
+public class FaresCheckingExclusionFactoryForTest
+{
 
-	private MockValues mockValues = new MockValues();
-	
-	public FaresCheckingExclusion newFaresCheckingExclusion() {
+    private MockValues mockValues = new MockValues();
 
-		Long faresCheckingExclusionId = mockValues.nextLong();
+    public FaresCheckingExclusion newFaresCheckingExclusion()
+    {
 
-		FaresCheckingExclusion faresCheckingExclusion = new FaresCheckingExclusion();
-		faresCheckingExclusion.setFaresCheckingExclusionId(faresCheckingExclusionId);
-		return faresCheckingExclusion;
-	}
-	
+        Long faresCheckingExclusionId = mockValues.nextLong();
+
+        FaresCheckingExclusion faresCheckingExclusion = new FaresCheckingExclusion();
+        faresCheckingExclusion.setFaresCheckingExclusionId(faresCheckingExclusionId);
+        return faresCheckingExclusion;
+    }
+
 }

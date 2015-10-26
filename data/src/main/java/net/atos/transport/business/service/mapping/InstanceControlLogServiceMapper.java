@@ -15,59 +15,71 @@ import org.springframework.stereotype.Component;
  * Mapping between entity beans and display beans.
  */
 @Component
-public class InstanceControlLogServiceMapper extends AbstractServiceMapper {
+public class InstanceControlLogServiceMapper extends AbstractServiceMapper
+{
 
     /**
      * ModelMapper : bean to bean mapping library.
      */
     private ModelMapper modelMapper;
-    
+
     /**
      * Constructor.
      */
-    public InstanceControlLogServiceMapper() {
+    public InstanceControlLogServiceMapper()
+    {
         modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
     }
 
     /**
      * Mapping from 'InstanceControlLogEntity' to 'InstanceControlLog'
+     * 
      * @param instanceControlLogEntity
      */
-    public InstanceControlLog mapInstanceControlLogEntityToInstanceControlLog(InstanceControlLogEntity instanceControlLogEntity) {
-        if(instanceControlLogEntity == null) {
+    public InstanceControlLog mapInstanceControlLogEntityToInstanceControlLog(
+            InstanceControlLogEntity instanceControlLogEntity)
+    {
+        if (instanceControlLogEntity == null)
+        {
             return null;
         }
 
-        //--- Generic mapping 
+        // --- Generic mapping
         return map(instanceControlLogEntity, InstanceControlLog.class);
 
     }
-    
+
     /**
      * Mapping from 'InstanceControlLog' to 'InstanceControlLogEntity'
+     * 
      * @param instanceControlLog
      * @param instanceControlLogEntity
      */
-    public void mapInstanceControlLogToInstanceControlLogEntity(InstanceControlLog instanceControlLog, InstanceControlLogEntity instanceControlLogEntity) {
-        if(instanceControlLog == null) {
+    public void mapInstanceControlLogToInstanceControlLogEntity(InstanceControlLog instanceControlLog,
+            InstanceControlLogEntity instanceControlLogEntity)
+    {
+        if (instanceControlLog == null)
+        {
             return;
         }
 
-        //--- Generic mapping 
+        // --- Generic mapping
         map(instanceControlLog, instanceControlLogEntity);
 
     }
-    
+
     /**
      * {@inheritDoc}
      */
     @Override
-    protected ModelMapper getModelMapper() {
+    protected ModelMapper getModelMapper()
+    {
         return modelMapper;
     }
 
-    protected void setModelMapper(ModelMapper modelMapper) {
+    protected void setModelMapper(ModelMapper modelMapper)
+    {
         this.modelMapper = modelMapper;
     }
 

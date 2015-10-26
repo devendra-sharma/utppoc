@@ -8,65 +8,69 @@ import java.io.Serializable;
 
 import javax.validation.constraints.NotNull;
 
-public class RouteLink extends Common implements Serializable {
+public class RouteLink extends Common implements Serializable
+{
 
     private static final long serialVersionUID = 1L;
 
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // ENTITY PRIMARY KEY ( BASED ON A SINGLE FIELD )
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     @NotNull
     private Integer rolId;
 
-    //----------------------------------------------------------------------
-    // ENTITY DATA FIELDS 
-    //----------------------------------------------------------------------    
+    // ----------------------------------------------------------------------
+    // ENTITY DATA FIELDS
+    // ----------------------------------------------------------------------
     @NotNull
     private Integer rouIdChild;
 
     @NotNull
     private Integer rouIdParent;
 
-    
-
-
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // GETTER & SETTER FOR THE KEY FIELD
-    //----------------------------------------------------------------------
-    public void setRolId( Integer rolId ) {
-        this.rolId = rolId ;
+    // ----------------------------------------------------------------------
+    public void setRolId(Integer rolId)
+    {
+        this.rolId = rolId;
     }
 
-    public Integer getRolId() {
+    public Integer getRolId()
+    {
         return this.rolId;
     }
 
-
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // GETTERS & SETTERS FOR FIELDS
-    //----------------------------------------------------------------------
-    public void setRouIdChild( Integer rouIdChild ) {
+    // ----------------------------------------------------------------------
+    public void setRouIdChild(Integer rouIdChild)
+    {
         this.rouIdChild = rouIdChild;
     }
-    public Integer getRouIdChild() {
+
+    public Integer getRouIdChild()
+    {
         return this.rouIdChild;
     }
 
-    public void setRouIdParent( Integer rouIdParent ) {
+    public void setRouIdParent(Integer rouIdParent)
+    {
         this.rouIdParent = rouIdParent;
     }
-    public Integer getRouIdParent() {
+
+    public Integer getRouIdParent()
+    {
         return this.rouIdParent;
     }
 
-    
-
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // toString METHOD
-    //----------------------------------------------------------------------
-        @Override
-        public String toString() { 
-        StringBuilder sb = new StringBuilder(); 
+    // ----------------------------------------------------------------------
+    @Override
+    public String toString()
+    {
+        StringBuilder sb = new StringBuilder();
         sb.append(rolId);
         sb.append("|");
         sb.append(rouIdChild);
@@ -78,8 +82,7 @@ public class RouteLink extends Common implements Serializable {
         sb.append(getEffectiveFrom());
         sb.append("|");
         sb.append(getEffectiveTo());
-        return sb.toString(); 
-    } 
-
+        return sb.toString();
+    }
 
 }

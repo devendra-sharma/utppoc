@@ -15,62 +15,76 @@ import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.core.io.Resource;
 
-public class FileWritingTasklet implements Tasklet, StepExecutionListener {
-    
+public class FileWritingTasklet implements Tasklet, StepExecutionListener
+{
 
     private Resource filePath;
-    private String content;    
+
+    private String content;
+
     List<Item> errorItems;
 
-    public Resource getFilePath() {
+    public Resource getFilePath()
+    {
         return filePath;
     }
 
-    public void setFilePath(Resource filePath) {
+    public void setFilePath(Resource filePath)
+    {
         this.filePath = filePath;
     }
-    
-    public void setContent(String content) {
+
+    public void setContent(String content)
+    {
 
         this.content = content;
 
     }
-    
+
     @Override
-    public void beforeStep(StepExecution stepExecution) {
-        errorItems = (List)stepExecution.getJobExecution().getExecutionContext().get("ErrorItem");
+    public void beforeStep(StepExecution stepExecution)
+    {
+        errorItems = (List) stepExecution.getJobExecution().getExecutionContext().get("ErrorItem");
     }
-    
+
     @Override
-    public RepeatStatus execute(StepContribution stepContribution,
-            ChunkContext chunkContext) throws Exception {
+    public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception
+    {
 
         FileWriter fileWriter = null;
 
         BufferedWriter bWriter = null;
 
-        try {
-            
+        try
+        {
+
             stepContribution.incrementReadCount();
             fileWriter = new FileWriter(filePath.getFile());
 
             bWriter = new BufferedWriter(fileWriter);
-            
-            for(Item item : errorItems){
-                content = item.getDataItem()+ "\n " +item.getMessage() +"\n";
+
+            for (Item item : errorItems)
+            {
+                content = item.getDataItem() + "\n " + item.getMessage() + "\n";
                 bWriter.write(content);
             }
 
-        } catch (Exception e) {            
+        }
+        catch (Exception e)
+        {
             throw e;
 
-        } finally {
+        }
+        finally
+        {
 
-            if (bWriter != null) {
+            if (bWriter != null)
+            {
                 bWriter.close();
             }
 
-            if (fileWriter != null) {
+            if (fileWriter != null)
+            {
                 fileWriter.close();
             }
 
@@ -78,10 +92,9 @@ public class FileWritingTasklet implements Tasklet, StepExecutionListener {
         return RepeatStatus.FINISHED;
     }
 
-    
-
     @Override
-    public ExitStatus afterStep(StepExecution stepExecution) {        
+    public ExitStatus afterStep(StepExecution stepExecution)
+    {
         return null;
     }
 

@@ -31,137 +31,149 @@ import org.mockito.runners.MockitoJUnitRunner;
  * Test : Implementation of BusinessService
  */
 @RunWith(MockitoJUnitRunner.class)
-public class BusinessServiceImplTest {
+public class BusinessServiceImplTest
+{
 
-	@InjectMocks
-	private BusinessServiceImpl businessService;
-	@Mock
-	private BusinessJpaRepository businessJpaRepository;
-	@Mock
-	private BusinessServiceMapper businessServiceMapper;
-	
-	private BusinessFactoryForTest businessFactoryForTest = new BusinessFactoryForTest();
+    @InjectMocks
+    private BusinessServiceImpl businessService;
 
-	private BusinessEntityFactoryForTest businessEntityFactoryForTest = new BusinessEntityFactoryForTest();
+    @Mock
+    private BusinessJpaRepository businessJpaRepository;
 
-	private MockValues mockValues = new MockValues();
-	
-	@Test
-	public void findById() {
-		// Given
-		Integer busId = mockValues.nextInteger();
-		
-		BusinessEntity businessEntity = businessJpaRepository.findOne(busId);
-		
-		Business business = businessFactoryForTest.newBusiness();
-		when(businessServiceMapper.mapBusinessEntityToBusiness(businessEntity)).thenReturn(business);
+    @Mock
+    private BusinessServiceMapper businessServiceMapper;
 
-		// When
-		Business businessFound = businessService.findById(busId);
+    private BusinessFactoryForTest businessFactoryForTest = new BusinessFactoryForTest();
 
-		// Then
-		assertEquals(business.getBusId(),businessFound.getBusId());
-	}
+    private BusinessEntityFactoryForTest businessEntityFactoryForTest = new BusinessEntityFactoryForTest();
 
-	@Test
-	public void findAll() {
-		// Given
-		List<BusinessEntity> businessEntitys = new ArrayList<BusinessEntity>();
-		BusinessEntity businessEntity1 = businessEntityFactoryForTest.newBusinessEntity();
-		businessEntitys.add(businessEntity1);
-		BusinessEntity businessEntity2 = businessEntityFactoryForTest.newBusinessEntity();
-		businessEntitys.add(businessEntity2);
-		when(businessJpaRepository.findAll()).thenReturn(businessEntitys);
-		
-		Business business1 = businessFactoryForTest.newBusiness();
-		when(businessServiceMapper.mapBusinessEntityToBusiness(businessEntity1)).thenReturn(business1);
-		Business business2 = businessFactoryForTest.newBusiness();
-		when(businessServiceMapper.mapBusinessEntityToBusiness(businessEntity2)).thenReturn(business2);
+    private MockValues mockValues = new MockValues();
 
-		// When
-		List<Business> businesssFounds = businessService.findAll();
+    @Test
+    public void findById()
+    {
+        // Given
+        Integer busId = mockValues.nextInteger();
 
-		// Then
-		assertTrue(business1 == businesssFounds.get(0));
-		assertTrue(business2 == businesssFounds.get(1));
-	}
+        BusinessEntity businessEntity = businessJpaRepository.findOne(busId);
 
-	@Test
-	public void create() {
-		// Given
-		Business business = businessFactoryForTest.newBusiness();
+        Business business = businessFactoryForTest.newBusiness();
+        when(businessServiceMapper.mapBusinessEntityToBusiness(businessEntity)).thenReturn(business);
 
-		BusinessEntity businessEntity = businessEntityFactoryForTest.newBusinessEntity();
-		when(businessJpaRepository.findOne(business.getBusId())).thenReturn(null);
-		
-		businessEntity = new BusinessEntity();
-		businessServiceMapper.mapBusinessToBusinessEntity(business, businessEntity);
-		BusinessEntity businessEntitySaved = businessJpaRepository.save(businessEntity);
-		
-		Business businessSaved = businessFactoryForTest.newBusiness();
-		when(businessServiceMapper.mapBusinessEntityToBusiness(businessEntitySaved)).thenReturn(businessSaved);
+        // When
+        Business businessFound = businessService.findById(busId);
 
-		// When
-		Business businessResult = businessService.create(business);
+        // Then
+        assertEquals(business.getBusId(), businessFound.getBusId());
+    }
 
-		// Then
-		assertTrue(businessResult == businessSaved);
-	}
+    @Test
+    public void findAll()
+    {
+        // Given
+        List<BusinessEntity> businessEntitys = new ArrayList<BusinessEntity>();
+        BusinessEntity businessEntity1 = businessEntityFactoryForTest.newBusinessEntity();
+        businessEntitys.add(businessEntity1);
+        BusinessEntity businessEntity2 = businessEntityFactoryForTest.newBusinessEntity();
+        businessEntitys.add(businessEntity2);
+        when(businessJpaRepository.findAll()).thenReturn(businessEntitys);
 
-	@Test
-	public void createKOExists() {
-		// Given
-		Business business = businessFactoryForTest.newBusiness();
+        Business business1 = businessFactoryForTest.newBusiness();
+        when(businessServiceMapper.mapBusinessEntityToBusiness(businessEntity1)).thenReturn(business1);
+        Business business2 = businessFactoryForTest.newBusiness();
+        when(businessServiceMapper.mapBusinessEntityToBusiness(businessEntity2)).thenReturn(business2);
 
-		BusinessEntity businessEntity = businessEntityFactoryForTest.newBusinessEntity();
-		when(businessJpaRepository.findOne(business.getBusId())).thenReturn(businessEntity);
+        // When
+        List<Business> businesssFounds = businessService.findAll();
 
-		// When
-		Exception exception = null;
-		try {
-			businessService.create(business);
-		} catch(Exception e) {
-			exception = e;
-		}
+        // Then
+        assertTrue(business1 == businesssFounds.get(0));
+        assertTrue(business2 == businesssFounds.get(1));
+    }
 
-		// Then
-		assertTrue(exception instanceof IllegalStateException);
-		assertEquals("already.exists", exception.getMessage());
-	}
+    @Test
+    public void create()
+    {
+        // Given
+        Business business = businessFactoryForTest.newBusiness();
 
-	@Test
-	public void update() {
-		// Given
-		Business business = businessFactoryForTest.newBusiness();
+        BusinessEntity businessEntity = businessEntityFactoryForTest.newBusinessEntity();
+        when(businessJpaRepository.findOne(business.getBusId())).thenReturn(null);
 
-		BusinessEntity businessEntity = businessEntityFactoryForTest.newBusinessEntity();
-		when(businessJpaRepository.findOne(business.getBusId())).thenReturn(businessEntity);
-		
-		BusinessEntity businessEntitySaved = businessEntityFactoryForTest.newBusinessEntity();
-		when(businessJpaRepository.save(businessEntity)).thenReturn(businessEntitySaved);
-		
-		Business businessSaved = businessFactoryForTest.newBusiness();
-		when(businessServiceMapper.mapBusinessEntityToBusiness(businessEntitySaved)).thenReturn(businessSaved);
+        businessEntity = new BusinessEntity();
+        businessServiceMapper.mapBusinessToBusinessEntity(business, businessEntity);
+        BusinessEntity businessEntitySaved = businessJpaRepository.save(businessEntity);
 
-		// When
-		Business businessResult = businessService.update(business);
+        Business businessSaved = businessFactoryForTest.newBusiness();
+        when(businessServiceMapper.mapBusinessEntityToBusiness(businessEntitySaved)).thenReturn(businessSaved);
 
-		// Then
-		verify(businessServiceMapper).mapBusinessToBusinessEntity(business, businessEntity);
-		assertTrue(businessResult == businessSaved);
-	}
+        // When
+        Business businessResult = businessService.create(business);
 
-	@Test
-	public void delete() {
-		// Given
-		Integer busId = mockValues.nextInteger();
+        // Then
+        assertTrue(businessResult == businessSaved);
+    }
 
-		// When
-		businessService.delete(busId);
+    @Test
+    public void createKOExists()
+    {
+        // Given
+        Business business = businessFactoryForTest.newBusiness();
 
-		// Then
-		verify(businessJpaRepository).delete(busId);
-		
-	}
+        BusinessEntity businessEntity = businessEntityFactoryForTest.newBusinessEntity();
+        when(businessJpaRepository.findOne(business.getBusId())).thenReturn(businessEntity);
+
+        // When
+        Exception exception = null;
+        try
+        {
+            businessService.create(business);
+        }
+        catch (Exception e)
+        {
+            exception = e;
+        }
+
+        // Then
+        assertTrue(exception instanceof IllegalStateException);
+        assertEquals("already.exists", exception.getMessage());
+    }
+
+    @Test
+    public void update()
+    {
+        // Given
+        Business business = businessFactoryForTest.newBusiness();
+
+        BusinessEntity businessEntity = businessEntityFactoryForTest.newBusinessEntity();
+        when(businessJpaRepository.findOne(business.getBusId())).thenReturn(businessEntity);
+
+        BusinessEntity businessEntitySaved = businessEntityFactoryForTest.newBusinessEntity();
+        when(businessJpaRepository.save(businessEntity)).thenReturn(businessEntitySaved);
+
+        Business businessSaved = businessFactoryForTest.newBusiness();
+        when(businessServiceMapper.mapBusinessEntityToBusiness(businessEntitySaved)).thenReturn(businessSaved);
+
+        // When
+        Business businessResult = businessService.update(business);
+
+        // Then
+        verify(businessServiceMapper).mapBusinessToBusinessEntity(business, businessEntity);
+        assertTrue(businessResult == businessSaved);
+    }
+
+    @Test
+    public void delete()
+    {
+        // Given
+        Integer busId = mockValues.nextInteger();
+
+        // When
+        businessService.delete(busId);
+
+        // Then
+        verify(businessJpaRepository).delete(busId);
+
+    }
 
 }

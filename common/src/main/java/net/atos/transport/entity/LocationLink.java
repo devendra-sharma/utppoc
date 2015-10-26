@@ -8,20 +8,20 @@ import java.io.Serializable;
 
 import javax.validation.constraints.NotNull;
 
-public class LocationLink extends Common implements Serializable {
+public class LocationLink extends Common implements Serializable
+{
 
     private static final long serialVersionUID = 1L;
 
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // ENTITY PRIMARY KEY ( BASED ON A SINGLE FIELD )
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     @NotNull
     private Integer lolId;
 
-    //----------------------------------------------------------------------
-    // ENTITY DATA FIELDS 
-    //----------------------------------------------------------------------    
- 
+    // ----------------------------------------------------------------------
+    // ENTITY DATA FIELDS
+    // ----------------------------------------------------------------------
 
     @NotNull
     private Integer locIdChild;
@@ -32,52 +32,60 @@ public class LocationLink extends Common implements Serializable {
     @NotNull
     private Integer gftId;
 
-
-
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // GETTER & SETTER FOR THE KEY FIELD
-    //----------------------------------------------------------------------
-    public void setLolId( Integer lolId ) {
-        this.lolId = lolId ;
+    // ----------------------------------------------------------------------
+    public void setLolId(Integer lolId)
+    {
+        this.lolId = lolId;
     }
 
-    public Integer getLolId() {
+    public Integer getLolId()
+    {
         return this.lolId;
     }
 
-
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // GETTERS & SETTERS FOR FIELDS
-    //----------------------------------------------------------------------
-   
-    public void setLocIdChild( Integer locIdChild ) {
+    // ----------------------------------------------------------------------
+
+    public void setLocIdChild(Integer locIdChild)
+    {
         this.locIdChild = locIdChild;
     }
-    public Integer getLocIdChild() {
+
+    public Integer getLocIdChild()
+    {
         return this.locIdChild;
     }
 
-    public void setLocIdParent( Integer locIdParent ) {
+    public void setLocIdParent(Integer locIdParent)
+    {
         this.locIdParent = locIdParent;
     }
-    public Integer getLocIdParent() {
+
+    public Integer getLocIdParent()
+    {
         return this.locIdParent;
     }
 
-    public void setGftId( Integer gftId ) {
+    public void setGftId(Integer gftId)
+    {
         this.gftId = gftId;
     }
-    public Integer getGftId() {
+
+    public Integer getGftId()
+    {
         return this.gftId;
     }
 
-
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // toString METHOD
-    //----------------------------------------------------------------------
-        @Override
-        public String toString() { 
-        StringBuilder sb = new StringBuilder(); 
+    // ----------------------------------------------------------------------
+    @Override
+    public String toString()
+    {
+        StringBuilder sb = new StringBuilder();
         sb.append(lolId);
         sb.append("|");
         sb.append(getExpired());
@@ -91,8 +99,7 @@ public class LocationLink extends Common implements Serializable {
         sb.append(locIdParent);
         sb.append("|");
         sb.append(gftId);
-        return sb.toString(); 
-    } 
-
+        return sb.toString();
+    }
 
 }

@@ -15,58 +15,68 @@ import org.springframework.stereotype.Component;
  * Mapping between entity beans and display beans.
  */
 @Component
-public class BusinessServiceMapper extends AbstractServiceMapper {
+public class BusinessServiceMapper extends AbstractServiceMapper
+{
 
     /**
      * ModelMapper : bean to bean mapping library.
      */
     private ModelMapper modelMapper;
-    
+
     /**
      * Constructor.
      */
-    public BusinessServiceMapper() {
+    public BusinessServiceMapper()
+    {
         modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
     }
 
     /**
      * Mapping from 'BusinessEntity' to 'Business'
+     * 
      * @param businessEntity
      */
-    public Business mapBusinessEntityToBusiness(BusinessEntity businessEntity) {
-        if(businessEntity == null) {
+    public Business mapBusinessEntityToBusiness(BusinessEntity businessEntity)
+    {
+        if (businessEntity == null)
+        {
             return null;
         }
 
-        //--- Generic mapping 
+        // --- Generic mapping
         return map(businessEntity, Business.class);
     }
-    
+
     /**
      * Mapping from 'Business' to 'BusinessEntity'
+     * 
      * @param business
      * @param businessEntity
      */
-    public void mapBusinessToBusinessEntity(Business business, BusinessEntity businessEntity) {
-        if(business == null) {
+    public void mapBusinessToBusinessEntity(Business business, BusinessEntity businessEntity)
+    {
+        if (business == null)
+        {
             return;
         }
 
-        //--- Generic mapping 
+        // --- Generic mapping
         map(business, businessEntity);
 
     }
-    
+
     /**
      * {@inheritDoc}
      */
     @Override
-    protected ModelMapper getModelMapper() {
+    protected ModelMapper getModelMapper()
+    {
         return modelMapper;
     }
 
-    protected void setModelMapper(ModelMapper modelMapper) {
+    protected void setModelMapper(ModelMapper modelMapper)
+    {
         this.modelMapper = modelMapper;
     }
 

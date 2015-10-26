@@ -23,39 +23,46 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Component
 @Transactional
-public class CodeBookServiceImpl implements CodeBookService {
+public class CodeBookServiceImpl implements CodeBookService
+{
 
     @Resource
     private CodeBookJpaRepository codeBookJpaRepository;
 
     @Resource
     private CodeBookServiceMapper codeBookServiceMapper;
-    
+
     @Override
-    public CodeBook findById(Integer cobId) {
+    public CodeBook findById(Integer cobId)
+    {
         CodeBookEntity codeBookEntity = codeBookJpaRepository.findOne(cobId);
         return codeBookServiceMapper.mapCodeBookEntityToCodeBook(codeBookEntity);
     }
 
     @Override
-    public List<CodeBook> findAll() {
+    public List<CodeBook> findAll()
+    {
         Iterable<CodeBookEntity> entities = codeBookJpaRepository.findAll();
         List<CodeBook> beans = new ArrayList<CodeBook>();
-        for(CodeBookEntity codeBookEntity : entities) {
+        for (CodeBookEntity codeBookEntity : entities)
+        {
             beans.add(codeBookServiceMapper.mapCodeBookEntityToCodeBook(codeBookEntity));
         }
         return beans;
     }
 
     @Override
-    public CodeBook save(CodeBook codeBook) {
-        return update(codeBook) ;
+    public CodeBook save(CodeBook codeBook)
+    {
+        return update(codeBook);
     }
 
     @Override
-    public CodeBook create(CodeBook codeBook) {
+    public CodeBook create(CodeBook codeBook)
+    {
         CodeBookEntity codeBookEntity = codeBookJpaRepository.findOne(codeBook.getCobId());
-        if( codeBookEntity != null ) {
+        if (codeBookEntity != null)
+        {
             throw new IllegalStateException("already.exists");
         }
         codeBookEntity = new CodeBookEntity();
@@ -65,7 +72,8 @@ public class CodeBookServiceImpl implements CodeBookService {
     }
 
     @Override
-    public CodeBook update(CodeBook codeBook) {
+    public CodeBook update(CodeBook codeBook)
+    {
         CodeBookEntity codeBookEntity = codeBookJpaRepository.findOne(codeBook.getCobId());
         codeBookServiceMapper.mapCodeBookToCodeBookEntity(codeBook, codeBookEntity);
         CodeBookEntity codeBookEntitySaved = codeBookJpaRepository.save(codeBookEntity);
@@ -73,23 +81,28 @@ public class CodeBookServiceImpl implements CodeBookService {
     }
 
     @Override
-    public void delete(Integer cobId) {
+    public void delete(Integer cobId)
+    {
         codeBookJpaRepository.delete(cobId);
     }
 
-    public CodeBookJpaRepository getCodeBookJpaRepository() {
+    public CodeBookJpaRepository getCodeBookJpaRepository()
+    {
         return codeBookJpaRepository;
     }
 
-    public void setCodeBookJpaRepository(CodeBookJpaRepository codeBookJpaRepository) {
+    public void setCodeBookJpaRepository(CodeBookJpaRepository codeBookJpaRepository)
+    {
         this.codeBookJpaRepository = codeBookJpaRepository;
     }
 
-    public CodeBookServiceMapper getCodeBookServiceMapper() {
+    public CodeBookServiceMapper getCodeBookServiceMapper()
+    {
         return codeBookServiceMapper;
     }
 
-    public void setCodeBookServiceMapper(CodeBookServiceMapper codeBookServiceMapper) {
+    public void setCodeBookServiceMapper(CodeBookServiceMapper codeBookServiceMapper)
+    {
         this.codeBookServiceMapper = codeBookServiceMapper;
     }
 

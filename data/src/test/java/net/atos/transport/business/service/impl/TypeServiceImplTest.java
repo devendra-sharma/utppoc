@@ -31,137 +31,149 @@ import org.mockito.runners.MockitoJUnitRunner;
  * Test : Implementation of TypeService
  */
 @RunWith(MockitoJUnitRunner.class)
-public class TypeServiceImplTest {
+public class TypeServiceImplTest
+{
 
-	@InjectMocks
-	private TypeServiceImpl typeService;
-	@Mock
-	private TypeJpaRepository typeJpaRepository;
-	@Mock
-	private TypeServiceMapper typeServiceMapper;
-	
-	private TypeFactoryForTest typeFactoryForTest = new TypeFactoryForTest();
+    @InjectMocks
+    private TypeServiceImpl typeService;
 
-	private TypeEntityFactoryForTest typeEntityFactoryForTest = new TypeEntityFactoryForTest();
+    @Mock
+    private TypeJpaRepository typeJpaRepository;
 
-	private MockValues mockValues = new MockValues();
-	
-	@Test
-	public void findById() {
-		// Given
-		Integer typId = mockValues.nextInteger();
-		
-		TypeEntity typeEntity = typeJpaRepository.findOne(typId);
-		
-		Type type = typeFactoryForTest.newType();
-		when(typeServiceMapper.mapTypeEntityToType(typeEntity)).thenReturn(type);
+    @Mock
+    private TypeServiceMapper typeServiceMapper;
 
-		// When
-		Type typeFound = typeService.findById(typId);
+    private TypeFactoryForTest typeFactoryForTest = new TypeFactoryForTest();
 
-		// Then
-		assertEquals(type.getTypId(),typeFound.getTypId());
-	}
+    private TypeEntityFactoryForTest typeEntityFactoryForTest = new TypeEntityFactoryForTest();
 
-	@Test
-	public void findAll() {
-		// Given
-		List<TypeEntity> typeEntitys = new ArrayList<TypeEntity>();
-		TypeEntity typeEntity1 = typeEntityFactoryForTest.newTypeEntity();
-		typeEntitys.add(typeEntity1);
-		TypeEntity typeEntity2 = typeEntityFactoryForTest.newTypeEntity();
-		typeEntitys.add(typeEntity2);
-		when(typeJpaRepository.findAll()).thenReturn(typeEntitys);
-		
-		Type type1 = typeFactoryForTest.newType();
-		when(typeServiceMapper.mapTypeEntityToType(typeEntity1)).thenReturn(type1);
-		Type type2 = typeFactoryForTest.newType();
-		when(typeServiceMapper.mapTypeEntityToType(typeEntity2)).thenReturn(type2);
+    private MockValues mockValues = new MockValues();
 
-		// When
-		List<Type> typesFounds = typeService.findAll();
+    @Test
+    public void findById()
+    {
+        // Given
+        Integer typId = mockValues.nextInteger();
 
-		// Then
-		assertTrue(type1 == typesFounds.get(0));
-		assertTrue(type2 == typesFounds.get(1));
-	}
+        TypeEntity typeEntity = typeJpaRepository.findOne(typId);
 
-	@Test
-	public void create() {
-		// Given
-		Type type = typeFactoryForTest.newType();
+        Type type = typeFactoryForTest.newType();
+        when(typeServiceMapper.mapTypeEntityToType(typeEntity)).thenReturn(type);
 
-		TypeEntity typeEntity = typeEntityFactoryForTest.newTypeEntity();
-		when(typeJpaRepository.findOne(type.getTypId())).thenReturn(null);
-		
-		typeEntity = new TypeEntity();
-		typeServiceMapper.mapTypeToTypeEntity(type, typeEntity);
-		TypeEntity typeEntitySaved = typeJpaRepository.save(typeEntity);
-		
-		Type typeSaved = typeFactoryForTest.newType();
-		when(typeServiceMapper.mapTypeEntityToType(typeEntitySaved)).thenReturn(typeSaved);
+        // When
+        Type typeFound = typeService.findById(typId);
 
-		// When
-		Type typeResult = typeService.create(type);
+        // Then
+        assertEquals(type.getTypId(), typeFound.getTypId());
+    }
 
-		// Then
-		assertTrue(typeResult == typeSaved);
-	}
+    @Test
+    public void findAll()
+    {
+        // Given
+        List<TypeEntity> typeEntitys = new ArrayList<TypeEntity>();
+        TypeEntity typeEntity1 = typeEntityFactoryForTest.newTypeEntity();
+        typeEntitys.add(typeEntity1);
+        TypeEntity typeEntity2 = typeEntityFactoryForTest.newTypeEntity();
+        typeEntitys.add(typeEntity2);
+        when(typeJpaRepository.findAll()).thenReturn(typeEntitys);
 
-	@Test
-	public void createKOExists() {
-		// Given
-		Type type = typeFactoryForTest.newType();
+        Type type1 = typeFactoryForTest.newType();
+        when(typeServiceMapper.mapTypeEntityToType(typeEntity1)).thenReturn(type1);
+        Type type2 = typeFactoryForTest.newType();
+        when(typeServiceMapper.mapTypeEntityToType(typeEntity2)).thenReturn(type2);
 
-		TypeEntity typeEntity = typeEntityFactoryForTest.newTypeEntity();
-		when(typeJpaRepository.findOne(type.getTypId())).thenReturn(typeEntity);
+        // When
+        List<Type> typesFounds = typeService.findAll();
 
-		// When
-		Exception exception = null;
-		try {
-			typeService.create(type);
-		} catch(Exception e) {
-			exception = e;
-		}
+        // Then
+        assertTrue(type1 == typesFounds.get(0));
+        assertTrue(type2 == typesFounds.get(1));
+    }
 
-		// Then
-		assertTrue(exception instanceof IllegalStateException);
-		assertEquals("already.exists", exception.getMessage());
-	}
+    @Test
+    public void create()
+    {
+        // Given
+        Type type = typeFactoryForTest.newType();
 
-	@Test
-	public void update() {
-		// Given
-		Type type = typeFactoryForTest.newType();
+        TypeEntity typeEntity = typeEntityFactoryForTest.newTypeEntity();
+        when(typeJpaRepository.findOne(type.getTypId())).thenReturn(null);
 
-		TypeEntity typeEntity = typeEntityFactoryForTest.newTypeEntity();
-		when(typeJpaRepository.findOne(type.getTypId())).thenReturn(typeEntity);
-		
-		TypeEntity typeEntitySaved = typeEntityFactoryForTest.newTypeEntity();
-		when(typeJpaRepository.save(typeEntity)).thenReturn(typeEntitySaved);
-		
-		Type typeSaved = typeFactoryForTest.newType();
-		when(typeServiceMapper.mapTypeEntityToType(typeEntitySaved)).thenReturn(typeSaved);
+        typeEntity = new TypeEntity();
+        typeServiceMapper.mapTypeToTypeEntity(type, typeEntity);
+        TypeEntity typeEntitySaved = typeJpaRepository.save(typeEntity);
 
-		// When
-		Type typeResult = typeService.update(type);
+        Type typeSaved = typeFactoryForTest.newType();
+        when(typeServiceMapper.mapTypeEntityToType(typeEntitySaved)).thenReturn(typeSaved);
 
-		// Then
-		verify(typeServiceMapper).mapTypeToTypeEntity(type, typeEntity);
-		assertTrue(typeResult == typeSaved);
-	}
+        // When
+        Type typeResult = typeService.create(type);
 
-	@Test
-	public void delete() {
-		// Given
-		Integer typId = mockValues.nextInteger();
+        // Then
+        assertTrue(typeResult == typeSaved);
+    }
 
-		// When
-		typeService.delete(typId);
+    @Test
+    public void createKOExists()
+    {
+        // Given
+        Type type = typeFactoryForTest.newType();
 
-		// Then
-		verify(typeJpaRepository).delete(typId);
-		
-	}
+        TypeEntity typeEntity = typeEntityFactoryForTest.newTypeEntity();
+        when(typeJpaRepository.findOne(type.getTypId())).thenReturn(typeEntity);
+
+        // When
+        Exception exception = null;
+        try
+        {
+            typeService.create(type);
+        }
+        catch (Exception e)
+        {
+            exception = e;
+        }
+
+        // Then
+        assertTrue(exception instanceof IllegalStateException);
+        assertEquals("already.exists", exception.getMessage());
+    }
+
+    @Test
+    public void update()
+    {
+        // Given
+        Type type = typeFactoryForTest.newType();
+
+        TypeEntity typeEntity = typeEntityFactoryForTest.newTypeEntity();
+        when(typeJpaRepository.findOne(type.getTypId())).thenReturn(typeEntity);
+
+        TypeEntity typeEntitySaved = typeEntityFactoryForTest.newTypeEntity();
+        when(typeJpaRepository.save(typeEntity)).thenReturn(typeEntitySaved);
+
+        Type typeSaved = typeFactoryForTest.newType();
+        when(typeServiceMapper.mapTypeEntityToType(typeEntitySaved)).thenReturn(typeSaved);
+
+        // When
+        Type typeResult = typeService.update(type);
+
+        // Then
+        verify(typeServiceMapper).mapTypeToTypeEntity(type, typeEntity);
+        assertTrue(typeResult == typeSaved);
+    }
+
+    @Test
+    public void delete()
+    {
+        // Given
+        Integer typId = mockValues.nextInteger();
+
+        // When
+        typeService.delete(typId);
+
+        // Then
+        verify(typeJpaRepository).delete(typId);
+
+    }
 
 }

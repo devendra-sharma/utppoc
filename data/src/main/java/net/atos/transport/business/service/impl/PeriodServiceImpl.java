@@ -23,39 +23,46 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Component
 @Transactional
-public class PeriodServiceImpl implements PeriodService {
+public class PeriodServiceImpl implements PeriodService
+{
 
     @Resource
     private PeriodJpaRepository periodJpaRepository;
 
     @Resource
     private PeriodServiceMapper periodServiceMapper;
-    
+
     @Override
-    public Period findById(Integer perId) {
+    public Period findById(Integer perId)
+    {
         PeriodEntity periodEntity = periodJpaRepository.findOne(perId);
         return periodServiceMapper.mapPeriodEntityToPeriod(periodEntity);
     }
 
     @Override
-    public List<Period> findAll() {
+    public List<Period> findAll()
+    {
         Iterable<PeriodEntity> entities = periodJpaRepository.findAll();
         List<Period> beans = new ArrayList<Period>();
-        for(PeriodEntity periodEntity : entities) {
+        for (PeriodEntity periodEntity : entities)
+        {
             beans.add(periodServiceMapper.mapPeriodEntityToPeriod(periodEntity));
         }
         return beans;
     }
 
     @Override
-    public Period save(Period period) {
-        return update(period) ;
+    public Period save(Period period)
+    {
+        return update(period);
     }
 
     @Override
-    public Period create(Period period) {
+    public Period create(Period period)
+    {
         PeriodEntity periodEntity = periodJpaRepository.findOne(period.getPerId());
-        if( periodEntity != null ) {
+        if (periodEntity != null)
+        {
             throw new IllegalStateException("already.exists");
         }
         periodEntity = new PeriodEntity();
@@ -65,7 +72,8 @@ public class PeriodServiceImpl implements PeriodService {
     }
 
     @Override
-    public Period update(Period period) {
+    public Period update(Period period)
+    {
         PeriodEntity periodEntity = periodJpaRepository.findOne(period.getPerId());
         periodServiceMapper.mapPeriodToPeriodEntity(period, periodEntity);
         PeriodEntity periodEntitySaved = periodJpaRepository.save(periodEntity);
@@ -73,23 +81,28 @@ public class PeriodServiceImpl implements PeriodService {
     }
 
     @Override
-    public void delete(Integer perId) {
+    public void delete(Integer perId)
+    {
         periodJpaRepository.delete(perId);
     }
 
-    public PeriodJpaRepository getPeriodJpaRepository() {
+    public PeriodJpaRepository getPeriodJpaRepository()
+    {
         return periodJpaRepository;
     }
 
-    public void setPeriodJpaRepository(PeriodJpaRepository periodJpaRepository) {
+    public void setPeriodJpaRepository(PeriodJpaRepository periodJpaRepository)
+    {
         this.periodJpaRepository = periodJpaRepository;
     }
 
-    public PeriodServiceMapper getPeriodServiceMapper() {
+    public PeriodServiceMapper getPeriodServiceMapper()
+    {
         return periodServiceMapper;
     }
 
-    public void setPeriodServiceMapper(PeriodServiceMapper periodServiceMapper) {
+    public void setPeriodServiceMapper(PeriodServiceMapper periodServiceMapper)
+    {
         this.periodServiceMapper = periodServiceMapper;
     }
 

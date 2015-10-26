@@ -23,39 +23,46 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Component
 @Transactional
-public class LocationTypeServiceImpl implements LocationTypeService {
+public class LocationTypeServiceImpl implements LocationTypeService
+{
 
     @Resource
     private LocationTypeJpaRepository locationTypeJpaRepository;
 
     @Resource
     private LocationTypeServiceMapper locationTypeServiceMapper;
-    
+
     @Override
-    public LocationType findById(Integer lotId) {
+    public LocationType findById(Integer lotId)
+    {
         LocationTypeEntity locationTypeEntity = locationTypeJpaRepository.findOne(lotId);
         return locationTypeServiceMapper.mapLocationTypeEntityToLocationType(locationTypeEntity);
     }
 
     @Override
-    public List<LocationType> findAll() {
+    public List<LocationType> findAll()
+    {
         Iterable<LocationTypeEntity> entities = locationTypeJpaRepository.findAll();
         List<LocationType> beans = new ArrayList<LocationType>();
-        for(LocationTypeEntity locationTypeEntity : entities) {
+        for (LocationTypeEntity locationTypeEntity : entities)
+        {
             beans.add(locationTypeServiceMapper.mapLocationTypeEntityToLocationType(locationTypeEntity));
         }
         return beans;
     }
 
     @Override
-    public LocationType save(LocationType locationType) {
-        return update(locationType) ;
+    public LocationType save(LocationType locationType)
+    {
+        return update(locationType);
     }
 
     @Override
-    public LocationType create(LocationType locationType) {
+    public LocationType create(LocationType locationType)
+    {
         LocationTypeEntity locationTypeEntity = locationTypeJpaRepository.findOne(locationType.getLotId());
-        if( locationTypeEntity != null ) {
+        if (locationTypeEntity != null)
+        {
             throw new IllegalStateException("already.exists");
         }
         locationTypeEntity = new LocationTypeEntity();
@@ -65,7 +72,8 @@ public class LocationTypeServiceImpl implements LocationTypeService {
     }
 
     @Override
-    public LocationType update(LocationType locationType) {
+    public LocationType update(LocationType locationType)
+    {
         LocationTypeEntity locationTypeEntity = locationTypeJpaRepository.findOne(locationType.getLotId());
         locationTypeServiceMapper.mapLocationTypeToLocationTypeEntity(locationType, locationTypeEntity);
         LocationTypeEntity locationTypeEntitySaved = locationTypeJpaRepository.save(locationTypeEntity);
@@ -73,23 +81,28 @@ public class LocationTypeServiceImpl implements LocationTypeService {
     }
 
     @Override
-    public void delete(Integer lotId) {
+    public void delete(Integer lotId)
+    {
         locationTypeJpaRepository.delete(lotId);
     }
 
-    public LocationTypeJpaRepository getLocationTypeJpaRepository() {
+    public LocationTypeJpaRepository getLocationTypeJpaRepository()
+    {
         return locationTypeJpaRepository;
     }
 
-    public void setLocationTypeJpaRepository(LocationTypeJpaRepository locationTypeJpaRepository) {
+    public void setLocationTypeJpaRepository(LocationTypeJpaRepository locationTypeJpaRepository)
+    {
         this.locationTypeJpaRepository = locationTypeJpaRepository;
     }
 
-    public LocationTypeServiceMapper getLocationTypeServiceMapper() {
+    public LocationTypeServiceMapper getLocationTypeServiceMapper()
+    {
         return locationTypeServiceMapper;
     }
 
-    public void setLocationTypeServiceMapper(LocationTypeServiceMapper locationTypeServiceMapper) {
+    public void setLocationTypeServiceMapper(LocationTypeServiceMapper locationTypeServiceMapper)
+    {
         this.locationTypeServiceMapper = locationTypeServiceMapper;
     }
 

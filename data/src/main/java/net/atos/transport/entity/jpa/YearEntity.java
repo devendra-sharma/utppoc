@@ -24,125 +24,139 @@ import javax.persistence.TemporalType;
  */
 
 @Entity
-@Table(name="year", catalog="mydb" )
+@Table(name = "year", catalog = "mydb")
 // Define named queries here
-@NamedQueries ( {
-  @NamedQuery ( name="YearEntity.countAll", query="SELECT COUNT(x) FROM YearEntity x" )
-} )
-public class YearEntity implements Serializable {
+@NamedQueries(
+{@NamedQuery(name = "YearEntity.countAll", query = "SELECT COUNT(x) FROM YearEntity x") })
+public class YearEntity implements Serializable
+{
 
     private static final long serialVersionUID = 1L;
 
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // ENTITY PRIMARY KEY ( BASED ON A SINGLE FIELD )
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="year", nullable=false)
-    private Integer    year         ;
+    @Column(name = "year", nullable = false)
+    private Integer year;
 
-
-    //----------------------------------------------------------------------
-    // ENTITY DATA FIELDS 
-    //----------------------------------------------------------------------    
+    // ----------------------------------------------------------------------
+    // ENTITY DATA FIELDS
+    // ----------------------------------------------------------------------
     @Temporal(TemporalType.DATE)
-    @Column(name="start_date")
-    private Date       startDate    ;
+    @Column(name = "start_date")
+    private Date startDate;
 
     @Temporal(TemporalType.DATE)
-    @Column(name="end_date")
-    private Date       endDate      ;
+    @Column(name = "end_date")
+    private Date endDate;
 
-
-
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // ENTITY LINKS ( RELATIONSHIP )
-    //----------------------------------------------------------------------
-    @OneToMany(mappedBy="year2", targetEntity=CalendarEntity.class)
+    // ----------------------------------------------------------------------
+    @OneToMany(mappedBy = "year2", targetEntity = CalendarEntity.class)
     private transient List<CalendarEntity> listOfCalendar;
 
-    @OneToMany(mappedBy="year2", targetEntity=PeriodEntity.class)
+    @OneToMany(mappedBy = "year2", targetEntity = PeriodEntity.class)
     private transient List<PeriodEntity> listOfPeriod;
 
-    @OneToMany(mappedBy="year2", targetEntity=WeekEntity.class)
-    private transient List<WeekEntity> listOfWeek  ;
+    @OneToMany(mappedBy = "year2", targetEntity = WeekEntity.class)
+    private transient List<WeekEntity> listOfWeek;
 
-
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // CONSTRUCTOR(S)
-    //----------------------------------------------------------------------
-    public YearEntity() {
+    // ----------------------------------------------------------------------
+    public YearEntity()
+    {
         super();
     }
-    
-    //----------------------------------------------------------------------
+
+    // ----------------------------------------------------------------------
     // GETTER & SETTER FOR THE KEY FIELD
-    //----------------------------------------------------------------------
-    public void setYear( Integer year ) {
-        this.year = year ;
+    // ----------------------------------------------------------------------
+    public void setYear(Integer year)
+    {
+        this.year = year;
     }
-    public Integer getYear() {
+
+    public Integer getYear()
+    {
         return this.year;
     }
 
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // GETTERS & SETTERS FOR FIELDS
-    //----------------------------------------------------------------------
-    //--- DATABASE MAPPING : start_date ( DATE ) 
-    public void setStartDate( Date startDate ) {
+    // ----------------------------------------------------------------------
+    // --- DATABASE MAPPING : start_date ( DATE )
+    public void setStartDate(Date startDate)
+    {
         this.startDate = startDate;
     }
-    public Date getStartDate() {
+
+    public Date getStartDate()
+    {
         return this.startDate;
     }
 
-    //--- DATABASE MAPPING : end_date ( DATE ) 
-    public void setEndDate( Date endDate ) {
+    // --- DATABASE MAPPING : end_date ( DATE )
+    public void setEndDate(Date endDate)
+    {
         this.endDate = endDate;
     }
-    public Date getEndDate() {
+
+    public Date getEndDate()
+    {
         return this.endDate;
     }
 
-
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // GETTERS & SETTERS FOR LINKS
-    //----------------------------------------------------------------------
-    public void setListOfCalendar( List<CalendarEntity> listOfCalendar ) {
+    // ----------------------------------------------------------------------
+    public void setListOfCalendar(List<CalendarEntity> listOfCalendar)
+    {
         this.listOfCalendar = listOfCalendar;
     }
-    public List<CalendarEntity> getListOfCalendar() {
+
+    public List<CalendarEntity> getListOfCalendar()
+    {
         return this.listOfCalendar;
     }
 
-    public void setListOfPeriod( List<PeriodEntity> listOfPeriod ) {
+    public void setListOfPeriod(List<PeriodEntity> listOfPeriod)
+    {
         this.listOfPeriod = listOfPeriod;
     }
-    public List<PeriodEntity> getListOfPeriod() {
+
+    public List<PeriodEntity> getListOfPeriod()
+    {
         return this.listOfPeriod;
     }
 
-    public void setListOfWeek( List<WeekEntity> listOfWeek ) {
+    public void setListOfWeek(List<WeekEntity> listOfWeek)
+    {
         this.listOfWeek = listOfWeek;
     }
-    public List<WeekEntity> getListOfWeek() {
+
+    public List<WeekEntity> getListOfWeek()
+    {
         return this.listOfWeek;
     }
 
-
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // toString METHOD
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     @Override
-    public String toString() { 
-        StringBuilder sb = new StringBuilder(); 
-        sb.append("["); 
+    public String toString()
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
         sb.append(year);
-        sb.append("]:"); 
+        sb.append("]:");
         sb.append(startDate);
         sb.append("|");
         sb.append(endDate);
-        return sb.toString(); 
-    } 
+        return sb.toString();
+    }
 
 }

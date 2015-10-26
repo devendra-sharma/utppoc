@@ -7,6 +7,8 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 /**
  * Repository : TicketAllocationCode.
  */
-public interface TicketAllocationCodeJpaRepository extends PagingAndSortingRepository<TicketAllocationCodeEntity, Integer> {
+public interface TicketAllocationCodeJpaRepository extends
+        PagingAndSortingRepository<TicketAllocationCodeEntity, Integer>
+{
 
 }

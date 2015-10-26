@@ -2,17 +2,19 @@ package net.atos.transport.test;
 
 import net.atos.transport.entity.Week;
 
-public class WeekFactoryForTest {
+public class WeekFactoryForTest
+{
 
-	private MockValues mockValues = new MockValues();
-	
-	public Week newWeek() {
+    private MockValues mockValues = new MockValues();
 
-		Integer weekId = mockValues.nextInteger();
+    public Week newWeek()
+    {
 
-		Week week = new Week();
-		week.setWeekId(weekId);
-		return week;
-	}
-	
+        Integer weekId = mockValues.nextInteger();
+
+        Week week = new Week();
+        week.setWeekId(weekId);
+        return week;
+    }
+
 }

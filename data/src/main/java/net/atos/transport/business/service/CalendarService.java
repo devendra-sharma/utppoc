@@ -11,23 +11,27 @@ import net.atos.transport.entity.Calendar;
 /**
  * Business Service Interface for entity Calendar.
  */
-public interface CalendarService { 
+public interface CalendarService
+{
 
     /**
      * Loads an entity from the database using its Primary Key
+     * 
      * @param calId
      * @return entity
      */
-    Calendar findById( Integer calId  ) ;
+    Calendar findById(Integer calId);
 
     /**
      * Loads all entities.
+     * 
      * @return all entities
      */
     List<Calendar> findAll();
 
     /**
      * Saves the given entity in the database (create or update)
+     * 
      * @param entity
      * @return entity
      */
@@ -35,6 +39,7 @@ public interface CalendarService {
 
     /**
      * Updates the given entity in the database
+     * 
      * @param entity
      * @return
      */
@@ -42,6 +47,7 @@ public interface CalendarService {
 
     /**
      * Creates the given entity in the database
+     * 
      * @param entity
      * @return
      */
@@ -49,14 +55,16 @@ public interface CalendarService {
 
     /**
      * Deletes an entity using its Primary Key
+     * 
      * @param calId
      */
-    void delete( Integer calId );
+    void delete(Integer calId);
 
     public List<Calendar> getbyCalendarIds(List<Integer> ids);
 
     /**
      * Retrieves the Calendar for saleDate.
+     * 
      * @param saleDate
      * @return
      */

@@ -19,59 +19,66 @@ import net.atos.transport.test.MockValues;
 /**
  * Test : Mapping between entity beans and display beans.
  */
-public class InstanceControlLogServiceMapperTest {
+public class InstanceControlLogServiceMapperTest
+{
 
-	private InstanceControlLogServiceMapper instanceControlLogServiceMapper;
+    private InstanceControlLogServiceMapper instanceControlLogServiceMapper;
 
-	private static ModelMapper modelMapper = new ModelMapper();
+    private static ModelMapper modelMapper = new ModelMapper();
 
-	private MockValues mockValues = new MockValues();
-	
-	
-	@BeforeClass
-	public static void setUp() {
-		modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-	}
-	
-	@Before
-	public void before() {
-		instanceControlLogServiceMapper = new InstanceControlLogServiceMapper();
-		instanceControlLogServiceMapper.setModelMapper(modelMapper);
-	}
-	
-	/**
-	 * Mapping from 'InstanceControlLogEntity' to 'InstanceControlLog'
-	 * @param instanceControlLogEntity
-	 */
-	@Test
-	public void testMapInstanceControlLogEntityToInstanceControlLog() {
-		// Given
-		InstanceControlLogEntity instanceControlLogEntity = new InstanceControlLogEntity();
-		instanceControlLogEntity.setValue(mockValues.nextString(45));
-		
-		// When
-		InstanceControlLog instanceControlLog = instanceControlLogServiceMapper.mapInstanceControlLogEntityToInstanceControlLog(instanceControlLogEntity);
-		
-		// Then
-		assertEquals(instanceControlLogEntity.getValue(), instanceControlLog.getValue());
-	}
-	
-	/**
-	 * Test : Mapping from 'InstanceControlLog' to 'InstanceControlLogEntity'
-	 */
-	@Test
-	public void testMapInstanceControlLogToInstanceControlLogEntity() {
-		// Given
-		InstanceControlLog instanceControlLog = new InstanceControlLog();
-		instanceControlLog.setValue(mockValues.nextString(45));
+    private MockValues mockValues = new MockValues();
 
-		InstanceControlLogEntity instanceControlLogEntity = new InstanceControlLogEntity();
-		
-		// When
-		instanceControlLogServiceMapper.mapInstanceControlLogToInstanceControlLogEntity(instanceControlLog, instanceControlLogEntity);
-		
-		// Then
-		assertEquals(instanceControlLog.getValue(), instanceControlLogEntity.getValue());
-	}
+    @BeforeClass
+    public static void setUp()
+    {
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+    }
+
+    @Before
+    public void before()
+    {
+        instanceControlLogServiceMapper = new InstanceControlLogServiceMapper();
+        instanceControlLogServiceMapper.setModelMapper(modelMapper);
+    }
+
+    /**
+     * Mapping from 'InstanceControlLogEntity' to 'InstanceControlLog'
+     * 
+     * @param instanceControlLogEntity
+     */
+    @Test
+    public void testMapInstanceControlLogEntityToInstanceControlLog()
+    {
+        // Given
+        InstanceControlLogEntity instanceControlLogEntity = new InstanceControlLogEntity();
+        instanceControlLogEntity.setValue(mockValues.nextString(45));
+
+        // When
+        InstanceControlLog instanceControlLog = instanceControlLogServiceMapper
+                .mapInstanceControlLogEntityToInstanceControlLog(instanceControlLogEntity);
+
+        // Then
+        assertEquals(instanceControlLogEntity.getValue(), instanceControlLog.getValue());
+    }
+
+    /**
+     * Test : Mapping from 'InstanceControlLog' to 'InstanceControlLogEntity'
+     */
+    @Test
+    public void testMapInstanceControlLogToInstanceControlLogEntity()
+    {
+        // Given
+        InstanceControlLog instanceControlLog = new InstanceControlLog();
+        instanceControlLog.setValue(mockValues.nextString(45));
+
+        InstanceControlLogEntity instanceControlLogEntity = new InstanceControlLogEntity();
+
+        // When
+        instanceControlLogServiceMapper.mapInstanceControlLogToInstanceControlLogEntity(instanceControlLog,
+                instanceControlLogEntity);
+
+        // Then
+        assertEquals(instanceControlLog.getValue(), instanceControlLogEntity.getValue());
+    }
 
 }

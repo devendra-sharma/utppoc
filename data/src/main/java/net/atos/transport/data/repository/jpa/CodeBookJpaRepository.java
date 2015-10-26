@@ -7,6 +7,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 /**
  * Repository : CodeBook.
  */
-public interface CodeBookJpaRepository extends PagingAndSortingRepository<CodeBookEntity, Integer> {
+public interface CodeBookJpaRepository extends PagingAndSortingRepository<CodeBookEntity, Integer>
+{
 
 }

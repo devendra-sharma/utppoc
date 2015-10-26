@@ -7,6 +7,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 /**
  * Repository : InstanceControlLog.
  */
-public interface InstanceControlLogJpaRepository extends PagingAndSortingRepository<InstanceControlLogEntity, Integer> {
+public interface InstanceControlLogJpaRepository extends PagingAndSortingRepository<InstanceControlLogEntity, Integer>
+{
 
 }

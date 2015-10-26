@@ -31,137 +31,149 @@ import org.mockito.runners.MockitoJUnitRunner;
  * Test : Implementation of PeriodService
  */
 @RunWith(MockitoJUnitRunner.class)
-public class PeriodServiceImplTest {
+public class PeriodServiceImplTest
+{
 
-	@InjectMocks
-	private PeriodServiceImpl periodService;
-	@Mock
-	private PeriodJpaRepository periodJpaRepository;
-	@Mock
-	private PeriodServiceMapper periodServiceMapper;
-	
-	private PeriodFactoryForTest periodFactoryForTest = new PeriodFactoryForTest();
+    @InjectMocks
+    private PeriodServiceImpl periodService;
 
-	private PeriodEntityFactoryForTest periodEntityFactoryForTest = new PeriodEntityFactoryForTest();
+    @Mock
+    private PeriodJpaRepository periodJpaRepository;
 
-	private MockValues mockValues = new MockValues();
-	
-	@Test
-	public void findById() {
-		// Given
-		Integer perId = mockValues.nextInteger();
-		
-		PeriodEntity periodEntity = periodJpaRepository.findOne(perId);
-		
-		Period period = periodFactoryForTest.newPeriod();
-		when(periodServiceMapper.mapPeriodEntityToPeriod(periodEntity)).thenReturn(period);
+    @Mock
+    private PeriodServiceMapper periodServiceMapper;
 
-		// When
-		Period periodFound = periodService.findById(perId);
+    private PeriodFactoryForTest periodFactoryForTest = new PeriodFactoryForTest();
 
-		// Then
-		assertEquals(period.getPerId(),periodFound.getPerId());
-	}
+    private PeriodEntityFactoryForTest periodEntityFactoryForTest = new PeriodEntityFactoryForTest();
 
-	@Test
-	public void findAll() {
-		// Given
-		List<PeriodEntity> periodEntitys = new ArrayList<PeriodEntity>();
-		PeriodEntity periodEntity1 = periodEntityFactoryForTest.newPeriodEntity();
-		periodEntitys.add(periodEntity1);
-		PeriodEntity periodEntity2 = periodEntityFactoryForTest.newPeriodEntity();
-		periodEntitys.add(periodEntity2);
-		when(periodJpaRepository.findAll()).thenReturn(periodEntitys);
-		
-		Period period1 = periodFactoryForTest.newPeriod();
-		when(periodServiceMapper.mapPeriodEntityToPeriod(periodEntity1)).thenReturn(period1);
-		Period period2 = periodFactoryForTest.newPeriod();
-		when(periodServiceMapper.mapPeriodEntityToPeriod(periodEntity2)).thenReturn(period2);
+    private MockValues mockValues = new MockValues();
 
-		// When
-		List<Period> periodsFounds = periodService.findAll();
+    @Test
+    public void findById()
+    {
+        // Given
+        Integer perId = mockValues.nextInteger();
 
-		// Then
-		assertTrue(period1 == periodsFounds.get(0));
-		assertTrue(period2 == periodsFounds.get(1));
-	}
+        PeriodEntity periodEntity = periodJpaRepository.findOne(perId);
 
-	@Test
-	public void create() {
-		// Given
-		Period period = periodFactoryForTest.newPeriod();
+        Period period = periodFactoryForTest.newPeriod();
+        when(periodServiceMapper.mapPeriodEntityToPeriod(periodEntity)).thenReturn(period);
 
-		PeriodEntity periodEntity = periodEntityFactoryForTest.newPeriodEntity();
-		when(periodJpaRepository.findOne(period.getPerId())).thenReturn(null);
-		
-		periodEntity = new PeriodEntity();
-		periodServiceMapper.mapPeriodToPeriodEntity(period, periodEntity);
-		PeriodEntity periodEntitySaved = periodJpaRepository.save(periodEntity);
-		
-		Period periodSaved = periodFactoryForTest.newPeriod();
-		when(periodServiceMapper.mapPeriodEntityToPeriod(periodEntitySaved)).thenReturn(periodSaved);
+        // When
+        Period periodFound = periodService.findById(perId);
 
-		// When
-		Period periodResult = periodService.create(period);
+        // Then
+        assertEquals(period.getPerId(), periodFound.getPerId());
+    }
 
-		// Then
-		assertTrue(periodResult == periodSaved);
-	}
+    @Test
+    public void findAll()
+    {
+        // Given
+        List<PeriodEntity> periodEntitys = new ArrayList<PeriodEntity>();
+        PeriodEntity periodEntity1 = periodEntityFactoryForTest.newPeriodEntity();
+        periodEntitys.add(periodEntity1);
+        PeriodEntity periodEntity2 = periodEntityFactoryForTest.newPeriodEntity();
+        periodEntitys.add(periodEntity2);
+        when(periodJpaRepository.findAll()).thenReturn(periodEntitys);
 
-	@Test
-	public void createKOExists() {
-		// Given
-		Period period = periodFactoryForTest.newPeriod();
+        Period period1 = periodFactoryForTest.newPeriod();
+        when(periodServiceMapper.mapPeriodEntityToPeriod(periodEntity1)).thenReturn(period1);
+        Period period2 = periodFactoryForTest.newPeriod();
+        when(periodServiceMapper.mapPeriodEntityToPeriod(periodEntity2)).thenReturn(period2);
 
-		PeriodEntity periodEntity = periodEntityFactoryForTest.newPeriodEntity();
-		when(periodJpaRepository.findOne(period.getPerId())).thenReturn(periodEntity);
+        // When
+        List<Period> periodsFounds = periodService.findAll();
 
-		// When
-		Exception exception = null;
-		try {
-			periodService.create(period);
-		} catch(Exception e) {
-			exception = e;
-		}
+        // Then
+        assertTrue(period1 == periodsFounds.get(0));
+        assertTrue(period2 == periodsFounds.get(1));
+    }
 
-		// Then
-		assertTrue(exception instanceof IllegalStateException);
-		assertEquals("already.exists", exception.getMessage());
-	}
+    @Test
+    public void create()
+    {
+        // Given
+        Period period = periodFactoryForTest.newPeriod();
 
-	@Test
-	public void update() {
-		// Given
-		Period period = periodFactoryForTest.newPeriod();
+        PeriodEntity periodEntity = periodEntityFactoryForTest.newPeriodEntity();
+        when(periodJpaRepository.findOne(period.getPerId())).thenReturn(null);
 
-		PeriodEntity periodEntity = periodEntityFactoryForTest.newPeriodEntity();
-		when(periodJpaRepository.findOne(period.getPerId())).thenReturn(periodEntity);
-		
-		PeriodEntity periodEntitySaved = periodEntityFactoryForTest.newPeriodEntity();
-		when(periodJpaRepository.save(periodEntity)).thenReturn(periodEntitySaved);
-		
-		Period periodSaved = periodFactoryForTest.newPeriod();
-		when(periodServiceMapper.mapPeriodEntityToPeriod(periodEntitySaved)).thenReturn(periodSaved);
+        periodEntity = new PeriodEntity();
+        periodServiceMapper.mapPeriodToPeriodEntity(period, periodEntity);
+        PeriodEntity periodEntitySaved = periodJpaRepository.save(periodEntity);
 
-		// When
-		Period periodResult = periodService.update(period);
+        Period periodSaved = periodFactoryForTest.newPeriod();
+        when(periodServiceMapper.mapPeriodEntityToPeriod(periodEntitySaved)).thenReturn(periodSaved);
 
-		// Then
-		verify(periodServiceMapper).mapPeriodToPeriodEntity(period, periodEntity);
-		assertTrue(periodResult == periodSaved);
-	}
+        // When
+        Period periodResult = periodService.create(period);
 
-	@Test
-	public void delete() {
-		// Given
-		Integer perId = mockValues.nextInteger();
+        // Then
+        assertTrue(periodResult == periodSaved);
+    }
 
-		// When
-		periodService.delete(perId);
+    @Test
+    public void createKOExists()
+    {
+        // Given
+        Period period = periodFactoryForTest.newPeriod();
 
-		// Then
-		verify(periodJpaRepository).delete(perId);
-		
-	}
+        PeriodEntity periodEntity = periodEntityFactoryForTest.newPeriodEntity();
+        when(periodJpaRepository.findOne(period.getPerId())).thenReturn(periodEntity);
+
+        // When
+        Exception exception = null;
+        try
+        {
+            periodService.create(period);
+        }
+        catch (Exception e)
+        {
+            exception = e;
+        }
+
+        // Then
+        assertTrue(exception instanceof IllegalStateException);
+        assertEquals("already.exists", exception.getMessage());
+    }
+
+    @Test
+    public void update()
+    {
+        // Given
+        Period period = periodFactoryForTest.newPeriod();
+
+        PeriodEntity periodEntity = periodEntityFactoryForTest.newPeriodEntity();
+        when(periodJpaRepository.findOne(period.getPerId())).thenReturn(periodEntity);
+
+        PeriodEntity periodEntitySaved = periodEntityFactoryForTest.newPeriodEntity();
+        when(periodJpaRepository.save(periodEntity)).thenReturn(periodEntitySaved);
+
+        Period periodSaved = periodFactoryForTest.newPeriod();
+        when(periodServiceMapper.mapPeriodEntityToPeriod(periodEntitySaved)).thenReturn(periodSaved);
+
+        // When
+        Period periodResult = periodService.update(period);
+
+        // Then
+        verify(periodServiceMapper).mapPeriodToPeriodEntity(period, periodEntity);
+        assertTrue(periodResult == periodSaved);
+    }
+
+    @Test
+    public void delete()
+    {
+        // Given
+        Integer perId = mockValues.nextInteger();
+
+        // When
+        periodService.delete(perId);
+
+        // Then
+        verify(periodJpaRepository).delete(perId);
+
+    }
 
 }

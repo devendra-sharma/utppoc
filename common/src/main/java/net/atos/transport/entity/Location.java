@@ -9,428 +9,529 @@ import java.io.Serializable;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-public class Location extends Common implements Serializable {
+public class Location extends Common implements Serializable
+{
 
     private static final long serialVersionUID = 1L;
 
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // ENTITY PRIMARY KEY ( BASED ON A SINGLE FIELD )
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     @NotNull
     private Integer locId;
 
-    //----------------------------------------------------------------------
-    // ENTITY DATA FIELDS 
-    //----------------------------------------------------------------------    
-    @Size( max = 8 )
+    // ----------------------------------------------------------------------
+    // ENTITY DATA FIELDS
+    // ----------------------------------------------------------------------
+    @Size(max = 8)
     private String locations;
 
-    @Size( max = 32 )
+    @Size(max = 32)
     private String locationDescription;
 
     @NotNull
     private Integer lotId;
 
-    @Size( max = 220 )
+    @Size(max = 220)
     private String address;
 
-    @Size( max = 8 )
+    @Size(max = 8)
     private String postcode;
 
-    @Size( max = 15 )
+    @Size(max = 15)
     private String telephone;
-
 
     private Integer locIdPrimaryZone;
 
-    @Size( max = 8 )
+    @Size(max = 8)
     private String primaryZoneCode;
 
-    @Size( max = 32 )
+    @Size(max = 32)
     private String primaryZoneDesc;
-
 
     private Integer locIdSecondaryZone;
 
-    @Size( max = 8 )
+    @Size(max = 8)
     private String secondaryZoneCode;
 
-    @Size( max = 32 )
+    @Size(max = 32)
     private String secondaryZoneDesc;
-
 
     private Integer locIdTertiaryZone;
 
-    @Size( max = 8 )
+    @Size(max = 8)
     private String tertiaryZoneCode;
 
-    @Size( max = 32 )
+    @Size(max = 32)
     private String tertiaryZoneDesc;
-
 
     private Integer locIdTvStation;
 
-    @Size( max = 8 )
+    @Size(max = 8)
     private String tvStationCode;
 
-    @Size( max = 32 )
+    @Size(max = 32)
     private String tvStationName;
-
 
     private Integer locIdLocalAuthority;
 
-    @Size( max = 8 )
+    @Size(max = 8)
     private String localAuthorityCode;
 
-    @Size( max = 32 )
+    @Size(max = 32)
     private String localAuthorityName;
-
 
     private Integer locIdStationGroup;
 
-    @Size( max = 8 )
+    @Size(max = 8)
     private String stationGroup;
 
-    @Size( max = 32 )
+    @Size(max = 32)
     private String stationGroupDesc;
-
 
     private Integer locIdLondonStationGrp;
 
-    @Size( max = 8 )
+    @Size(max = 8)
     private String londonStationGrpCode;
 
-    @Size( max = 32 )
+    @Size(max = 32)
     private String londonStationGrpDesc;
 
-    @Size( max = 8 )
+    @Size(max = 8)
     private String osGridReference;
 
-    @Size( max = 2 )
+    @Size(max = 2)
     private String postalRegion;
 
-    @Size( max = 12 )
+    @Size(max = 12)
     private String nalco12charDescription;
 
-    @Size( max = 16 )
+    @Size(max = 16)
     private String nalco16charDescription;
 
-    @Size( max = 26 )
+    @Size(max = 26)
     private String nalco26charDescription;
 
-    @Size( max = 7 )
+    @Size(max = 7)
     private String nalcoTiploc;
 
-    @Size( max = 3 )
+    @Size(max = 3)
     private String nalco3charCode;
-
-
-   
-
 
     private Integer locIdMasterAccount;
 
-    @Size( max = 8 )
+    @Size(max = 8)
     private String masterAccountCode;
 
-    @Size( max = 32 )
+    @Size(max = 32)
     private String masterAccountName;
 
     @NotNull
     private Integer cobIdGroupType;
 
-
-
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // GETTER & SETTER FOR THE KEY FIELD
-    //----------------------------------------------------------------------
-    public void setLocId( Integer locId ) {
-        this.locId = locId ;
+    // ----------------------------------------------------------------------
+    public void setLocId(Integer locId)
+    {
+        this.locId = locId;
     }
 
-    public Integer getLocId() {
+    public Integer getLocId()
+    {
         return this.locId;
     }
 
-
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // GETTERS & SETTERS FOR FIELDS
-    //----------------------------------------------------------------------
-    public void setLocation( String location ) {
+    // ----------------------------------------------------------------------
+    public void setLocation(String location)
+    {
         this.locations = location;
     }
-    public String getLocation() {
+
+    public String getLocation()
+    {
         return this.locations;
     }
 
-    public void setLocationDescription( String locationDescription ) {
+    public void setLocationDescription(String locationDescription)
+    {
         this.locationDescription = locationDescription;
     }
-    public String getLocationDescription() {
+
+    public String getLocationDescription()
+    {
         return this.locationDescription;
     }
 
-    public void setLotId( Integer lotId ) {
+    public void setLotId(Integer lotId)
+    {
         this.lotId = lotId;
     }
-    public Integer getLotId() {
+
+    public Integer getLotId()
+    {
         return this.lotId;
     }
 
-    public void setAddress( String address ) {
+    public void setAddress(String address)
+    {
         this.address = address;
     }
-    public String getAddress() {
+
+    public String getAddress()
+    {
         return this.address;
     }
 
-    public void setPostcode( String postcode ) {
+    public void setPostcode(String postcode)
+    {
         this.postcode = postcode;
     }
-    public String getPostcode() {
+
+    public String getPostcode()
+    {
         return this.postcode;
     }
 
-    public void setTelephone( String telephone ) {
+    public void setTelephone(String telephone)
+    {
         this.telephone = telephone;
     }
-    public String getTelephone() {
+
+    public String getTelephone()
+    {
         return this.telephone;
     }
 
-    public void setLocIdPrimaryZone( Integer locIdPrimaryZone ) {
+    public void setLocIdPrimaryZone(Integer locIdPrimaryZone)
+    {
         this.locIdPrimaryZone = locIdPrimaryZone;
     }
-    public Integer getLocIdPrimaryZone() {
+
+    public Integer getLocIdPrimaryZone()
+    {
         return this.locIdPrimaryZone;
     }
 
-    public void setPrimaryZoneCode( String primaryZoneCode ) {
+    public void setPrimaryZoneCode(String primaryZoneCode)
+    {
         this.primaryZoneCode = primaryZoneCode;
     }
-    public String getPrimaryZoneCode() {
+
+    public String getPrimaryZoneCode()
+    {
         return this.primaryZoneCode;
     }
 
-    public void setPrimaryZoneDesc( String primaryZoneDesc ) {
+    public void setPrimaryZoneDesc(String primaryZoneDesc)
+    {
         this.primaryZoneDesc = primaryZoneDesc;
     }
-    public String getPrimaryZoneDesc() {
+
+    public String getPrimaryZoneDesc()
+    {
         return this.primaryZoneDesc;
     }
 
-    public void setLocIdSecondaryZone( Integer locIdSecondaryZone ) {
+    public void setLocIdSecondaryZone(Integer locIdSecondaryZone)
+    {
         this.locIdSecondaryZone = locIdSecondaryZone;
     }
-    public Integer getLocIdSecondaryZone() {
+
+    public Integer getLocIdSecondaryZone()
+    {
         return this.locIdSecondaryZone;
     }
 
-    public void setSecondaryZoneCode( String secondaryZoneCode ) {
+    public void setSecondaryZoneCode(String secondaryZoneCode)
+    {
         this.secondaryZoneCode = secondaryZoneCode;
     }
-    public String getSecondaryZoneCode() {
+
+    public String getSecondaryZoneCode()
+    {
         return this.secondaryZoneCode;
     }
 
-    public void setSecondaryZoneDesc( String secondaryZoneDesc ) {
+    public void setSecondaryZoneDesc(String secondaryZoneDesc)
+    {
         this.secondaryZoneDesc = secondaryZoneDesc;
     }
-    public String getSecondaryZoneDesc() {
+
+    public String getSecondaryZoneDesc()
+    {
         return this.secondaryZoneDesc;
     }
 
-    public void setLocIdTertiaryZone( Integer locIdTertiaryZone ) {
+    public void setLocIdTertiaryZone(Integer locIdTertiaryZone)
+    {
         this.locIdTertiaryZone = locIdTertiaryZone;
     }
-    public Integer getLocIdTertiaryZone() {
+
+    public Integer getLocIdTertiaryZone()
+    {
         return this.locIdTertiaryZone;
     }
 
-    public void setTertiaryZoneCode( String tertiaryZoneCode ) {
+    public void setTertiaryZoneCode(String tertiaryZoneCode)
+    {
         this.tertiaryZoneCode = tertiaryZoneCode;
     }
-    public String getTertiaryZoneCode() {
+
+    public String getTertiaryZoneCode()
+    {
         return this.tertiaryZoneCode;
     }
 
-    public void setTertiaryZoneDesc( String tertiaryZoneDesc ) {
+    public void setTertiaryZoneDesc(String tertiaryZoneDesc)
+    {
         this.tertiaryZoneDesc = tertiaryZoneDesc;
     }
-    public String getTertiaryZoneDesc() {
+
+    public String getTertiaryZoneDesc()
+    {
         return this.tertiaryZoneDesc;
     }
 
-    public void setLocIdTvStation( Integer locIdTvStation ) {
+    public void setLocIdTvStation(Integer locIdTvStation)
+    {
         this.locIdTvStation = locIdTvStation;
     }
-    public Integer getLocIdTvStation() {
+
+    public Integer getLocIdTvStation()
+    {
         return this.locIdTvStation;
     }
 
-    public void setTvStationCode( String tvStationCode ) {
+    public void setTvStationCode(String tvStationCode)
+    {
         this.tvStationCode = tvStationCode;
     }
-    public String getTvStationCode() {
+
+    public String getTvStationCode()
+    {
         return this.tvStationCode;
     }
 
-    public void setTvStationName( String tvStationName ) {
+    public void setTvStationName(String tvStationName)
+    {
         this.tvStationName = tvStationName;
     }
-    public String getTvStationName() {
+
+    public String getTvStationName()
+    {
         return this.tvStationName;
     }
 
-    public void setLocIdLocalAuthority( Integer locIdLocalAuthority ) {
+    public void setLocIdLocalAuthority(Integer locIdLocalAuthority)
+    {
         this.locIdLocalAuthority = locIdLocalAuthority;
     }
-    public Integer getLocIdLocalAuthority() {
+
+    public Integer getLocIdLocalAuthority()
+    {
         return this.locIdLocalAuthority;
     }
 
-    public void setLocalAuthorityCode( String localAuthorityCode ) {
+    public void setLocalAuthorityCode(String localAuthorityCode)
+    {
         this.localAuthorityCode = localAuthorityCode;
     }
-    public String getLocalAuthorityCode() {
+
+    public String getLocalAuthorityCode()
+    {
         return this.localAuthorityCode;
     }
 
-    public void setLocalAuthorityName( String localAuthorityName ) {
+    public void setLocalAuthorityName(String localAuthorityName)
+    {
         this.localAuthorityName = localAuthorityName;
     }
-    public String getLocalAuthorityName() {
+
+    public String getLocalAuthorityName()
+    {
         return this.localAuthorityName;
     }
 
-    public void setLocIdStationGroup( Integer locIdStationGroup ) {
+    public void setLocIdStationGroup(Integer locIdStationGroup)
+    {
         this.locIdStationGroup = locIdStationGroup;
     }
-    public Integer getLocIdStationGroup() {
+
+    public Integer getLocIdStationGroup()
+    {
         return this.locIdStationGroup;
     }
 
-    public void setStationGroup( String stationGroup ) {
+    public void setStationGroup(String stationGroup)
+    {
         this.stationGroup = stationGroup;
     }
-    public String getStationGroup() {
+
+    public String getStationGroup()
+    {
         return this.stationGroup;
     }
 
-    public void setStationGroupDesc( String stationGroupDesc ) {
+    public void setStationGroupDesc(String stationGroupDesc)
+    {
         this.stationGroupDesc = stationGroupDesc;
     }
-    public String getStationGroupDesc() {
+
+    public String getStationGroupDesc()
+    {
         return this.stationGroupDesc;
     }
 
-    public void setLocIdLondonStationGrp( Integer locIdLondonStationGrp ) {
+    public void setLocIdLondonStationGrp(Integer locIdLondonStationGrp)
+    {
         this.locIdLondonStationGrp = locIdLondonStationGrp;
     }
-    public Integer getLocIdLondonStationGrp() {
+
+    public Integer getLocIdLondonStationGrp()
+    {
         return this.locIdLondonStationGrp;
     }
 
-    public void setLondonStationGrpCode( String londonStationGrpCode ) {
+    public void setLondonStationGrpCode(String londonStationGrpCode)
+    {
         this.londonStationGrpCode = londonStationGrpCode;
     }
-    public String getLondonStationGrpCode() {
+
+    public String getLondonStationGrpCode()
+    {
         return this.londonStationGrpCode;
     }
 
-    public void setLondonStationGrpDesc( String londonStationGrpDesc ) {
+    public void setLondonStationGrpDesc(String londonStationGrpDesc)
+    {
         this.londonStationGrpDesc = londonStationGrpDesc;
     }
-    public String getLondonStationGrpDesc() {
+
+    public String getLondonStationGrpDesc()
+    {
         return this.londonStationGrpDesc;
     }
 
-    public void setOsGridReference( String osGridReference ) {
+    public void setOsGridReference(String osGridReference)
+    {
         this.osGridReference = osGridReference;
     }
-    public String getOsGridReference() {
+
+    public String getOsGridReference()
+    {
         return this.osGridReference;
     }
 
-    public void setPostalRegion( String postalRegion ) {
+    public void setPostalRegion(String postalRegion)
+    {
         this.postalRegion = postalRegion;
     }
-    public String getPostalRegion() {
+
+    public String getPostalRegion()
+    {
         return this.postalRegion;
     }
 
-    public void setNalco12charDescription( String nalco12charDescription ) {
+    public void setNalco12charDescription(String nalco12charDescription)
+    {
         this.nalco12charDescription = nalco12charDescription;
     }
-    public String getNalco12charDescription() {
+
+    public String getNalco12charDescription()
+    {
         return this.nalco12charDescription;
     }
 
-    public void setNalco16charDescription( String nalco16charDescription ) {
+    public void setNalco16charDescription(String nalco16charDescription)
+    {
         this.nalco16charDescription = nalco16charDescription;
     }
-    public String getNalco16charDescription() {
+
+    public String getNalco16charDescription()
+    {
         return this.nalco16charDescription;
     }
 
-    public void setNalco26charDescription( String nalco26charDescription ) {
+    public void setNalco26charDescription(String nalco26charDescription)
+    {
         this.nalco26charDescription = nalco26charDescription;
     }
-    public String getNalco26charDescription() {
+
+    public String getNalco26charDescription()
+    {
         return this.nalco26charDescription;
     }
 
-    public void setNalcoTiploc( String nalcoTiploc ) {
+    public void setNalcoTiploc(String nalcoTiploc)
+    {
         this.nalcoTiploc = nalcoTiploc;
     }
-    public String getNalcoTiploc() {
+
+    public String getNalcoTiploc()
+    {
         return this.nalcoTiploc;
     }
 
-    public void setNalco3charCode( String nalco3charCode ) {
+    public void setNalco3charCode(String nalco3charCode)
+    {
         this.nalco3charCode = nalco3charCode;
     }
-    public String getNalco3charCode() {
+
+    public String getNalco3charCode()
+    {
         return this.nalco3charCode;
     }
 
-  
-
-    public void setLocIdMasterAccount( Integer locIdMasterAccount ) {
+    public void setLocIdMasterAccount(Integer locIdMasterAccount)
+    {
         this.locIdMasterAccount = locIdMasterAccount;
     }
-    public Integer getLocIdMasterAccount() {
+
+    public Integer getLocIdMasterAccount()
+    {
         return this.locIdMasterAccount;
     }
 
-    public void setMasterAccountCode( String masterAccountCode ) {
+    public void setMasterAccountCode(String masterAccountCode)
+    {
         this.masterAccountCode = masterAccountCode;
     }
-    public String getMasterAccountCode() {
+
+    public String getMasterAccountCode()
+    {
         return this.masterAccountCode;
     }
 
-    public void setMasterAccountName( String masterAccountName ) {
+    public void setMasterAccountName(String masterAccountName)
+    {
         this.masterAccountName = masterAccountName;
     }
-    public String getMasterAccountName() {
+
+    public String getMasterAccountName()
+    {
         return this.masterAccountName;
     }
 
-    public void setCobIdGroupType( Integer cobIdGroupType ) {
+    public void setCobIdGroupType(Integer cobIdGroupType)
+    {
         this.cobIdGroupType = cobIdGroupType;
     }
-    public Integer getCobIdGroupType() {
+
+    public Integer getCobIdGroupType()
+    {
         return this.cobIdGroupType;
     }
 
-
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // toString METHOD
-    //----------------------------------------------------------------------
-        @Override
-        public String toString() { 
-        StringBuilder sb = new StringBuilder(); 
+    // ----------------------------------------------------------------------
+    @Override
+    public String toString()
+    {
+        StringBuilder sb = new StringBuilder();
         sb.append(locId);
         sb.append("|");
         sb.append(locations);
@@ -514,8 +615,7 @@ public class Location extends Common implements Serializable {
         sb.append(masterAccountName);
         sb.append("|");
         sb.append(cobIdGroupType);
-        return sb.toString(); 
-    } 
-
+        return sb.toString();
+    }
 
 }

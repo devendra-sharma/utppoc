@@ -11,23 +11,27 @@ import net.atos.transport.entity.TicketClass;
 /**
  * Business Service Interface for entity TicketClass.
  */
-public interface TicketClassService { 
+public interface TicketClassService
+{
 
     /**
      * Loads an entity from the database using its Primary Key
+     * 
      * @param ticId
      * @return entity
      */
-    TicketClass findById( Integer ticId  ) ;
+    TicketClass findById(Integer ticId);
 
     /**
      * Loads all entities.
+     * 
      * @return all entities
      */
     List<TicketClass> findAll();
 
     /**
      * Saves the given entity in the database (create or update)
+     * 
      * @param entity
      * @return entity
      */
@@ -35,6 +39,7 @@ public interface TicketClassService {
 
     /**
      * Updates the given entity in the database
+     * 
      * @param entity
      * @return
      */
@@ -42,6 +47,7 @@ public interface TicketClassService {
 
     /**
      * Creates the given entity in the database
+     * 
      * @param entity
      * @return
      */
@@ -49,9 +55,9 @@ public interface TicketClassService {
 
     /**
      * Deletes an entity using its Primary Key
+     * 
      * @param ticId
      */
-    void delete( Integer ticId );
-
+    void delete(Integer ticId);
 
 }

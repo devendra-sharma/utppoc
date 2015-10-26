@@ -11,23 +11,27 @@ import net.atos.transport.entity.Route;
 /**
  * Business Service Interface for entity Route.
  */
-public interface RouteService { 
+public interface RouteService
+{
 
     /**
      * Loads an entity from the database using its Primary Key
+     * 
      * @param rouId
      * @return entity
      */
-    Route findById( Integer rouId  ) ;
+    Route findById(Integer rouId);
 
     /**
      * Loads all entities.
+     * 
      * @return all entities
      */
     List<Route> findAll();
 
     /**
      * Saves the given entity in the database (create or update)
+     * 
      * @param entity
      * @return entity
      */
@@ -35,6 +39,7 @@ public interface RouteService {
 
     /**
      * Updates the given entity in the database
+     * 
      * @param entity
      * @return
      */
@@ -42,6 +47,7 @@ public interface RouteService {
 
     /**
      * Creates the given entity in the database
+     * 
      * @param entity
      * @return
      */
@@ -49,9 +55,9 @@ public interface RouteService {
 
     /**
      * Deletes an entity using its Primary Key
+     * 
      * @param rouId
      */
-    void delete( Integer rouId );
-
+    void delete(Integer rouId);
 
 }

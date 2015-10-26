@@ -2,17 +2,19 @@ package net.atos.transport.test;
 
 import net.atos.transport.entity.jpa.TicketClassEntity;
 
-public class TicketClassEntityFactoryForTest {
+public class TicketClassEntityFactoryForTest
+{
 
-	private MockValues mockValues = new MockValues();
-	
-	public TicketClassEntity newTicketClassEntity() {
+    private MockValues mockValues = new MockValues();
 
-		Integer ticId = mockValues.nextInteger();
+    public TicketClassEntity newTicketClassEntity()
+    {
 
-		TicketClassEntity ticketClassEntity = new TicketClassEntity();
-		ticketClassEntity.setTicId(ticId);
-		return ticketClassEntity;
-	}
-	
+        Integer ticId = mockValues.nextInteger();
+
+        TicketClassEntity ticketClassEntity = new TicketClassEntity();
+        ticketClassEntity.setTicId(ticId);
+        return ticketClassEntity;
+    }
+
 }

@@ -15,59 +15,71 @@ import org.springframework.stereotype.Component;
  * Mapping between entity beans and display beans.
  */
 @Component
-public class GroupFunctionTypeServiceMapper extends AbstractServiceMapper {
+public class GroupFunctionTypeServiceMapper extends AbstractServiceMapper
+{
 
     /**
      * ModelMapper : bean to bean mapping library.
      */
     private ModelMapper modelMapper;
-    
+
     /**
      * Constructor.
      */
-    public GroupFunctionTypeServiceMapper() {
+    public GroupFunctionTypeServiceMapper()
+    {
         modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
     }
 
     /**
      * Mapping from 'GroupFunctionTypeEntity' to 'GroupFunctionType'
+     * 
      * @param groupFunctionTypeEntity
      */
-    public GroupFunctionType mapGroupFunctionTypeEntityToGroupFunctionType(GroupFunctionTypeEntity groupFunctionTypeEntity) {
-        if(groupFunctionTypeEntity == null) {
+    public GroupFunctionType mapGroupFunctionTypeEntityToGroupFunctionType(
+            GroupFunctionTypeEntity groupFunctionTypeEntity)
+    {
+        if (groupFunctionTypeEntity == null)
+        {
             return null;
         }
 
-        //--- Generic mapping 
+        // --- Generic mapping
         return map(groupFunctionTypeEntity, GroupFunctionType.class);
 
     }
-    
+
     /**
      * Mapping from 'GroupFunctionType' to 'GroupFunctionTypeEntity'
+     * 
      * @param groupFunctionType
      * @param groupFunctionTypeEntity
      */
-    public void mapGroupFunctionTypeToGroupFunctionTypeEntity(GroupFunctionType groupFunctionType, GroupFunctionTypeEntity groupFunctionTypeEntity) {
-        if(groupFunctionType == null) {
+    public void mapGroupFunctionTypeToGroupFunctionTypeEntity(GroupFunctionType groupFunctionType,
+            GroupFunctionTypeEntity groupFunctionTypeEntity)
+    {
+        if (groupFunctionType == null)
+        {
             return;
         }
 
-        //--- Generic mapping 
+        // --- Generic mapping
         map(groupFunctionType, groupFunctionTypeEntity);
 
     }
-    
+
     /**
      * {@inheritDoc}
      */
     @Override
-    protected ModelMapper getModelMapper() {
+    protected ModelMapper getModelMapper()
+    {
         return modelMapper;
     }
 
-    protected void setModelMapper(ModelMapper modelMapper) {
+    protected void setModelMapper(ModelMapper modelMapper)
+    {
         this.modelMapper = modelMapper;
     }
 

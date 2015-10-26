@@ -9,65 +9,69 @@ import java.io.Serializable;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-public class Type extends Common implements Serializable {
+public class Type extends Common implements Serializable
+{
 
     private static final long serialVersionUID = 1L;
 
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // ENTITY PRIMARY KEY ( BASED ON A SINGLE FIELD )
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     @NotNull
     private Integer typId;
 
-    //----------------------------------------------------------------------
-    // ENTITY DATA FIELDS 
-    //----------------------------------------------------------------------    
-    @Size( max = 32 )
+    // ----------------------------------------------------------------------
+    // ENTITY DATA FIELDS
+    // ----------------------------------------------------------------------
+    @Size(max = 32)
     private String types;
 
-    @Size( max = 1 )
+    @Size(max = 1)
     private String maintainType;
 
-    
-
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // GETTER & SETTER FOR THE KEY FIELD
-    //----------------------------------------------------------------------
-    public void setTypId( Integer typId ) {
-        this.typId = typId ;
+    // ----------------------------------------------------------------------
+    public void setTypId(Integer typId)
+    {
+        this.typId = typId;
     }
 
-    public Integer getTypId() {
+    public Integer getTypId()
+    {
         return this.typId;
     }
 
-
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // GETTERS & SETTERS FOR FIELDS
-    //----------------------------------------------------------------------
-    public void setType( String type ) {
+    // ----------------------------------------------------------------------
+    public void setType(String type)
+    {
         this.types = type;
     }
-    public String getType() {
+
+    public String getType()
+    {
         return this.types;
     }
 
-    public void setMaintainType( String maintainType ) {
+    public void setMaintainType(String maintainType)
+    {
         this.maintainType = maintainType;
     }
-    public String getMaintainType() {
+
+    public String getMaintainType()
+    {
         return this.maintainType;
     }
 
-  
-
-
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // toString METHOD
-    //----------------------------------------------------------------------
-        @Override
-        public String toString() { 
-        StringBuilder sb = new StringBuilder(); 
+    // ----------------------------------------------------------------------
+    @Override
+    public String toString()
+    {
+        StringBuilder sb = new StringBuilder();
         sb.append(typId);
         sb.append("|");
         sb.append(types);
@@ -79,8 +83,7 @@ public class Type extends Common implements Serializable {
         sb.append(getEffectiveFrom());
         sb.append("|");
         sb.append(getEffectiveTo());
-        return sb.toString(); 
-    } 
-
+        return sb.toString();
+    }
 
 }

@@ -7,6 +7,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 /**
  * Repository : RecordField.
  */
-public interface RecordFieldJpaRepository extends PagingAndSortingRepository<RecordFieldEntity, Integer> {
+public interface RecordFieldJpaRepository extends PagingAndSortingRepository<RecordFieldEntity, Integer>
+{
 
 }

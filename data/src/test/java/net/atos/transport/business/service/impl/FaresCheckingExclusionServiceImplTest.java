@@ -30,137 +30,190 @@ import org.mockito.runners.MockitoJUnitRunner;
  * Test : Implementation of FaresCheckingExclusionService
  */
 @RunWith(MockitoJUnitRunner.class)
-public class FaresCheckingExclusionServiceImplTest {
+public class FaresCheckingExclusionServiceImplTest
+{
 
-	@InjectMocks
-	private FaresCheckingExclusionServiceImpl faresCheckingExclusionService;
-	@Mock
-	private FaresCheckingExclusionJpaRepository faresCheckingExclusionJpaRepository;
-	@Mock
-	private FaresCheckingExclusionServiceMapper faresCheckingExclusionServiceMapper;
-	
-	private FaresCheckingExclusionFactoryForTest faresCheckingExclusionFactoryForTest = new FaresCheckingExclusionFactoryForTest();
+    @InjectMocks
+    private FaresCheckingExclusionServiceImpl faresCheckingExclusionService;
 
-	private FaresCheckingExclusionEntityFactoryForTest faresCheckingExclusionEntityFactoryForTest = new FaresCheckingExclusionEntityFactoryForTest();
+    @Mock
+    private FaresCheckingExclusionJpaRepository faresCheckingExclusionJpaRepository;
 
-	private MockValues mockValues = new MockValues();
-	
-	@Test
-	public void findById() {
-		// Given
-		Long faresCheckingExclusionId = mockValues.nextLong();
-		
-		FaresCheckingExclusionEntity faresCheckingExclusionEntity = faresCheckingExclusionJpaRepository.findOne(faresCheckingExclusionId);
-		
-		FaresCheckingExclusion faresCheckingExclusion = faresCheckingExclusionFactoryForTest.newFaresCheckingExclusion();
-		when(faresCheckingExclusionServiceMapper.mapFaresCheckingExclusionEntityToFaresCheckingExclusion(faresCheckingExclusionEntity)).thenReturn(faresCheckingExclusion);
+    @Mock
+    private FaresCheckingExclusionServiceMapper faresCheckingExclusionServiceMapper;
 
-		// When
-		FaresCheckingExclusion faresCheckingExclusionFound = faresCheckingExclusionService.findById(faresCheckingExclusionId);
+    private FaresCheckingExclusionFactoryForTest faresCheckingExclusionFactoryForTest = new FaresCheckingExclusionFactoryForTest();
 
-		// Then
-		assertEquals(faresCheckingExclusion.getFaresCheckingExclusionId(),faresCheckingExclusionFound.getFaresCheckingExclusionId());
-	}
+    private FaresCheckingExclusionEntityFactoryForTest faresCheckingExclusionEntityFactoryForTest = new FaresCheckingExclusionEntityFactoryForTest();
 
-	@Test
-	public void findAll() {
-		// Given
-		List<FaresCheckingExclusionEntity> faresCheckingExclusionEntitys = new ArrayList<FaresCheckingExclusionEntity>();
-		FaresCheckingExclusionEntity faresCheckingExclusionEntity1 = faresCheckingExclusionEntityFactoryForTest.newFaresCheckingExclusionEntity();
-		faresCheckingExclusionEntitys.add(faresCheckingExclusionEntity1);
-		FaresCheckingExclusionEntity faresCheckingExclusionEntity2 = faresCheckingExclusionEntityFactoryForTest.newFaresCheckingExclusionEntity();
-		faresCheckingExclusionEntitys.add(faresCheckingExclusionEntity2);
-		when(faresCheckingExclusionJpaRepository.findAll()).thenReturn(faresCheckingExclusionEntitys);
-		
-		FaresCheckingExclusion faresCheckingExclusion1 = faresCheckingExclusionFactoryForTest.newFaresCheckingExclusion();
-		when(faresCheckingExclusionServiceMapper.mapFaresCheckingExclusionEntityToFaresCheckingExclusion(faresCheckingExclusionEntity1)).thenReturn(faresCheckingExclusion1);
-		FaresCheckingExclusion faresCheckingExclusion2 = faresCheckingExclusionFactoryForTest.newFaresCheckingExclusion();
-		when(faresCheckingExclusionServiceMapper.mapFaresCheckingExclusionEntityToFaresCheckingExclusion(faresCheckingExclusionEntity2)).thenReturn(faresCheckingExclusion2);
+    private MockValues mockValues = new MockValues();
 
-		// When
-		List<FaresCheckingExclusion> faresCheckingExclusionsFounds = faresCheckingExclusionService.findAll();
+    @Test
+    public void findById()
+    {
+        // Given
+        Long faresCheckingExclusionId = mockValues.nextLong();
 
-		// Then
-		assertTrue(faresCheckingExclusion1 == faresCheckingExclusionsFounds.get(0));
-		assertTrue(faresCheckingExclusion2 == faresCheckingExclusionsFounds.get(1));
-	}
+        FaresCheckingExclusionEntity faresCheckingExclusionEntity = faresCheckingExclusionJpaRepository
+                .findOne(faresCheckingExclusionId);
 
-	@Test
-	public void create() {
-		// Given
-		FaresCheckingExclusion faresCheckingExclusion = faresCheckingExclusionFactoryForTest.newFaresCheckingExclusion();
+        FaresCheckingExclusion faresCheckingExclusion = faresCheckingExclusionFactoryForTest
+                .newFaresCheckingExclusion();
+        when(
+                faresCheckingExclusionServiceMapper
+                        .mapFaresCheckingExclusionEntityToFaresCheckingExclusion(faresCheckingExclusionEntity))
+                .thenReturn(faresCheckingExclusion);
 
-		FaresCheckingExclusionEntity faresCheckingExclusionEntity = faresCheckingExclusionEntityFactoryForTest.newFaresCheckingExclusionEntity();
-		when(faresCheckingExclusionJpaRepository.findOne(faresCheckingExclusion.getFaresCheckingExclusionId())).thenReturn(null);
-		
-		faresCheckingExclusionEntity = new FaresCheckingExclusionEntity();
-		faresCheckingExclusionServiceMapper.mapFaresCheckingExclusionToFaresCheckingExclusionEntity(faresCheckingExclusion, faresCheckingExclusionEntity);
-		FaresCheckingExclusionEntity faresCheckingExclusionEntitySaved = faresCheckingExclusionJpaRepository.save(faresCheckingExclusionEntity);
-		
-		FaresCheckingExclusion faresCheckingExclusionSaved = faresCheckingExclusionFactoryForTest.newFaresCheckingExclusion();
-		when(faresCheckingExclusionServiceMapper.mapFaresCheckingExclusionEntityToFaresCheckingExclusion(faresCheckingExclusionEntitySaved)).thenReturn(faresCheckingExclusionSaved);
+        // When
+        FaresCheckingExclusion faresCheckingExclusionFound = faresCheckingExclusionService
+                .findById(faresCheckingExclusionId);
 
-		// When
-		FaresCheckingExclusion faresCheckingExclusionResult = faresCheckingExclusionService.create(faresCheckingExclusion);
+        // Then
+        assertEquals(faresCheckingExclusion.getFaresCheckingExclusionId(),
+                faresCheckingExclusionFound.getFaresCheckingExclusionId());
+    }
 
-		// Then
-		assertTrue(faresCheckingExclusionResult == faresCheckingExclusionSaved);
-	}
+    @Test
+    public void findAll()
+    {
+        // Given
+        List<FaresCheckingExclusionEntity> faresCheckingExclusionEntitys = new ArrayList<FaresCheckingExclusionEntity>();
+        FaresCheckingExclusionEntity faresCheckingExclusionEntity1 = faresCheckingExclusionEntityFactoryForTest
+                .newFaresCheckingExclusionEntity();
+        faresCheckingExclusionEntitys.add(faresCheckingExclusionEntity1);
+        FaresCheckingExclusionEntity faresCheckingExclusionEntity2 = faresCheckingExclusionEntityFactoryForTest
+                .newFaresCheckingExclusionEntity();
+        faresCheckingExclusionEntitys.add(faresCheckingExclusionEntity2);
+        when(faresCheckingExclusionJpaRepository.findAll()).thenReturn(faresCheckingExclusionEntitys);
 
-	@Test
-	public void createKOExists() {
-		// Given
-		FaresCheckingExclusion faresCheckingExclusion = faresCheckingExclusionFactoryForTest.newFaresCheckingExclusion();
+        FaresCheckingExclusion faresCheckingExclusion1 = faresCheckingExclusionFactoryForTest
+                .newFaresCheckingExclusion();
+        when(
+                faresCheckingExclusionServiceMapper
+                        .mapFaresCheckingExclusionEntityToFaresCheckingExclusion(faresCheckingExclusionEntity1))
+                .thenReturn(faresCheckingExclusion1);
+        FaresCheckingExclusion faresCheckingExclusion2 = faresCheckingExclusionFactoryForTest
+                .newFaresCheckingExclusion();
+        when(
+                faresCheckingExclusionServiceMapper
+                        .mapFaresCheckingExclusionEntityToFaresCheckingExclusion(faresCheckingExclusionEntity2))
+                .thenReturn(faresCheckingExclusion2);
 
-		FaresCheckingExclusionEntity faresCheckingExclusionEntity = faresCheckingExclusionEntityFactoryForTest.newFaresCheckingExclusionEntity();
-		when(faresCheckingExclusionJpaRepository.findOne(faresCheckingExclusion.getFaresCheckingExclusionId())).thenReturn(faresCheckingExclusionEntity);
+        // When
+        List<FaresCheckingExclusion> faresCheckingExclusionsFounds = faresCheckingExclusionService.findAll();
 
-		// When
-		Exception exception = null;
-		try {
-			faresCheckingExclusionService.create(faresCheckingExclusion);
-		} catch(Exception e) {
-			exception = e;
-		}
+        // Then
+        assertTrue(faresCheckingExclusion1 == faresCheckingExclusionsFounds.get(0));
+        assertTrue(faresCheckingExclusion2 == faresCheckingExclusionsFounds.get(1));
+    }
 
-		// Then
-		assertTrue(exception instanceof IllegalStateException);
-		assertEquals("already.exists", exception.getMessage());
-	}
+    @Test
+    public void create()
+    {
+        // Given
+        FaresCheckingExclusion faresCheckingExclusion = faresCheckingExclusionFactoryForTest
+                .newFaresCheckingExclusion();
 
-	@Test
-	public void update() {
-		// Given
-		FaresCheckingExclusion faresCheckingExclusion = faresCheckingExclusionFactoryForTest.newFaresCheckingExclusion();
+        FaresCheckingExclusionEntity faresCheckingExclusionEntity = faresCheckingExclusionEntityFactoryForTest
+                .newFaresCheckingExclusionEntity();
+        when(faresCheckingExclusionJpaRepository.findOne(faresCheckingExclusion.getFaresCheckingExclusionId()))
+                .thenReturn(null);
 
-		FaresCheckingExclusionEntity faresCheckingExclusionEntity = faresCheckingExclusionEntityFactoryForTest.newFaresCheckingExclusionEntity();
-		when(faresCheckingExclusionJpaRepository.findOne(faresCheckingExclusion.getFaresCheckingExclusionId())).thenReturn(faresCheckingExclusionEntity);
-		
-		FaresCheckingExclusionEntity faresCheckingExclusionEntitySaved = faresCheckingExclusionEntityFactoryForTest.newFaresCheckingExclusionEntity();
-		when(faresCheckingExclusionJpaRepository.save(faresCheckingExclusionEntity)).thenReturn(faresCheckingExclusionEntitySaved);
-		
-		FaresCheckingExclusion faresCheckingExclusionSaved = faresCheckingExclusionFactoryForTest.newFaresCheckingExclusion();
-		when(faresCheckingExclusionServiceMapper.mapFaresCheckingExclusionEntityToFaresCheckingExclusion(faresCheckingExclusionEntitySaved)).thenReturn(faresCheckingExclusionSaved);
+        faresCheckingExclusionEntity = new FaresCheckingExclusionEntity();
+        faresCheckingExclusionServiceMapper.mapFaresCheckingExclusionToFaresCheckingExclusionEntity(
+                faresCheckingExclusion, faresCheckingExclusionEntity);
+        FaresCheckingExclusionEntity faresCheckingExclusionEntitySaved = faresCheckingExclusionJpaRepository
+                .save(faresCheckingExclusionEntity);
 
-		// When
-		FaresCheckingExclusion faresCheckingExclusionResult = faresCheckingExclusionService.update(faresCheckingExclusion);
+        FaresCheckingExclusion faresCheckingExclusionSaved = faresCheckingExclusionFactoryForTest
+                .newFaresCheckingExclusion();
+        when(
+                faresCheckingExclusionServiceMapper
+                        .mapFaresCheckingExclusionEntityToFaresCheckingExclusion(faresCheckingExclusionEntitySaved))
+                .thenReturn(faresCheckingExclusionSaved);
 
-		// Then
-		verify(faresCheckingExclusionServiceMapper).mapFaresCheckingExclusionToFaresCheckingExclusionEntity(faresCheckingExclusion, faresCheckingExclusionEntity);
-		assertTrue(faresCheckingExclusionResult == faresCheckingExclusionSaved);
-	}
+        // When
+        FaresCheckingExclusion faresCheckingExclusionResult = faresCheckingExclusionService
+                .create(faresCheckingExclusion);
 
-	@Test
-	public void delete() {
-		// Given
-		Long faresCheckingExclusionId = mockValues.nextLong();
+        // Then
+        assertTrue(faresCheckingExclusionResult == faresCheckingExclusionSaved);
+    }
 
-		// When
-		faresCheckingExclusionService.delete(faresCheckingExclusionId);
+    @Test
+    public void createKOExists()
+    {
+        // Given
+        FaresCheckingExclusion faresCheckingExclusion = faresCheckingExclusionFactoryForTest
+                .newFaresCheckingExclusion();
 
-		// Then
-		verify(faresCheckingExclusionJpaRepository).delete(faresCheckingExclusionId);
-		
-	}
+        FaresCheckingExclusionEntity faresCheckingExclusionEntity = faresCheckingExclusionEntityFactoryForTest
+                .newFaresCheckingExclusionEntity();
+        when(faresCheckingExclusionJpaRepository.findOne(faresCheckingExclusion.getFaresCheckingExclusionId()))
+                .thenReturn(faresCheckingExclusionEntity);
+
+        // When
+        Exception exception = null;
+        try
+        {
+            faresCheckingExclusionService.create(faresCheckingExclusion);
+        }
+        catch (Exception e)
+        {
+            exception = e;
+        }
+
+        // Then
+        assertTrue(exception instanceof IllegalStateException);
+        assertEquals("already.exists", exception.getMessage());
+    }
+
+    @Test
+    public void update()
+    {
+        // Given
+        FaresCheckingExclusion faresCheckingExclusion = faresCheckingExclusionFactoryForTest
+                .newFaresCheckingExclusion();
+
+        FaresCheckingExclusionEntity faresCheckingExclusionEntity = faresCheckingExclusionEntityFactoryForTest
+                .newFaresCheckingExclusionEntity();
+        when(faresCheckingExclusionJpaRepository.findOne(faresCheckingExclusion.getFaresCheckingExclusionId()))
+                .thenReturn(faresCheckingExclusionEntity);
+
+        FaresCheckingExclusionEntity faresCheckingExclusionEntitySaved = faresCheckingExclusionEntityFactoryForTest
+                .newFaresCheckingExclusionEntity();
+        when(faresCheckingExclusionJpaRepository.save(faresCheckingExclusionEntity)).thenReturn(
+                faresCheckingExclusionEntitySaved);
+
+        FaresCheckingExclusion faresCheckingExclusionSaved = faresCheckingExclusionFactoryForTest
+                .newFaresCheckingExclusion();
+        when(
+                faresCheckingExclusionServiceMapper
+                        .mapFaresCheckingExclusionEntityToFaresCheckingExclusion(faresCheckingExclusionEntitySaved))
+                .thenReturn(faresCheckingExclusionSaved);
+
+        // When
+        FaresCheckingExclusion faresCheckingExclusionResult = faresCheckingExclusionService
+                .update(faresCheckingExclusion);
+
+        // Then
+        verify(faresCheckingExclusionServiceMapper).mapFaresCheckingExclusionToFaresCheckingExclusionEntity(
+                faresCheckingExclusion, faresCheckingExclusionEntity);
+        assertTrue(faresCheckingExclusionResult == faresCheckingExclusionSaved);
+    }
+
+    @Test
+    public void delete()
+    {
+        // Given
+        Long faresCheckingExclusionId = mockValues.nextLong();
+
+        // When
+        faresCheckingExclusionService.delete(faresCheckingExclusionId);
+
+        // Then
+        verify(faresCheckingExclusionJpaRepository).delete(faresCheckingExclusionId);
+
+    }
 
 }

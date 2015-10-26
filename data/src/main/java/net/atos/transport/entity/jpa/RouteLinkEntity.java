@@ -21,99 +21,105 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(name="route_link", catalog="mydb" )
+@Table(name = "route_link", catalog = "mydb")
 // Define named queries here
-@NamedQueries ( {
-  @NamedQuery ( name="RouteLinkEntity.countAll", query="SELECT COUNT(x) FROM RouteLinkEntity x" )
-} )
-public class RouteLinkEntity extends CommonEntity implements Serializable {
+@NamedQueries(
+{@NamedQuery(name = "RouteLinkEntity.countAll", query = "SELECT COUNT(x) FROM RouteLinkEntity x") })
+public class RouteLinkEntity extends CommonEntity implements Serializable
+{
 
     private static final long serialVersionUID = 1L;
 
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // ENTITY PRIMARY KEY ( BASED ON A SINGLE FIELD )
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="rol_id", nullable=false)
-    private Integer    rolId        ;
+    @Column(name = "rol_id", nullable = false)
+    private Integer rolId;
 
+    // ----------------------------------------------------------------------
+    // ENTITY DATA FIELDS
+    // ----------------------------------------------------------------------
 
-    //----------------------------------------------------------------------
-    // ENTITY DATA FIELDS 
-    //----------------------------------------------------------------------    
-  
-    // "rouIdChild" (column "rou_id_child") is not defined by itself because used as FK in a link 
-    // "rouIdParent" (column "rou_id_parent") is not defined by itself because used as FK in a link 
+    // "rouIdChild" (column "rou_id_child") is not defined by itself because used as FK in a link
+    // "rouIdParent" (column "rou_id_parent") is not defined by itself because used as FK in a link
 
-
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // ENTITY LINKS ( RELATIONSHIP )
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     @ManyToOne
-    @JoinColumn(name="rou_id_parent", referencedColumnName="rou_id")
-    private RouteEntity route2      ;
+    @JoinColumn(name = "rou_id_parent", referencedColumnName = "rou_id")
+    private RouteEntity route2;
 
     @ManyToOne
-    @JoinColumn(name="rou_id_child", referencedColumnName="rou_id")
-    private RouteEntity route       ;
+    @JoinColumn(name = "rou_id_child", referencedColumnName = "rou_id")
+    private RouteEntity route;
 
-
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // CONSTRUCTOR(S)
-    //----------------------------------------------------------------------
-    public RouteLinkEntity() {
+    // ----------------------------------------------------------------------
+    public RouteLinkEntity()
+    {
         super();
     }
-    
-    //----------------------------------------------------------------------
+
+    // ----------------------------------------------------------------------
     // GETTER & SETTER FOR THE KEY FIELD
-    //----------------------------------------------------------------------
-    public void setRolId( Integer rolId ) {
-        this.rolId = rolId ;
+    // ----------------------------------------------------------------------
+    public void setRolId(Integer rolId)
+    {
+        this.rolId = rolId;
     }
-    public Integer getRolId() {
+
+    public Integer getRolId()
+    {
         return this.rolId;
     }
 
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // GETTERS & SETTERS FOR FIELDS
-    //----------------------------------------------------------------------
-    
+    // ----------------------------------------------------------------------
 
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // GETTERS & SETTERS FOR LINKS
-    //----------------------------------------------------------------------
-    public void setRoute2( RouteEntity route2 ) {
+    // ----------------------------------------------------------------------
+    public void setRoute2(RouteEntity route2)
+    {
         this.route2 = route2;
     }
-    public RouteEntity getRoute2() {
+
+    public RouteEntity getRoute2()
+    {
         return this.route2;
     }
 
-    public void setRoute( RouteEntity route ) {
+    public void setRoute(RouteEntity route)
+    {
         this.route = route;
     }
-    public RouteEntity getRoute() {
+
+    public RouteEntity getRoute()
+    {
         return this.route;
     }
 
-
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // toString METHOD
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     @Override
-    public String toString() { 
-        StringBuilder sb = new StringBuilder(); 
-        sb.append("["); 
+    public String toString()
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
         sb.append(rolId);
-        sb.append("]:"); 
+        sb.append("]:");
         sb.append(getExpired());
         sb.append("|");
         sb.append(getEffectiveFrom());
         sb.append("|");
         sb.append(getEffectiveTo());
-        return sb.toString(); 
-    } 
+        return sb.toString();
+    }
 
 }

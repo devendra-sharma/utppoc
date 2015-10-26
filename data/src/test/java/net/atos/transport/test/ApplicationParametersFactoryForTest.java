@@ -2,17 +2,19 @@ package net.atos.transport.test;
 
 import net.atos.transport.entity.ApplicationParameters;
 
-public class ApplicationParametersFactoryForTest {
+public class ApplicationParametersFactoryForTest
+{
 
-	private MockValues mockValues = new MockValues();
-	
-	public ApplicationParameters newApplicationParameters() {
+    private MockValues mockValues = new MockValues();
 
-		Integer applicationParametersId = mockValues.nextInteger();
+    public ApplicationParameters newApplicationParameters()
+    {
 
-		ApplicationParameters applicationParameters = new ApplicationParameters();
-		applicationParameters.setApplicationParametersId(applicationParametersId);
-		return applicationParameters;
-	}
-	
+        Integer applicationParametersId = mockValues.nextInteger();
+
+        ApplicationParameters applicationParameters = new ApplicationParameters();
+        applicationParameters.setApplicationParametersId(applicationParametersId);
+        return applicationParameters;
+    }
+
 }

@@ -23,42 +23,47 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Component
 @Transactional
-public class ProductLinkServiceImpl implements ProductLinkService {
+public class ProductLinkServiceImpl implements ProductLinkService
+{
 
     @Resource
     private ProductLinkJpaRepository productLinkJpaRepository;
 
     @Resource
     private ProductLinkServiceMapper productLinkServiceMapper;
-    
+
     @Override
-    public ProductLink findById(Integer proLinkId) {
+    public ProductLink findById(Integer proLinkId)
+    {
         ProductLinkEntity productEntity = productLinkJpaRepository.findOne(proLinkId);
         return productLinkServiceMapper.mapProductLinkEntityToProductLink(productEntity);
-        
+
     }
 
-    
-    
     @Override
-    public List<ProductLink> findAll() {
+    public List<ProductLink> findAll()
+    {
         Iterable<ProductLinkEntity> entities = productLinkJpaRepository.findAll();
         List<ProductLink> beans = new ArrayList<ProductLink>();
-        for(ProductLinkEntity productEntity : entities) {
+        for (ProductLinkEntity productEntity : entities)
+        {
             beans.add(productLinkServiceMapper.mapProductLinkEntityToProductLink(productEntity));
         }
         return beans;
     }
 
     @Override
-    public ProductLink save(ProductLink product) {
-        return update(product) ;
+    public ProductLink save(ProductLink product)
+    {
+        return update(product);
     }
 
     @Override
-    public ProductLink create(ProductLink product) {
+    public ProductLink create(ProductLink product)
+    {
         ProductLinkEntity productEntity = productLinkJpaRepository.findOne(product.getProId());
-        if( productEntity != null ) {
+        if (productEntity != null)
+        {
             throw new IllegalStateException("already.exists");
         }
         productEntity = new ProductLinkEntity();
@@ -68,7 +73,8 @@ public class ProductLinkServiceImpl implements ProductLinkService {
     }
 
     @Override
-    public ProductLink update(ProductLink product) {
+    public ProductLink update(ProductLink product)
+    {
         ProductLinkEntity productEntity = productLinkJpaRepository.findOne(product.getProId());
         productLinkServiceMapper.mapProductLinkToProductLinkEntity(product, productEntity);
         ProductLinkEntity productEntitySaved = productLinkJpaRepository.save(productEntity);
@@ -76,7 +82,8 @@ public class ProductLinkServiceImpl implements ProductLinkService {
     }
 
     @Override
-    public void delete(Integer proId) {
+    public void delete(Integer proId)
+    {
         productLinkJpaRepository.delete(proId);
     }
 

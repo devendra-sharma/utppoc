@@ -23,39 +23,46 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Component
 @Transactional
-public class RouteServiceImpl implements RouteService {
+public class RouteServiceImpl implements RouteService
+{
 
     @Resource
     private RouteJpaRepository routeJpaRepository;
 
     @Resource
     private RouteServiceMapper routeServiceMapper;
-    
+
     @Override
-    public Route findById(Integer rouId) {
+    public Route findById(Integer rouId)
+    {
         RouteEntity routeEntity = routeJpaRepository.findOne(rouId);
         return routeServiceMapper.mapRouteEntityToRoute(routeEntity);
     }
 
     @Override
-    public List<Route> findAll() {
+    public List<Route> findAll()
+    {
         Iterable<RouteEntity> entities = routeJpaRepository.findAll();
         List<Route> beans = new ArrayList<Route>();
-        for(RouteEntity routeEntity : entities) {
+        for (RouteEntity routeEntity : entities)
+        {
             beans.add(routeServiceMapper.mapRouteEntityToRoute(routeEntity));
         }
         return beans;
     }
 
     @Override
-    public Route save(Route route) {
-        return update(route) ;
+    public Route save(Route route)
+    {
+        return update(route);
     }
 
     @Override
-    public Route create(Route route) {
+    public Route create(Route route)
+    {
         RouteEntity routeEntity = routeJpaRepository.findOne(route.getRouId());
-        if( routeEntity != null ) {
+        if (routeEntity != null)
+        {
             throw new IllegalStateException("already.exists");
         }
         routeEntity = new RouteEntity();
@@ -65,7 +72,8 @@ public class RouteServiceImpl implements RouteService {
     }
 
     @Override
-    public Route update(Route route) {
+    public Route update(Route route)
+    {
         RouteEntity routeEntity = routeJpaRepository.findOne(route.getRouId());
         routeServiceMapper.mapRouteToRouteEntity(route, routeEntity);
         RouteEntity routeEntitySaved = routeJpaRepository.save(routeEntity);
@@ -73,23 +81,28 @@ public class RouteServiceImpl implements RouteService {
     }
 
     @Override
-    public void delete(Integer rouId) {
+    public void delete(Integer rouId)
+    {
         routeJpaRepository.delete(rouId);
     }
 
-    public RouteJpaRepository getRouteJpaRepository() {
+    public RouteJpaRepository getRouteJpaRepository()
+    {
         return routeJpaRepository;
     }
 
-    public void setRouteJpaRepository(RouteJpaRepository routeJpaRepository) {
+    public void setRouteJpaRepository(RouteJpaRepository routeJpaRepository)
+    {
         this.routeJpaRepository = routeJpaRepository;
     }
 
-    public RouteServiceMapper getRouteServiceMapper() {
+    public RouteServiceMapper getRouteServiceMapper()
+    {
         return routeServiceMapper;
     }
 
-    public void setRouteServiceMapper(RouteServiceMapper routeServiceMapper) {
+    public void setRouteServiceMapper(RouteServiceMapper routeServiceMapper)
+    {
         this.routeServiceMapper = routeServiceMapper;
     }
 

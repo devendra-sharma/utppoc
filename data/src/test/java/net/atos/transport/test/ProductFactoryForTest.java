@@ -2,17 +2,19 @@ package net.atos.transport.test;
 
 import net.atos.transport.entity.Product;
 
-public class ProductFactoryForTest {
+public class ProductFactoryForTest
+{
 
-	private MockValues mockValues = new MockValues();
-	
-	public Product newProduct() {
+    private MockValues mockValues = new MockValues();
 
-		Integer proId = mockValues.nextInteger();
+    public Product newProduct()
+    {
 
-		Product product = new Product();
-		product.setProId(proId);
-		return product;
-	}
-	
+        Integer proId = mockValues.nextInteger();
+
+        Product product = new Product();
+        product.setProId(proId);
+        return product;
+    }
+
 }

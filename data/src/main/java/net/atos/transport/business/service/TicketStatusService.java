@@ -11,23 +11,27 @@ import net.atos.transport.entity.TicketStatus;
 /**
  * Business Service Interface for entity TicketStatus.
  */
-public interface TicketStatusService { 
+public interface TicketStatusService
+{
 
     /**
      * Loads an entity from the database using its Primary Key
+     * 
      * @param tisId
      * @return entity
      */
-    TicketStatus findById( Integer tisId  ) ;
+    TicketStatus findById(Integer tisId);
 
     /**
      * Loads all entities.
+     * 
      * @return all entities
      */
     List<TicketStatus> findAll();
 
     /**
      * Saves the given entity in the database (create or update)
+     * 
      * @param entity
      * @return entity
      */
@@ -35,6 +39,7 @@ public interface TicketStatusService {
 
     /**
      * Updates the given entity in the database
+     * 
      * @param entity
      * @return
      */
@@ -42,6 +47,7 @@ public interface TicketStatusService {
 
     /**
      * Creates the given entity in the database
+     * 
      * @param entity
      * @return
      */
@@ -49,9 +55,9 @@ public interface TicketStatusService {
 
     /**
      * Deletes an entity using its Primary Key
+     * 
      * @param tisId
      */
-    void delete( Integer tisId );
-
+    void delete(Integer tisId);
 
 }

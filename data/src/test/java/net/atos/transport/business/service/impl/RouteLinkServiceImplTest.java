@@ -30,137 +30,149 @@ import org.mockito.runners.MockitoJUnitRunner;
  * Test : Implementation of RouteLinkService
  */
 @RunWith(MockitoJUnitRunner.class)
-public class RouteLinkServiceImplTest {
+public class RouteLinkServiceImplTest
+{
 
-	@InjectMocks
-	private RouteLinkServiceImpl routeLinkService;
-	@Mock
-	private RouteLinkJpaRepository routeLinkJpaRepository;
-	@Mock
-	private RouteLinkServiceMapper routeLinkServiceMapper;
-	
-	private RouteLinkFactoryForTest routeLinkFactoryForTest = new RouteLinkFactoryForTest();
+    @InjectMocks
+    private RouteLinkServiceImpl routeLinkService;
 
-	private RouteLinkEntityFactoryForTest routeLinkEntityFactoryForTest = new RouteLinkEntityFactoryForTest();
+    @Mock
+    private RouteLinkJpaRepository routeLinkJpaRepository;
 
-	private MockValues mockValues = new MockValues();
-	
-	@Test
-	public void findById() {
-		// Given
-		Integer rolId = mockValues.nextInteger();
-		
-		RouteLinkEntity routeLinkEntity = routeLinkJpaRepository.findOne(rolId);
-		
-		RouteLink routeLink = routeLinkFactoryForTest.newRouteLink();
-		when(routeLinkServiceMapper.mapRouteLinkEntityToRouteLink(routeLinkEntity)).thenReturn(routeLink);
+    @Mock
+    private RouteLinkServiceMapper routeLinkServiceMapper;
 
-		// When
-		RouteLink routeLinkFound = routeLinkService.findById(rolId);
+    private RouteLinkFactoryForTest routeLinkFactoryForTest = new RouteLinkFactoryForTest();
 
-		// Then
-		assertEquals(routeLink.getRolId(),routeLinkFound.getRolId());
-	}
+    private RouteLinkEntityFactoryForTest routeLinkEntityFactoryForTest = new RouteLinkEntityFactoryForTest();
 
-	@Test
-	public void findAll() {
-		// Given
-		List<RouteLinkEntity> routeLinkEntitys = new ArrayList<RouteLinkEntity>();
-		RouteLinkEntity routeLinkEntity1 = routeLinkEntityFactoryForTest.newRouteLinkEntity();
-		routeLinkEntitys.add(routeLinkEntity1);
-		RouteLinkEntity routeLinkEntity2 = routeLinkEntityFactoryForTest.newRouteLinkEntity();
-		routeLinkEntitys.add(routeLinkEntity2);
-		when(routeLinkJpaRepository.findAll()).thenReturn(routeLinkEntitys);
-		
-		RouteLink routeLink1 = routeLinkFactoryForTest.newRouteLink();
-		when(routeLinkServiceMapper.mapRouteLinkEntityToRouteLink(routeLinkEntity1)).thenReturn(routeLink1);
-		RouteLink routeLink2 = routeLinkFactoryForTest.newRouteLink();
-		when(routeLinkServiceMapper.mapRouteLinkEntityToRouteLink(routeLinkEntity2)).thenReturn(routeLink2);
+    private MockValues mockValues = new MockValues();
 
-		// When
-		List<RouteLink> routeLinksFounds = routeLinkService.findAll();
+    @Test
+    public void findById()
+    {
+        // Given
+        Integer rolId = mockValues.nextInteger();
 
-		// Then
-		assertTrue(routeLink1 == routeLinksFounds.get(0));
-		assertTrue(routeLink2 == routeLinksFounds.get(1));
-	}
+        RouteLinkEntity routeLinkEntity = routeLinkJpaRepository.findOne(rolId);
 
-	@Test
-	public void create() {
-		// Given
-		RouteLink routeLink = routeLinkFactoryForTest.newRouteLink();
+        RouteLink routeLink = routeLinkFactoryForTest.newRouteLink();
+        when(routeLinkServiceMapper.mapRouteLinkEntityToRouteLink(routeLinkEntity)).thenReturn(routeLink);
 
-		RouteLinkEntity routeLinkEntity = routeLinkEntityFactoryForTest.newRouteLinkEntity();
-		when(routeLinkJpaRepository.findOne(routeLink.getRolId())).thenReturn(null);
-		
-		routeLinkEntity = new RouteLinkEntity();
-		routeLinkServiceMapper.mapRouteLinkToRouteLinkEntity(routeLink, routeLinkEntity);
-		RouteLinkEntity routeLinkEntitySaved = routeLinkJpaRepository.save(routeLinkEntity);
-		
-		RouteLink routeLinkSaved = routeLinkFactoryForTest.newRouteLink();
-		when(routeLinkServiceMapper.mapRouteLinkEntityToRouteLink(routeLinkEntitySaved)).thenReturn(routeLinkSaved);
+        // When
+        RouteLink routeLinkFound = routeLinkService.findById(rolId);
 
-		// When
-		RouteLink routeLinkResult = routeLinkService.create(routeLink);
+        // Then
+        assertEquals(routeLink.getRolId(), routeLinkFound.getRolId());
+    }
 
-		// Then
-		assertTrue(routeLinkResult == routeLinkSaved);
-	}
+    @Test
+    public void findAll()
+    {
+        // Given
+        List<RouteLinkEntity> routeLinkEntitys = new ArrayList<RouteLinkEntity>();
+        RouteLinkEntity routeLinkEntity1 = routeLinkEntityFactoryForTest.newRouteLinkEntity();
+        routeLinkEntitys.add(routeLinkEntity1);
+        RouteLinkEntity routeLinkEntity2 = routeLinkEntityFactoryForTest.newRouteLinkEntity();
+        routeLinkEntitys.add(routeLinkEntity2);
+        when(routeLinkJpaRepository.findAll()).thenReturn(routeLinkEntitys);
 
-	@Test
-	public void createKOExists() {
-		// Given
-		RouteLink routeLink = routeLinkFactoryForTest.newRouteLink();
+        RouteLink routeLink1 = routeLinkFactoryForTest.newRouteLink();
+        when(routeLinkServiceMapper.mapRouteLinkEntityToRouteLink(routeLinkEntity1)).thenReturn(routeLink1);
+        RouteLink routeLink2 = routeLinkFactoryForTest.newRouteLink();
+        when(routeLinkServiceMapper.mapRouteLinkEntityToRouteLink(routeLinkEntity2)).thenReturn(routeLink2);
 
-		RouteLinkEntity routeLinkEntity = routeLinkEntityFactoryForTest.newRouteLinkEntity();
-		when(routeLinkJpaRepository.findOne(routeLink.getRolId())).thenReturn(routeLinkEntity);
+        // When
+        List<RouteLink> routeLinksFounds = routeLinkService.findAll();
 
-		// When
-		Exception exception = null;
-		try {
-			routeLinkService.create(routeLink);
-		} catch(Exception e) {
-			exception = e;
-		}
+        // Then
+        assertTrue(routeLink1 == routeLinksFounds.get(0));
+        assertTrue(routeLink2 == routeLinksFounds.get(1));
+    }
 
-		// Then
-		assertTrue(exception instanceof IllegalStateException);
-		assertEquals("already.exists", exception.getMessage());
-	}
+    @Test
+    public void create()
+    {
+        // Given
+        RouteLink routeLink = routeLinkFactoryForTest.newRouteLink();
 
-	@Test
-	public void update() {
-		// Given
-		RouteLink routeLink = routeLinkFactoryForTest.newRouteLink();
+        RouteLinkEntity routeLinkEntity = routeLinkEntityFactoryForTest.newRouteLinkEntity();
+        when(routeLinkJpaRepository.findOne(routeLink.getRolId())).thenReturn(null);
 
-		RouteLinkEntity routeLinkEntity = routeLinkEntityFactoryForTest.newRouteLinkEntity();
-		when(routeLinkJpaRepository.findOne(routeLink.getRolId())).thenReturn(routeLinkEntity);
-		
-		RouteLinkEntity routeLinkEntitySaved = routeLinkEntityFactoryForTest.newRouteLinkEntity();
-		when(routeLinkJpaRepository.save(routeLinkEntity)).thenReturn(routeLinkEntitySaved);
-		
-		RouteLink routeLinkSaved = routeLinkFactoryForTest.newRouteLink();
-		when(routeLinkServiceMapper.mapRouteLinkEntityToRouteLink(routeLinkEntitySaved)).thenReturn(routeLinkSaved);
+        routeLinkEntity = new RouteLinkEntity();
+        routeLinkServiceMapper.mapRouteLinkToRouteLinkEntity(routeLink, routeLinkEntity);
+        RouteLinkEntity routeLinkEntitySaved = routeLinkJpaRepository.save(routeLinkEntity);
 
-		// When
-		RouteLink routeLinkResult = routeLinkService.update(routeLink);
+        RouteLink routeLinkSaved = routeLinkFactoryForTest.newRouteLink();
+        when(routeLinkServiceMapper.mapRouteLinkEntityToRouteLink(routeLinkEntitySaved)).thenReturn(routeLinkSaved);
 
-		// Then
-		verify(routeLinkServiceMapper).mapRouteLinkToRouteLinkEntity(routeLink, routeLinkEntity);
-		assertTrue(routeLinkResult == routeLinkSaved);
-	}
+        // When
+        RouteLink routeLinkResult = routeLinkService.create(routeLink);
 
-	@Test
-	public void delete() {
-		// Given
-		Integer rolId = mockValues.nextInteger();
+        // Then
+        assertTrue(routeLinkResult == routeLinkSaved);
+    }
 
-		// When
-		routeLinkService.delete(rolId);
+    @Test
+    public void createKOExists()
+    {
+        // Given
+        RouteLink routeLink = routeLinkFactoryForTest.newRouteLink();
 
-		// Then
-		verify(routeLinkJpaRepository).delete(rolId);
-		
-	}
+        RouteLinkEntity routeLinkEntity = routeLinkEntityFactoryForTest.newRouteLinkEntity();
+        when(routeLinkJpaRepository.findOne(routeLink.getRolId())).thenReturn(routeLinkEntity);
+
+        // When
+        Exception exception = null;
+        try
+        {
+            routeLinkService.create(routeLink);
+        }
+        catch (Exception e)
+        {
+            exception = e;
+        }
+
+        // Then
+        assertTrue(exception instanceof IllegalStateException);
+        assertEquals("already.exists", exception.getMessage());
+    }
+
+    @Test
+    public void update()
+    {
+        // Given
+        RouteLink routeLink = routeLinkFactoryForTest.newRouteLink();
+
+        RouteLinkEntity routeLinkEntity = routeLinkEntityFactoryForTest.newRouteLinkEntity();
+        when(routeLinkJpaRepository.findOne(routeLink.getRolId())).thenReturn(routeLinkEntity);
+
+        RouteLinkEntity routeLinkEntitySaved = routeLinkEntityFactoryForTest.newRouteLinkEntity();
+        when(routeLinkJpaRepository.save(routeLinkEntity)).thenReturn(routeLinkEntitySaved);
+
+        RouteLink routeLinkSaved = routeLinkFactoryForTest.newRouteLink();
+        when(routeLinkServiceMapper.mapRouteLinkEntityToRouteLink(routeLinkEntitySaved)).thenReturn(routeLinkSaved);
+
+        // When
+        RouteLink routeLinkResult = routeLinkService.update(routeLink);
+
+        // Then
+        verify(routeLinkServiceMapper).mapRouteLinkToRouteLinkEntity(routeLink, routeLinkEntity);
+        assertTrue(routeLinkResult == routeLinkSaved);
+    }
+
+    @Test
+    public void delete()
+    {
+        // Given
+        Integer rolId = mockValues.nextInteger();
+
+        // When
+        routeLinkService.delete(rolId);
+
+        // Then
+        verify(routeLinkJpaRepository).delete(rolId);
+
+    }
 
 }

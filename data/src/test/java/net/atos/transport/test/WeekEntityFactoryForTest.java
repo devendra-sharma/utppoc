@@ -2,17 +2,19 @@ package net.atos.transport.test;
 
 import net.atos.transport.entity.jpa.WeekEntity;
 
-public class WeekEntityFactoryForTest {
+public class WeekEntityFactoryForTest
+{
 
-	private MockValues mockValues = new MockValues();
-	
-	public WeekEntity newWeekEntity() {
+    private MockValues mockValues = new MockValues();
 
-		Integer weekId = mockValues.nextInteger();
+    public WeekEntity newWeekEntity()
+    {
 
-		WeekEntity weekEntity = new WeekEntity();
-		weekEntity.setWeekId(weekId);
-		return weekEntity;
-	}
-	
+        Integer weekId = mockValues.nextInteger();
+
+        WeekEntity weekEntity = new WeekEntity();
+        weekEntity.setWeekId(weekId);
+        return weekEntity;
+    }
+
 }

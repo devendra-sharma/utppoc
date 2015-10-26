@@ -2,17 +2,19 @@ package net.atos.transport.test;
 
 import net.atos.transport.entity.Calendar;
 
-public class CalendarFactoryForTest {
+public class CalendarFactoryForTest
+{
 
-	private MockValues mockValues = new MockValues();
-	
-	public Calendar newCalendar() {
+    private MockValues mockValues = new MockValues();
 
-		Integer calId = mockValues.nextInteger();
+    public Calendar newCalendar()
+    {
 
-		Calendar calendar = new Calendar();
-		calendar.setCalId(calId);
-		return calendar;
-	}
-	
+        Integer calId = mockValues.nextInteger();
+
+        Calendar calendar = new Calendar();
+        calendar.setCalId(calId);
+        return calendar;
+    }
+
 }

@@ -7,21 +7,28 @@ import java.util.Date;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class CommonUtil {
-    
+public class CommonUtil
+{
+
     private static final Logger LOGGER = LoggerFactory.getLogger(CommonUtil.class);
 
-    private CommonUtil(){
-        
+    private CommonUtil()
+    {
+
     }
-    public static Date getDateForFormat(String input,String format){
-        
+
+    public static Date getDateForFormat(String input, String format)
+    {
+
         SimpleDateFormat dateFormat = new SimpleDateFormat(format);
-        try {
+        try
+        {
             return dateFormat.parse(input);
-        } catch (ParseException e) {
+        }
+        catch (ParseException e)
+        {
             LOGGER.error(e.getMessage());
-        }   
+        }
         return new Date();
     }
 }

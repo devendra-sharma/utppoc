@@ -2,17 +2,19 @@ package net.atos.transport.test;
 
 import net.atos.transport.entity.RecordField;
 
-public class RecordFieldFactoryForTest {
+public class RecordFieldFactoryForTest
+{
 
-	private MockValues mockValues = new MockValues();
-	
-	public RecordField newRecordField() {
+    private MockValues mockValues = new MockValues();
 
-		Integer refId = mockValues.nextInteger();
+    public RecordField newRecordField()
+    {
 
-		RecordField recordField = new RecordField();
-		recordField.setRefId(refId);
-		return recordField;
-	}
-	
+        Integer refId = mockValues.nextInteger();
+
+        RecordField recordField = new RecordField();
+        recordField.setRefId(refId);
+        return recordField;
+    }
+
 }

@@ -15,59 +15,71 @@ import org.springframework.stereotype.Component;
  * Mapping between entity beans and display beans.
  */
 @Component
-public class ApplicationParametersServiceMapper extends AbstractServiceMapper {
+public class ApplicationParametersServiceMapper extends AbstractServiceMapper
+{
 
     /**
      * ModelMapper : bean to bean mapping library.
      */
     private ModelMapper modelMapper;
-    
+
     /**
      * Constructor.
      */
-    public ApplicationParametersServiceMapper() {
+    public ApplicationParametersServiceMapper()
+    {
         modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
     }
 
     /**
      * Mapping from 'ApplicationParametersEntity' to 'ApplicationParameters'
+     * 
      * @param applicationParametersEntity
      */
-    public ApplicationParameters mapApplicationParametersEntityToApplicationParameters(ApplicationParametersEntity applicationParametersEntity) {
-        if(applicationParametersEntity == null) {
+    public ApplicationParameters mapApplicationParametersEntityToApplicationParameters(
+            ApplicationParametersEntity applicationParametersEntity)
+    {
+        if (applicationParametersEntity == null)
+        {
             return null;
         }
 
-        //--- Generic mapping 
+        // --- Generic mapping
         return map(applicationParametersEntity, ApplicationParameters.class);
 
     }
-    
+
     /**
      * Mapping from 'ApplicationParameters' to 'ApplicationParametersEntity'
+     * 
      * @param applicationParameters
      * @param applicationParametersEntity
      */
-    public void mapApplicationParametersToApplicationParametersEntity(ApplicationParameters applicationParameters, ApplicationParametersEntity applicationParametersEntity) {
-        if(applicationParameters == null) {
+    public void mapApplicationParametersToApplicationParametersEntity(ApplicationParameters applicationParameters,
+            ApplicationParametersEntity applicationParametersEntity)
+    {
+        if (applicationParameters == null)
+        {
             return;
         }
 
-        //--- Generic mapping 
+        // --- Generic mapping
         map(applicationParameters, applicationParametersEntity);
 
     }
-    
+
     /**
      * {@inheritDoc}
      */
     @Override
-    protected ModelMapper getModelMapper() {
+    protected ModelMapper getModelMapper()
+    {
         return modelMapper;
     }
 
-    protected void setModelMapper(ModelMapper modelMapper) {
+    protected void setModelMapper(ModelMapper modelMapper)
+    {
         this.modelMapper = modelMapper;
     }
 

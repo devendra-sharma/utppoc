@@ -31,137 +31,149 @@ import org.mockito.runners.MockitoJUnitRunner;
  * Test : Implementation of YearService
  */
 @RunWith(MockitoJUnitRunner.class)
-public class YearServiceImplTest {
+public class YearServiceImplTest
+{
 
-	@InjectMocks
-	private YearServiceImpl yearService;
-	@Mock
-	private YearJpaRepository yearJpaRepository;
-	@Mock
-	private YearServiceMapper yearServiceMapper;
-	
-	private YearFactoryForTest yearFactoryForTest = new YearFactoryForTest();
+    @InjectMocks
+    private YearServiceImpl yearService;
 
-	private YearEntityFactoryForTest yearEntityFactoryForTest = new YearEntityFactoryForTest();
+    @Mock
+    private YearJpaRepository yearJpaRepository;
 
-	private MockValues mockValues = new MockValues();
-	
-	@Test
-	public void findById() {
-		// Given
-		Integer curYear = mockValues.nextInteger();
-		
-		YearEntity yearEntity = yearJpaRepository.findOne(curYear);
-		
-		Year year = yearFactoryForTest.newYear();
-		when(yearServiceMapper.mapYearEntityToYear(yearEntity)).thenReturn(year);
+    @Mock
+    private YearServiceMapper yearServiceMapper;
 
-		// When
-		Year yearFound = yearService.findById(curYear);
+    private YearFactoryForTest yearFactoryForTest = new YearFactoryForTest();
 
-		// Then
-		assertEquals(year.getYear(),yearFound.getYear());
-	}
+    private YearEntityFactoryForTest yearEntityFactoryForTest = new YearEntityFactoryForTest();
 
-	@Test
-	public void findAll() {
-		// Given
-		List<YearEntity> yearEntitys = new ArrayList<YearEntity>();
-		YearEntity yearEntity1 = yearEntityFactoryForTest.newYearEntity();
-		yearEntitys.add(yearEntity1);
-		YearEntity yearEntity2 = yearEntityFactoryForTest.newYearEntity();
-		yearEntitys.add(yearEntity2);
-		when(yearJpaRepository.findAll()).thenReturn(yearEntitys);
-		
-		Year year1 = yearFactoryForTest.newYear();
-		when(yearServiceMapper.mapYearEntityToYear(yearEntity1)).thenReturn(year1);
-		Year year2 = yearFactoryForTest.newYear();
-		when(yearServiceMapper.mapYearEntityToYear(yearEntity2)).thenReturn(year2);
+    private MockValues mockValues = new MockValues();
 
-		// When
-		List<Year> yearsFounds = yearService.findAll();
+    @Test
+    public void findById()
+    {
+        // Given
+        Integer curYear = mockValues.nextInteger();
 
-		// Then
-		assertTrue(year1 == yearsFounds.get(0));
-		assertTrue(year2 == yearsFounds.get(1));
-	}
+        YearEntity yearEntity = yearJpaRepository.findOne(curYear);
 
-	@Test
-	public void create() {
-		// Given
-		Year year = yearFactoryForTest.newYear();
+        Year year = yearFactoryForTest.newYear();
+        when(yearServiceMapper.mapYearEntityToYear(yearEntity)).thenReturn(year);
 
-		YearEntity yearEntity = yearEntityFactoryForTest.newYearEntity();
-		when(yearJpaRepository.findOne(year.getYear())).thenReturn(null);
-		
-		yearEntity = new YearEntity();
-		yearServiceMapper.mapYearToYearEntity(year, yearEntity);
-		YearEntity yearEntitySaved = yearJpaRepository.save(yearEntity);
-		
-		Year yearSaved = yearFactoryForTest.newYear();
-		when(yearServiceMapper.mapYearEntityToYear(yearEntitySaved)).thenReturn(yearSaved);
+        // When
+        Year yearFound = yearService.findById(curYear);
 
-		// When
-		Year yearResult = yearService.create(year);
+        // Then
+        assertEquals(year.getYear(), yearFound.getYear());
+    }
 
-		// Then
-		assertTrue(yearResult == yearSaved);
-	}
+    @Test
+    public void findAll()
+    {
+        // Given
+        List<YearEntity> yearEntitys = new ArrayList<YearEntity>();
+        YearEntity yearEntity1 = yearEntityFactoryForTest.newYearEntity();
+        yearEntitys.add(yearEntity1);
+        YearEntity yearEntity2 = yearEntityFactoryForTest.newYearEntity();
+        yearEntitys.add(yearEntity2);
+        when(yearJpaRepository.findAll()).thenReturn(yearEntitys);
 
-	@Test
-	public void createKOExists() {
-		// Given
-		Year year = yearFactoryForTest.newYear();
+        Year year1 = yearFactoryForTest.newYear();
+        when(yearServiceMapper.mapYearEntityToYear(yearEntity1)).thenReturn(year1);
+        Year year2 = yearFactoryForTest.newYear();
+        when(yearServiceMapper.mapYearEntityToYear(yearEntity2)).thenReturn(year2);
 
-		YearEntity yearEntity = yearEntityFactoryForTest.newYearEntity();
-		when(yearJpaRepository.findOne(year.getYear())).thenReturn(yearEntity);
+        // When
+        List<Year> yearsFounds = yearService.findAll();
 
-		// When
-		Exception exception = null;
-		try {
-			yearService.create(year);
-		} catch(Exception e) {
-			exception = e;
-		}
+        // Then
+        assertTrue(year1 == yearsFounds.get(0));
+        assertTrue(year2 == yearsFounds.get(1));
+    }
 
-		// Then
-		assertTrue(exception instanceof IllegalStateException);
-		assertEquals("already.exists", exception.getMessage());
-	}
+    @Test
+    public void create()
+    {
+        // Given
+        Year year = yearFactoryForTest.newYear();
 
-	@Test
-	public void update() {
-		// Given
-		Year year = yearFactoryForTest.newYear();
+        YearEntity yearEntity = yearEntityFactoryForTest.newYearEntity();
+        when(yearJpaRepository.findOne(year.getYear())).thenReturn(null);
 
-		YearEntity yearEntity = yearEntityFactoryForTest.newYearEntity();
-		when(yearJpaRepository.findOne(year.getYear())).thenReturn(yearEntity);
-		
-		YearEntity yearEntitySaved = yearEntityFactoryForTest.newYearEntity();
-		when(yearJpaRepository.save(yearEntity)).thenReturn(yearEntitySaved);
-		
-		Year yearSaved = yearFactoryForTest.newYear();
-		when(yearServiceMapper.mapYearEntityToYear(yearEntitySaved)).thenReturn(yearSaved);
+        yearEntity = new YearEntity();
+        yearServiceMapper.mapYearToYearEntity(year, yearEntity);
+        YearEntity yearEntitySaved = yearJpaRepository.save(yearEntity);
 
-		// When
-		Year yearResult = yearService.update(year);
+        Year yearSaved = yearFactoryForTest.newYear();
+        when(yearServiceMapper.mapYearEntityToYear(yearEntitySaved)).thenReturn(yearSaved);
 
-		// Then
-		verify(yearServiceMapper).mapYearToYearEntity(year, yearEntity);
-		assertTrue(yearResult == yearSaved);
-	}
+        // When
+        Year yearResult = yearService.create(year);
 
-	@Test
-	public void delete() {
-		// Given
-		Integer year = mockValues.nextInteger();
+        // Then
+        assertTrue(yearResult == yearSaved);
+    }
 
-		// When
-		yearService.delete(year);
+    @Test
+    public void createKOExists()
+    {
+        // Given
+        Year year = yearFactoryForTest.newYear();
 
-		// Then
-		verify(yearJpaRepository).delete(year);
-		
-	}
+        YearEntity yearEntity = yearEntityFactoryForTest.newYearEntity();
+        when(yearJpaRepository.findOne(year.getYear())).thenReturn(yearEntity);
+
+        // When
+        Exception exception = null;
+        try
+        {
+            yearService.create(year);
+        }
+        catch (Exception e)
+        {
+            exception = e;
+        }
+
+        // Then
+        assertTrue(exception instanceof IllegalStateException);
+        assertEquals("already.exists", exception.getMessage());
+    }
+
+    @Test
+    public void update()
+    {
+        // Given
+        Year year = yearFactoryForTest.newYear();
+
+        YearEntity yearEntity = yearEntityFactoryForTest.newYearEntity();
+        when(yearJpaRepository.findOne(year.getYear())).thenReturn(yearEntity);
+
+        YearEntity yearEntitySaved = yearEntityFactoryForTest.newYearEntity();
+        when(yearJpaRepository.save(yearEntity)).thenReturn(yearEntitySaved);
+
+        Year yearSaved = yearFactoryForTest.newYear();
+        when(yearServiceMapper.mapYearEntityToYear(yearEntitySaved)).thenReturn(yearSaved);
+
+        // When
+        Year yearResult = yearService.update(year);
+
+        // Then
+        verify(yearServiceMapper).mapYearToYearEntity(year, yearEntity);
+        assertTrue(yearResult == yearSaved);
+    }
+
+    @Test
+    public void delete()
+    {
+        // Given
+        Integer year = mockValues.nextInteger();
+
+        // When
+        yearService.delete(year);
+
+        // Then
+        verify(yearJpaRepository).delete(year);
+
+    }
 
 }

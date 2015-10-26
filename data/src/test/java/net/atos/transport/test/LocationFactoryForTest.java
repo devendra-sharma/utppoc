@@ -2,17 +2,19 @@ package net.atos.transport.test;
 
 import net.atos.transport.entity.Location;
 
-public class LocationFactoryForTest {
+public class LocationFactoryForTest
+{
 
-	private MockValues mockValues = new MockValues();
-	
-	public Location newLocation() {
+    private MockValues mockValues = new MockValues();
 
-		Integer locId = mockValues.nextInteger();
+    public Location newLocation()
+    {
 
-		Location location = new Location();
-		location.setLocId(locId);
-		return location;
-	}
-	
+        Integer locId = mockValues.nextInteger();
+
+        Location location = new Location();
+        location.setLocId(locId);
+        return location;
+    }
+
 }

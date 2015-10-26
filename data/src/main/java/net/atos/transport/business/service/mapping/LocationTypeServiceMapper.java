@@ -15,59 +15,69 @@ import org.springframework.stereotype.Component;
  * Mapping between entity beans and display beans.
  */
 @Component
-public class LocationTypeServiceMapper extends AbstractServiceMapper {
+public class LocationTypeServiceMapper extends AbstractServiceMapper
+{
 
     /**
      * ModelMapper : bean to bean mapping library.
      */
     private ModelMapper modelMapper;
-    
+
     /**
      * Constructor.
      */
-    public LocationTypeServiceMapper() {
+    public LocationTypeServiceMapper()
+    {
         modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
     }
 
     /**
      * Mapping from 'LocationTypeEntity' to 'LocationType'
+     * 
      * @param locationTypeEntity
      */
-    public LocationType mapLocationTypeEntityToLocationType(LocationTypeEntity locationTypeEntity) {
-        if(locationTypeEntity == null) {
+    public LocationType mapLocationTypeEntityToLocationType(LocationTypeEntity locationTypeEntity)
+    {
+        if (locationTypeEntity == null)
+        {
             return null;
         }
 
-        //--- Generic mapping 
+        // --- Generic mapping
         return map(locationTypeEntity, LocationType.class);
 
     }
-    
+
     /**
      * Mapping from 'LocationType' to 'LocationTypeEntity'
+     * 
      * @param locationType
      * @param locationTypeEntity
      */
-    public void mapLocationTypeToLocationTypeEntity(LocationType locationType, LocationTypeEntity locationTypeEntity) {
-        if(locationType == null) {
+    public void mapLocationTypeToLocationTypeEntity(LocationType locationType, LocationTypeEntity locationTypeEntity)
+    {
+        if (locationType == null)
+        {
             return;
         }
 
-        //--- Generic mapping 
+        // --- Generic mapping
         map(locationType, locationTypeEntity);
 
     }
-    
+
     /**
      * {@inheritDoc}
      */
     @Override
-    protected ModelMapper getModelMapper() {
+    protected ModelMapper getModelMapper()
+    {
         return modelMapper;
     }
 
-    protected void setModelMapper(ModelMapper modelMapper) {
+    protected void setModelMapper(ModelMapper modelMapper)
+    {
         this.modelMapper = modelMapper;
     }
 

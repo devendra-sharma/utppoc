@@ -23,137 +23,153 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(name="route", catalog="mydb" )
+@Table(name = "route", catalog = "mydb")
 // Define named queries here
-@NamedQueries ( {
-  @NamedQuery ( name="RouteEntity.countAll", query="SELECT COUNT(x) FROM RouteEntity x" )
-} )
-public class RouteEntity extends CommonEntity implements Serializable {
+@NamedQueries(
+{@NamedQuery(name = "RouteEntity.countAll", query = "SELECT COUNT(x) FROM RouteEntity x") })
+public class RouteEntity extends CommonEntity implements Serializable
+{
 
     private static final long serialVersionUID = 1L;
 
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // ENTITY PRIMARY KEY ( BASED ON A SINGLE FIELD )
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="rou_id", nullable=false)
-    private Integer    rouId        ;
+    @Column(name = "rou_id", nullable = false)
+    private Integer rouId;
 
+    // ----------------------------------------------------------------------
+    // ENTITY DATA FIELDS
+    // ----------------------------------------------------------------------
 
-    //----------------------------------------------------------------------
-    // ENTITY DATA FIELDS 
-    //----------------------------------------------------------------------    
-    
+    @Column(name = "route_code", length = 5)
+    private String routeCode;
 
-    @Column(name="route_code", length=5)
-    private String     routeCode    ;
+    @Column(name = "route_description", length = 35)
+    private String routeDescription;
 
-    @Column(name="route_description", length=35)
-    private String     routeDescription ;
+    @Column(name = "cob_id_route_type", nullable = false)
+    private Integer cobIdRouteType;
 
-    @Column(name="cob_id_route_type", nullable=false)
-    private Integer    cobIdRouteType ;
+    // "tacId" (column "tac_id") is not defined by itself because used as FK in a link
 
-    // "tacId" (column "tac_id") is not defined by itself because used as FK in a link 
-
-
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // ENTITY LINKS ( RELATIONSHIP )
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     @ManyToOne
-    @JoinColumn(name="tac_id", referencedColumnName="tac_id")
+    @JoinColumn(name = "tac_id", referencedColumnName = "tac_id")
     private TicketAllocationCodeEntity ticketAllocationCode;
 
-    @OneToMany(mappedBy="route", targetEntity=RouteLinkEntity.class)
+    @OneToMany(mappedBy = "route", targetEntity = RouteLinkEntity.class)
     private transient List<RouteLinkEntity> listOfRouteLink;
 
-    @OneToMany(mappedBy="route2", targetEntity=RouteLinkEntity.class)
+    @OneToMany(mappedBy = "route2", targetEntity = RouteLinkEntity.class)
     private transient List<RouteLinkEntity> listOfRouteLink2;
 
-
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // CONSTRUCTOR(S)
-    //----------------------------------------------------------------------
-    public RouteEntity() {
+    // ----------------------------------------------------------------------
+    public RouteEntity()
+    {
         super();
     }
-    
-    //----------------------------------------------------------------------
+
+    // ----------------------------------------------------------------------
     // GETTER & SETTER FOR THE KEY FIELD
-    //----------------------------------------------------------------------
-    public void setRouId( Integer rouId ) {
-        this.rouId = rouId ;
+    // ----------------------------------------------------------------------
+    public void setRouId(Integer rouId)
+    {
+        this.rouId = rouId;
     }
-    public Integer getRouId() {
+
+    public Integer getRouId()
+    {
         return this.rouId;
     }
 
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // GETTERS & SETTERS FOR FIELDS
-    //----------------------------------------------------------------------
-    //--- DATABASE MAPPING : expired ( CHAR ) 
-  
+    // ----------------------------------------------------------------------
+    // --- DATABASE MAPPING : expired ( CHAR )
 
-    //--- DATABASE MAPPING : route_code ( VARCHAR ) 
-    public void setRouteCode( String routeCode ) {
+    // --- DATABASE MAPPING : route_code ( VARCHAR )
+    public void setRouteCode(String routeCode)
+    {
         this.routeCode = routeCode;
     }
-    public String getRouteCode() {
+
+    public String getRouteCode()
+    {
         return this.routeCode;
     }
 
-    //--- DATABASE MAPPING : route_description ( VARCHAR ) 
-    public void setRouteDescription( String routeDescription ) {
+    // --- DATABASE MAPPING : route_description ( VARCHAR )
+    public void setRouteDescription(String routeDescription)
+    {
         this.routeDescription = routeDescription;
     }
-    public String getRouteDescription() {
+
+    public String getRouteDescription()
+    {
         return this.routeDescription;
     }
 
-    //--- DATABASE MAPPING : cob_id_route_type ( INT ) 
-    public void setCobIdRouteType( Integer cobIdRouteType ) {
+    // --- DATABASE MAPPING : cob_id_route_type ( INT )
+    public void setCobIdRouteType(Integer cobIdRouteType)
+    {
         this.cobIdRouteType = cobIdRouteType;
     }
-    public Integer getCobIdRouteType() {
+
+    public Integer getCobIdRouteType()
+    {
         return this.cobIdRouteType;
     }
 
-
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // GETTERS & SETTERS FOR LINKS
-    //----------------------------------------------------------------------
-    public void setTicketAllocationCode( TicketAllocationCodeEntity ticketAllocationCode ) {
+    // ----------------------------------------------------------------------
+    public void setTicketAllocationCode(TicketAllocationCodeEntity ticketAllocationCode)
+    {
         this.ticketAllocationCode = ticketAllocationCode;
     }
-    public TicketAllocationCodeEntity getTicketAllocationCode() {
+
+    public TicketAllocationCodeEntity getTicketAllocationCode()
+    {
         return this.ticketAllocationCode;
     }
 
-    public void setListOfRouteLink( List<RouteLinkEntity> listOfRouteLink ) {
+    public void setListOfRouteLink(List<RouteLinkEntity> listOfRouteLink)
+    {
         this.listOfRouteLink = listOfRouteLink;
     }
-    public List<RouteLinkEntity> getListOfRouteLink() {
+
+    public List<RouteLinkEntity> getListOfRouteLink()
+    {
         return this.listOfRouteLink;
     }
 
-    public void setListOfRouteLink2( List<RouteLinkEntity> listOfRouteLink2 ) {
+    public void setListOfRouteLink2(List<RouteLinkEntity> listOfRouteLink2)
+    {
         this.listOfRouteLink2 = listOfRouteLink2;
     }
-    public List<RouteLinkEntity> getListOfRouteLink2() {
+
+    public List<RouteLinkEntity> getListOfRouteLink2()
+    {
         return this.listOfRouteLink2;
     }
 
-
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // toString METHOD
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     @Override
-    public String toString() { 
-        StringBuilder sb = new StringBuilder(); 
-        sb.append("["); 
+    public String toString()
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
         sb.append(rouId);
-        sb.append("]:"); 
+        sb.append("]:");
         sb.append(getExpired());
         sb.append("|");
         sb.append(getEffectiveFrom());
@@ -165,7 +181,7 @@ public class RouteEntity extends CommonEntity implements Serializable {
         sb.append(routeDescription);
         sb.append("|");
         sb.append(cobIdRouteType);
-        return sb.toString(); 
-    } 
+        return sb.toString();
+    }
 
 }

@@ -25,80 +25,85 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(name="application_parameters", catalog="mydb" )
+@Table(name = "application_parameters", catalog = "mydb")
 // Define named queries here
-@NamedQueries ( {
-  @NamedQuery ( name="ApplicationParametersEntity.countAll", query="SELECT COUNT(x) FROM ApplicationParametersEntity x" )
-} )
-public class ApplicationParametersEntity implements Serializable {
+@NamedQueries(
+{@NamedQuery(name = "ApplicationParametersEntity.countAll",
+        query = "SELECT COUNT(x) FROM ApplicationParametersEntity x") })
+public class ApplicationParametersEntity implements Serializable
+{
 
     private static final long serialVersionUID = 1L;
 
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // ENTITY PRIMARY KEY ( BASED ON A SINGLE FIELD )
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="application_parameters_id", nullable=false)
-    private Integer    applicationParametersId ;
+    @Column(name = "application_parameters_id", nullable = false)
+    private Integer applicationParametersId;
 
+    // ----------------------------------------------------------------------
+    // ENTITY DATA FIELDS
+    // ----------------------------------------------------------------------
+    @Column(name = "value", length = 45)
+    private String value;
 
-    //----------------------------------------------------------------------
-    // ENTITY DATA FIELDS 
-    //----------------------------------------------------------------------    
-    @Column(name="value", length=45)
-    private String     value        ;
-
-
-
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // ENTITY LINKS ( RELATIONSHIP )
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
 
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // CONSTRUCTOR(S)
-    //----------------------------------------------------------------------
-    public ApplicationParametersEntity() {
+    // ----------------------------------------------------------------------
+    public ApplicationParametersEntity()
+    {
         super();
     }
-    
-    //----------------------------------------------------------------------
+
+    // ----------------------------------------------------------------------
     // GETTER & SETTER FOR THE KEY FIELD
-    //----------------------------------------------------------------------
-    public void setApplicationParametersId( Integer applicationParametersId ) {
-        this.applicationParametersId = applicationParametersId ;
+    // ----------------------------------------------------------------------
+    public void setApplicationParametersId(Integer applicationParametersId)
+    {
+        this.applicationParametersId = applicationParametersId;
     }
-    public Integer getApplicationParametersId() {
+
+    public Integer getApplicationParametersId()
+    {
         return this.applicationParametersId;
     }
 
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // GETTERS & SETTERS FOR FIELDS
-    //----------------------------------------------------------------------
-    //--- DATABASE MAPPING : value ( VARCHAR ) 
-    public void setValue( String value ) {
+    // ----------------------------------------------------------------------
+    // --- DATABASE MAPPING : value ( VARCHAR )
+    public void setValue(String value)
+    {
         this.value = value;
     }
-    public String getValue() {
+
+    public String getValue()
+    {
         return this.value;
     }
 
-
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // GETTERS & SETTERS FOR LINKS
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
 
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // toString METHOD
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     @Override
-    public String toString() { 
-        StringBuilder sb = new StringBuilder(); 
-        sb.append("["); 
+    public String toString()
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
         sb.append(applicationParametersId);
-        sb.append("]:"); 
+        sb.append("]:");
         sb.append(value);
-        return sb.toString(); 
-    } 
+        return sb.toString();
+    }
 
 }

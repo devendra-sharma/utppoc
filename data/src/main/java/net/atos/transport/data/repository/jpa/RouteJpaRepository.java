@@ -7,6 +7,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 /**
  * Repository : Route.
  */
-public interface RouteJpaRepository extends PagingAndSortingRepository<RouteEntity, Integer> {
+public interface RouteJpaRepository extends PagingAndSortingRepository<RouteEntity, Integer>
+{
 
 }

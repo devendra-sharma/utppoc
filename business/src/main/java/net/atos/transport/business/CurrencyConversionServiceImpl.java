@@ -12,33 +12,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CurrencyConversionServiceImpl implements CurrencyConversionService {
+public class CurrencyConversionServiceImpl implements CurrencyConversionService
+{
 
     @Autowired
     private CalendarService calendarService;
 
     @Override
-    public BigDecimal convertCurrency(
-            net.atos.htts.transport.common.domain.ConvertCurrency convCurr)
-            throws UTPException {
+    public BigDecimal convertCurrency(net.atos.htts.transport.common.domain.ConvertCurrency convCurr)
+            throws UTPException
+    {
 
         Calendar calendar = this.retrieveCalenderObject(convCurr);
 
-        if (convCurr.getAmountInOrgCurr().doubleValue() < 0) {
-            convCurr.setAmountInOrgCurr(BigDecimal.valueOf(convCurr
-                    .getAmountInOrgCurr().doubleValue() * -1));
+        if (convCurr.getAmountInOrgCurr().doubleValue() < 0)
+        {
+            convCurr.setAmountInOrgCurr(BigDecimal.valueOf(convCurr.getAmountInOrgCurr().doubleValue() * -1));
         }
 
-        if (convCurr.getTargetCurrency().equals(AppConstants.EUROS)) {
-            return BigDecimal.valueOf(convCurr.getAmountInOrgCurr()
-                    .doubleValue()
-                    * (calendar.getCurrencyRate() * 10 / calendar
-                            .getConversionPower()));
-        } else {
-            return BigDecimal.valueOf(convCurr.getAmountInOrgCurr()
-                    .doubleValue()
-                    / (calendar.getCurrencyRate() * 10 / calendar
-                            .getConversionPower()));
+        if (convCurr.getTargetCurrency().equals(AppConstants.EUROS))
+        {
+            return BigDecimal.valueOf(convCurr.getAmountInOrgCurr().doubleValue()
+                    * (calendar.getCurrencyRate() * 10 / calendar.getConversionPower()));
+        }
+        else
+        {
+            return BigDecimal.valueOf(convCurr.getAmountInOrgCurr().doubleValue()
+                    / (calendar.getCurrencyRate() * 10 / calendar.getConversionPower()));
         }
 
     }
@@ -50,10 +50,11 @@ public class CurrencyConversionServiceImpl implements CurrencyConversionService 
      * @param retCalendars
      * @throws Exception
      */
-    private Calendar retrieveCalenderObject(ConvertCurrency convCurr)
-            throws UTPException {
+    private Calendar retrieveCalenderObject(ConvertCurrency convCurr) throws UTPException
+    {
 
-        if (convCurr.getSaleDate() != null) {
+        if (convCurr.getSaleDate() != null)
+        {
             return calendarService.findBySaleDate(convCurr.getSaleDate());
         }
 

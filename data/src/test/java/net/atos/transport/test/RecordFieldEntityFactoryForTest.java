@@ -2,17 +2,19 @@ package net.atos.transport.test;
 
 import net.atos.transport.entity.jpa.RecordFieldEntity;
 
-public class RecordFieldEntityFactoryForTest {
+public class RecordFieldEntityFactoryForTest
+{
 
-	private MockValues mockValues = new MockValues();
-	
-	public RecordFieldEntity newRecordFieldEntity() {
+    private MockValues mockValues = new MockValues();
 
-		Integer refId = mockValues.nextInteger();
+    public RecordFieldEntity newRecordFieldEntity()
+    {
 
-		RecordFieldEntity recordFieldEntity = new RecordFieldEntity();
-		recordFieldEntity.setRefId(refId);
-		return recordFieldEntity;
-	}
-	
+        Integer refId = mockValues.nextInteger();
+
+        RecordFieldEntity recordFieldEntity = new RecordFieldEntity();
+        recordFieldEntity.setRefId(refId);
+        return recordFieldEntity;
+    }
+
 }

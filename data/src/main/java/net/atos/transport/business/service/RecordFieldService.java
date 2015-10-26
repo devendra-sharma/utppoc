@@ -11,23 +11,27 @@ import net.atos.transport.entity.RecordField;
 /**
  * Business Service Interface for entity RecordField.
  */
-public interface RecordFieldService { 
+public interface RecordFieldService
+{
 
     /**
      * Loads an entity from the database using its Primary Key
+     * 
      * @param refId
      * @return entity
      */
-    RecordField findById( Integer refId  ) ;
+    RecordField findById(Integer refId);
 
     /**
      * Loads all entities.
+     * 
      * @return all entities
      */
     List<RecordField> findAll();
 
     /**
      * Saves the given entity in the database (create or update)
+     * 
      * @param entity
      * @return entity
      */
@@ -35,6 +39,7 @@ public interface RecordFieldService {
 
     /**
      * Updates the given entity in the database
+     * 
      * @param entity
      * @return
      */
@@ -42,6 +47,7 @@ public interface RecordFieldService {
 
     /**
      * Creates the given entity in the database
+     * 
      * @param entity
      * @return
      */
@@ -49,9 +55,9 @@ public interface RecordFieldService {
 
     /**
      * Deletes an entity using its Primary Key
+     * 
      * @param refId
      */
-    void delete( Integer refId );
-
+    void delete(Integer refId);
 
 }

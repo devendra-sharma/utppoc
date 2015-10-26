@@ -7,6 +7,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 /**
  * Repository : Business.
  */
-public interface BusinessJpaRepository extends PagingAndSortingRepository<BusinessEntity, Integer> {
+public interface BusinessJpaRepository extends PagingAndSortingRepository<BusinessEntity, Integer>
+{
 
 }

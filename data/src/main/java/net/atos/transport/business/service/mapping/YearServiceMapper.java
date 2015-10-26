@@ -15,59 +15,69 @@ import org.springframework.stereotype.Component;
  * Mapping between entity beans and display beans.
  */
 @Component
-public class YearServiceMapper extends AbstractServiceMapper {
+public class YearServiceMapper extends AbstractServiceMapper
+{
 
     /**
      * ModelMapper : bean to bean mapping library.
      */
     private ModelMapper modelMapper;
-    
+
     /**
      * Constructor.
      */
-    public YearServiceMapper() {
+    public YearServiceMapper()
+    {
         modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
     }
 
     /**
      * Mapping from 'YearEntity' to 'Year'
+     * 
      * @param yearEntity
      */
-    public Year mapYearEntityToYear(YearEntity yearEntity) {
-        if(yearEntity == null) {
+    public Year mapYearEntityToYear(YearEntity yearEntity)
+    {
+        if (yearEntity == null)
+        {
             return null;
         }
 
-        //--- Generic mapping 
+        // --- Generic mapping
         return map(yearEntity, Year.class);
 
     }
-    
+
     /**
      * Mapping from 'Year' to 'YearEntity'
+     * 
      * @param year
      * @param yearEntity
      */
-    public void mapYearToYearEntity(Year year, YearEntity yearEntity) {
-        if(year == null) {
+    public void mapYearToYearEntity(Year year, YearEntity yearEntity)
+    {
+        if (year == null)
+        {
             return;
         }
 
-        //--- Generic mapping 
+        // --- Generic mapping
         map(year, yearEntity);
 
     }
-    
+
     /**
      * {@inheritDoc}
      */
     @Override
-    protected ModelMapper getModelMapper() {
+    protected ModelMapper getModelMapper()
+    {
         return modelMapper;
     }
 
-    protected void setModelMapper(ModelMapper modelMapper) {
+    protected void setModelMapper(ModelMapper modelMapper)
+    {
         this.modelMapper = modelMapper;
     }
 

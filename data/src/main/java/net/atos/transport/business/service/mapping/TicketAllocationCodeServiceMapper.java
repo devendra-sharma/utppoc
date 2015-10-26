@@ -15,59 +15,71 @@ import org.springframework.stereotype.Component;
  * Mapping between entity beans and display beans.
  */
 @Component
-public class TicketAllocationCodeServiceMapper extends AbstractServiceMapper {
+public class TicketAllocationCodeServiceMapper extends AbstractServiceMapper
+{
 
     /**
      * ModelMapper : bean to bean mapping library.
      */
     private ModelMapper modelMapper;
-    
+
     /**
      * Constructor.
      */
-    public TicketAllocationCodeServiceMapper() {
+    public TicketAllocationCodeServiceMapper()
+    {
         modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
     }
 
     /**
      * Mapping from 'TicketAllocationCodeEntity' to 'TicketAllocationCode'
+     * 
      * @param ticketAllocationCodeEntity
      */
-    public TicketAllocationCode mapTicketAllocationCodeEntityToTicketAllocationCode(TicketAllocationCodeEntity ticketAllocationCodeEntity) {
-        if(ticketAllocationCodeEntity == null) {
+    public TicketAllocationCode mapTicketAllocationCodeEntityToTicketAllocationCode(
+            TicketAllocationCodeEntity ticketAllocationCodeEntity)
+    {
+        if (ticketAllocationCodeEntity == null)
+        {
             return null;
         }
 
-        //--- Generic mapping 
+        // --- Generic mapping
         return map(ticketAllocationCodeEntity, TicketAllocationCode.class);
 
     }
-    
+
     /**
      * Mapping from 'TicketAllocationCode' to 'TicketAllocationCodeEntity'
+     * 
      * @param ticketAllocationCode
      * @param ticketAllocationCodeEntity
      */
-    public void mapTicketAllocationCodeToTicketAllocationCodeEntity(TicketAllocationCode ticketAllocationCode, TicketAllocationCodeEntity ticketAllocationCodeEntity) {
-        if(ticketAllocationCode == null) {
+    public void mapTicketAllocationCodeToTicketAllocationCodeEntity(TicketAllocationCode ticketAllocationCode,
+            TicketAllocationCodeEntity ticketAllocationCodeEntity)
+    {
+        if (ticketAllocationCode == null)
+        {
             return;
         }
 
-        //--- Generic mapping 
+        // --- Generic mapping
         map(ticketAllocationCode, ticketAllocationCodeEntity);
 
     }
-    
+
     /**
      * {@inheritDoc}
      */
     @Override
-    protected ModelMapper getModelMapper() {
+    protected ModelMapper getModelMapper()
+    {
         return modelMapper;
     }
 
-    protected void setModelMapper(ModelMapper modelMapper) {
+    protected void setModelMapper(ModelMapper modelMapper)
+    {
         this.modelMapper = modelMapper;
     }
 

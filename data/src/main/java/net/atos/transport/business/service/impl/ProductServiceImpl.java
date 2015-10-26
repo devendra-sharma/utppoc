@@ -23,39 +23,46 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Component
 @Transactional
-public class ProductServiceImpl implements ProductService {
+public class ProductServiceImpl implements ProductService
+{
 
     @Resource
     private ProductJpaRepository productJpaRepository;
 
     @Resource
     private ProductServiceMapper productServiceMapper;
-    
+
     @Override
-    public Product findById(Integer proId) {
+    public Product findById(Integer proId)
+    {
         ProductEntity productEntity = productJpaRepository.findOne(proId);
         return productServiceMapper.mapProductEntityToProduct(productEntity);
     }
 
     @Override
-    public List<Product> findAll() {
+    public List<Product> findAll()
+    {
         Iterable<ProductEntity> entities = productJpaRepository.findAll();
         List<Product> beans = new ArrayList<Product>();
-        for(ProductEntity productEntity : entities) {
+        for (ProductEntity productEntity : entities)
+        {
             beans.add(productServiceMapper.mapProductEntityToProduct(productEntity));
         }
         return beans;
     }
 
     @Override
-    public Product save(Product product) {
-        return update(product) ;
+    public Product save(Product product)
+    {
+        return update(product);
     }
 
     @Override
-    public Product create(Product product) {
+    public Product create(Product product)
+    {
         ProductEntity productEntity = productJpaRepository.findOne(product.getProId());
-        if( productEntity != null ) {
+        if (productEntity != null)
+        {
             throw new IllegalStateException("already.exists");
         }
         productEntity = new ProductEntity();
@@ -65,7 +72,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product update(Product product) {
+    public Product update(Product product)
+    {
         ProductEntity productEntity = productJpaRepository.findOne(product.getProId());
         productServiceMapper.mapProductToProductEntity(product, productEntity);
         ProductEntity productEntitySaved = productJpaRepository.save(productEntity);
@@ -73,23 +81,28 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void delete(Integer proId) {
+    public void delete(Integer proId)
+    {
         productJpaRepository.delete(proId);
     }
 
-    public ProductJpaRepository getProductJpaRepository() {
+    public ProductJpaRepository getProductJpaRepository()
+    {
         return productJpaRepository;
     }
 
-    public void setProductJpaRepository(ProductJpaRepository productJpaRepository) {
+    public void setProductJpaRepository(ProductJpaRepository productJpaRepository)
+    {
         this.productJpaRepository = productJpaRepository;
     }
 
-    public ProductServiceMapper getProductServiceMapper() {
+    public ProductServiceMapper getProductServiceMapper()
+    {
         return productServiceMapper;
     }
 
-    public void setProductServiceMapper(ProductServiceMapper productServiceMapper) {
+    public void setProductServiceMapper(ProductServiceMapper productServiceMapper)
+    {
         this.productServiceMapper = productServiceMapper;
     }
 

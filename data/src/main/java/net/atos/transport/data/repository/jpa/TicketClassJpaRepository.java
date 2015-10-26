@@ -7,6 +7,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 /**
  * Repository : TicketClass.
  */
-public interface TicketClassJpaRepository extends PagingAndSortingRepository<TicketClassEntity, Integer> {
+public interface TicketClassJpaRepository extends PagingAndSortingRepository<TicketClassEntity, Integer>
+{
 
 }

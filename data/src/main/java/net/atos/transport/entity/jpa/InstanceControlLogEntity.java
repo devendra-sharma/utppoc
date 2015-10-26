@@ -19,80 +19,84 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(name="instance_control_log", catalog="mydb" )
+@Table(name = "instance_control_log", catalog = "mydb")
 // Define named queries here
-@NamedQueries ( {
-  @NamedQuery ( name="InstanceControlLogEntity.countAll", query="SELECT COUNT(x) FROM InstanceControlLogEntity x" )
-} )
-public class InstanceControlLogEntity implements Serializable {
+@NamedQueries(
+{@NamedQuery(name = "InstanceControlLogEntity.countAll", query = "SELECT COUNT(x) FROM InstanceControlLogEntity x") })
+public class InstanceControlLogEntity implements Serializable
+{
 
     private static final long serialVersionUID = 1L;
 
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // ENTITY PRIMARY KEY ( BASED ON A SINGLE FIELD )
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="icl_id", nullable=false)
-    private Integer    iclId        ;
+    @Column(name = "icl_id", nullable = false)
+    private Integer iclId;
 
+    // ----------------------------------------------------------------------
+    // ENTITY DATA FIELDS
+    // ----------------------------------------------------------------------
+    @Column(name = "value", length = 45)
+    private String value;
 
-    //----------------------------------------------------------------------
-    // ENTITY DATA FIELDS 
-    //----------------------------------------------------------------------    
-    @Column(name="value", length=45)
-    private String     value        ;
-
-
-
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // ENTITY LINKS ( RELATIONSHIP )
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
 
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // CONSTRUCTOR(S)
-    //----------------------------------------------------------------------
-    public InstanceControlLogEntity() {
+    // ----------------------------------------------------------------------
+    public InstanceControlLogEntity()
+    {
         super();
     }
-    
-    //----------------------------------------------------------------------
+
+    // ----------------------------------------------------------------------
     // GETTER & SETTER FOR THE KEY FIELD
-    //----------------------------------------------------------------------
-    public void setIclId( Integer iclId ) {
-        this.iclId = iclId ;
+    // ----------------------------------------------------------------------
+    public void setIclId(Integer iclId)
+    {
+        this.iclId = iclId;
     }
-    public Integer getIclId() {
+
+    public Integer getIclId()
+    {
         return this.iclId;
     }
 
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // GETTERS & SETTERS FOR FIELDS
-    //----------------------------------------------------------------------
-    //--- DATABASE MAPPING : value ( VARCHAR ) 
-    public void setValue( String value ) {
+    // ----------------------------------------------------------------------
+    // --- DATABASE MAPPING : value ( VARCHAR )
+    public void setValue(String value)
+    {
         this.value = value;
     }
-    public String getValue() {
+
+    public String getValue()
+    {
         return this.value;
     }
 
-
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // GETTERS & SETTERS FOR LINKS
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
 
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     // toString METHOD
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     @Override
-    public String toString() { 
-        StringBuilder sb = new StringBuilder(); 
-        sb.append("["); 
+    public String toString()
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
         sb.append(iclId);
-        sb.append("]:"); 
+        sb.append("]:");
         sb.append(value);
-        return sb.toString(); 
-    } 
+        return sb.toString();
+    }
 
 }

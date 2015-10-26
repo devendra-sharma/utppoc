@@ -4,8 +4,9 @@ import net.atos.htts.transport.common.domain.CheckFaresDTO;
 import net.atos.htts.transport.common.domain.CodeBookDetailsDTO;
 import net.atos.htts.transport.common.exceptions.UTPException;
 
-public interface CheckFaresService {
+public interface CheckFaresService
+{
 
-    public CodeBookDetailsDTO checkFares(CheckFaresDTO checkFares) throws UTPException ;
-        
+    public CodeBookDetailsDTO checkFares(CheckFaresDTO checkFares) throws UTPException;
+
 }

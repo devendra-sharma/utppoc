@@ -2,17 +2,19 @@ package net.atos.transport.test;
 
 import net.atos.transport.entity.Route;
 
-public class RouteFactoryForTest {
+public class RouteFactoryForTest
+{
 
-	private MockValues mockValues = new MockValues();
-	
-	public Route newRoute() {
+    private MockValues mockValues = new MockValues();
 
-		Integer rouId = mockValues.nextInteger();
+    public Route newRoute()
+    {
 
-		Route route = new Route();
-		route.setRouId(rouId);
-		return route;
-	}
-	
+        Integer rouId = mockValues.nextInteger();
+
+        Route route = new Route();
+        route.setRouId(rouId);
+        return route;
+    }
+
 }

@@ -23,39 +23,46 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Component
 @Transactional
-public class BusinessServiceImpl implements BusinessService {
+public class BusinessServiceImpl implements BusinessService
+{
 
     @Resource
     private BusinessJpaRepository businessJpaRepository;
 
     @Resource
     private BusinessServiceMapper businessServiceMapper;
-    
+
     @Override
-    public Business findById(Integer busId) {
+    public Business findById(Integer busId)
+    {
         BusinessEntity businessEntity = businessJpaRepository.findOne(busId);
         return businessServiceMapper.mapBusinessEntityToBusiness(businessEntity);
     }
 
     @Override
-    public List<Business> findAll() {
+    public List<Business> findAll()
+    {
         Iterable<BusinessEntity> entities = businessJpaRepository.findAll();
         List<Business> beans = new ArrayList<Business>();
-        for(BusinessEntity businessEntity : entities) {
+        for (BusinessEntity businessEntity : entities)
+        {
             beans.add(businessServiceMapper.mapBusinessEntityToBusiness(businessEntity));
         }
         return beans;
     }
 
     @Override
-    public Business save(Business business) {
-        return update(business) ;
+    public Business save(Business business)
+    {
+        return update(business);
     }
 
     @Override
-    public Business create(Business business) {
+    public Business create(Business business)
+    {
         BusinessEntity businessEntity = businessJpaRepository.findOne(business.getBusId());
-        if( businessEntity != null ) {
+        if (businessEntity != null)
+        {
             throw new IllegalStateException("already.exists");
         }
         businessEntity = new BusinessEntity();
@@ -65,7 +72,8 @@ public class BusinessServiceImpl implements BusinessService {
     }
 
     @Override
-    public Business update(Business business) {
+    public Business update(Business business)
+    {
         BusinessEntity businessEntity = businessJpaRepository.findOne(business.getBusId());
         businessServiceMapper.mapBusinessToBusinessEntity(business, businessEntity);
         BusinessEntity businessEntitySaved = businessJpaRepository.save(businessEntity);
@@ -73,23 +81,28 @@ public class BusinessServiceImpl implements BusinessService {
     }
 
     @Override
-    public void delete(Integer busId) {
+    public void delete(Integer busId)
+    {
         businessJpaRepository.delete(busId);
     }
 
-    public BusinessJpaRepository getBusinessJpaRepository() {
+    public BusinessJpaRepository getBusinessJpaRepository()
+    {
         return businessJpaRepository;
     }
 
-    public void setBusinessJpaRepository(BusinessJpaRepository businessJpaRepository) {
+    public void setBusinessJpaRepository(BusinessJpaRepository businessJpaRepository)
+    {
         this.businessJpaRepository = businessJpaRepository;
     }
 
-    public BusinessServiceMapper getBusinessServiceMapper() {
+    public BusinessServiceMapper getBusinessServiceMapper()
+    {
         return businessServiceMapper;
     }
 
-    public void setBusinessServiceMapper(BusinessServiceMapper businessServiceMapper) {
+    public void setBusinessServiceMapper(BusinessServiceMapper businessServiceMapper)
+    {
         this.businessServiceMapper = businessServiceMapper;
     }
 

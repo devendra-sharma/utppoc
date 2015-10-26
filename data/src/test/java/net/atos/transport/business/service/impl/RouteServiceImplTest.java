@@ -31,137 +31,149 @@ import org.mockito.runners.MockitoJUnitRunner;
  * Test : Implementation of RouteService
  */
 @RunWith(MockitoJUnitRunner.class)
-public class RouteServiceImplTest {
+public class RouteServiceImplTest
+{
 
-	@InjectMocks
-	private RouteServiceImpl routeService;
-	@Mock
-	private RouteJpaRepository routeJpaRepository;
-	@Mock
-	private RouteServiceMapper routeServiceMapper;
-	
-	private RouteFactoryForTest routeFactoryForTest = new RouteFactoryForTest();
+    @InjectMocks
+    private RouteServiceImpl routeService;
 
-	private RouteEntityFactoryForTest routeEntityFactoryForTest = new RouteEntityFactoryForTest();
+    @Mock
+    private RouteJpaRepository routeJpaRepository;
 
-	private MockValues mockValues = new MockValues();
-	
-	@Test
-	public void findById() {
-		// Given
-		Integer rouId = mockValues.nextInteger();
-		
-		RouteEntity routeEntity = routeJpaRepository.findOne(rouId);
-		
-		Route route = routeFactoryForTest.newRoute();
-		when(routeServiceMapper.mapRouteEntityToRoute(routeEntity)).thenReturn(route);
+    @Mock
+    private RouteServiceMapper routeServiceMapper;
 
-		// When
-		Route routeFound = routeService.findById(rouId);
+    private RouteFactoryForTest routeFactoryForTest = new RouteFactoryForTest();
 
-		// Then
-		assertEquals(route.getRouId(),routeFound.getRouId());
-	}
+    private RouteEntityFactoryForTest routeEntityFactoryForTest = new RouteEntityFactoryForTest();
 
-	@Test
-	public void findAll() {
-		// Given
-		List<RouteEntity> routeEntitys = new ArrayList<RouteEntity>();
-		RouteEntity routeEntity1 = routeEntityFactoryForTest.newRouteEntity();
-		routeEntitys.add(routeEntity1);
-		RouteEntity routeEntity2 = routeEntityFactoryForTest.newRouteEntity();
-		routeEntitys.add(routeEntity2);
-		when(routeJpaRepository.findAll()).thenReturn(routeEntitys);
-		
-		Route route1 = routeFactoryForTest.newRoute();
-		when(routeServiceMapper.mapRouteEntityToRoute(routeEntity1)).thenReturn(route1);
-		Route route2 = routeFactoryForTest.newRoute();
-		when(routeServiceMapper.mapRouteEntityToRoute(routeEntity2)).thenReturn(route2);
+    private MockValues mockValues = new MockValues();
 
-		// When
-		List<Route> routesFounds = routeService.findAll();
+    @Test
+    public void findById()
+    {
+        // Given
+        Integer rouId = mockValues.nextInteger();
 
-		// Then
-		assertTrue(route1 == routesFounds.get(0));
-		assertTrue(route2 == routesFounds.get(1));
-	}
+        RouteEntity routeEntity = routeJpaRepository.findOne(rouId);
 
-	@Test
-	public void create() {
-		// Given
-		Route route = routeFactoryForTest.newRoute();
+        Route route = routeFactoryForTest.newRoute();
+        when(routeServiceMapper.mapRouteEntityToRoute(routeEntity)).thenReturn(route);
 
-		RouteEntity routeEntity = routeEntityFactoryForTest.newRouteEntity();
-		when(routeJpaRepository.findOne(route.getRouId())).thenReturn(null);
-		
-		routeEntity = new RouteEntity();
-		routeServiceMapper.mapRouteToRouteEntity(route, routeEntity);
-		RouteEntity routeEntitySaved = routeJpaRepository.save(routeEntity);
-		
-		Route routeSaved = routeFactoryForTest.newRoute();
-		when(routeServiceMapper.mapRouteEntityToRoute(routeEntitySaved)).thenReturn(routeSaved);
+        // When
+        Route routeFound = routeService.findById(rouId);
 
-		// When
-		Route routeResult = routeService.create(route);
+        // Then
+        assertEquals(route.getRouId(), routeFound.getRouId());
+    }
 
-		// Then
-		assertTrue(routeResult == routeSaved);
-	}
+    @Test
+    public void findAll()
+    {
+        // Given
+        List<RouteEntity> routeEntitys = new ArrayList<RouteEntity>();
+        RouteEntity routeEntity1 = routeEntityFactoryForTest.newRouteEntity();
+        routeEntitys.add(routeEntity1);
+        RouteEntity routeEntity2 = routeEntityFactoryForTest.newRouteEntity();
+        routeEntitys.add(routeEntity2);
+        when(routeJpaRepository.findAll()).thenReturn(routeEntitys);
 
-	@Test
-	public void createKOExists() {
-		// Given
-		Route route = routeFactoryForTest.newRoute();
+        Route route1 = routeFactoryForTest.newRoute();
+        when(routeServiceMapper.mapRouteEntityToRoute(routeEntity1)).thenReturn(route1);
+        Route route2 = routeFactoryForTest.newRoute();
+        when(routeServiceMapper.mapRouteEntityToRoute(routeEntity2)).thenReturn(route2);
 
-		RouteEntity routeEntity = routeEntityFactoryForTest.newRouteEntity();
-		when(routeJpaRepository.findOne(route.getRouId())).thenReturn(routeEntity);
+        // When
+        List<Route> routesFounds = routeService.findAll();
 
-		// When
-		Exception exception = null;
-		try {
-			routeService.create(route);
-		} catch(Exception e) {
-			exception = e;
-		}
+        // Then
+        assertTrue(route1 == routesFounds.get(0));
+        assertTrue(route2 == routesFounds.get(1));
+    }
 
-		// Then
-		assertTrue(exception instanceof IllegalStateException);
-		assertEquals("already.exists", exception.getMessage());
-	}
+    @Test
+    public void create()
+    {
+        // Given
+        Route route = routeFactoryForTest.newRoute();
 
-	@Test
-	public void update() {
-		// Given
-		Route route = routeFactoryForTest.newRoute();
+        RouteEntity routeEntity = routeEntityFactoryForTest.newRouteEntity();
+        when(routeJpaRepository.findOne(route.getRouId())).thenReturn(null);
 
-		RouteEntity routeEntity = routeEntityFactoryForTest.newRouteEntity();
-		when(routeJpaRepository.findOne(route.getRouId())).thenReturn(routeEntity);
-		
-		RouteEntity routeEntitySaved = routeEntityFactoryForTest.newRouteEntity();
-		when(routeJpaRepository.save(routeEntity)).thenReturn(routeEntitySaved);
-		
-		Route routeSaved = routeFactoryForTest.newRoute();
-		when(routeServiceMapper.mapRouteEntityToRoute(routeEntitySaved)).thenReturn(routeSaved);
+        routeEntity = new RouteEntity();
+        routeServiceMapper.mapRouteToRouteEntity(route, routeEntity);
+        RouteEntity routeEntitySaved = routeJpaRepository.save(routeEntity);
 
-		// When
-		Route routeResult = routeService.update(route);
+        Route routeSaved = routeFactoryForTest.newRoute();
+        when(routeServiceMapper.mapRouteEntityToRoute(routeEntitySaved)).thenReturn(routeSaved);
 
-		// Then
-		verify(routeServiceMapper).mapRouteToRouteEntity(route, routeEntity);
-		assertTrue(routeResult == routeSaved);
-	}
+        // When
+        Route routeResult = routeService.create(route);
 
-	@Test
-	public void delete() {
-		// Given
-		Integer rouId = mockValues.nextInteger();
+        // Then
+        assertTrue(routeResult == routeSaved);
+    }
 
-		// When
-		routeService.delete(rouId);
+    @Test
+    public void createKOExists()
+    {
+        // Given
+        Route route = routeFactoryForTest.newRoute();
 
-		// Then
-		verify(routeJpaRepository).delete(rouId);
-		
-	}
+        RouteEntity routeEntity = routeEntityFactoryForTest.newRouteEntity();
+        when(routeJpaRepository.findOne(route.getRouId())).thenReturn(routeEntity);
+
+        // When
+        Exception exception = null;
+        try
+        {
+            routeService.create(route);
+        }
+        catch (Exception e)
+        {
+            exception = e;
+        }
+
+        // Then
+        assertTrue(exception instanceof IllegalStateException);
+        assertEquals("already.exists", exception.getMessage());
+    }
+
+    @Test
+    public void update()
+    {
+        // Given
+        Route route = routeFactoryForTest.newRoute();
+
+        RouteEntity routeEntity = routeEntityFactoryForTest.newRouteEntity();
+        when(routeJpaRepository.findOne(route.getRouId())).thenReturn(routeEntity);
+
+        RouteEntity routeEntitySaved = routeEntityFactoryForTest.newRouteEntity();
+        when(routeJpaRepository.save(routeEntity)).thenReturn(routeEntitySaved);
+
+        Route routeSaved = routeFactoryForTest.newRoute();
+        when(routeServiceMapper.mapRouteEntityToRoute(routeEntitySaved)).thenReturn(routeSaved);
+
+        // When
+        Route routeResult = routeService.update(route);
+
+        // Then
+        verify(routeServiceMapper).mapRouteToRouteEntity(route, routeEntity);
+        assertTrue(routeResult == routeSaved);
+    }
+
+    @Test
+    public void delete()
+    {
+        // Given
+        Integer rouId = mockValues.nextInteger();
+
+        // When
+        routeService.delete(rouId);
+
+        // Then
+        verify(routeJpaRepository).delete(rouId);
+
+    }
 
 }

@@ -7,6 +7,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 /**
  * Repository : LocationType.
  */
-public interface LocationTypeJpaRepository extends PagingAndSortingRepository<LocationTypeEntity, Integer> {
+public interface LocationTypeJpaRepository extends PagingAndSortingRepository<LocationTypeEntity, Integer>
+{
 
 }

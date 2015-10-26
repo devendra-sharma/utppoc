@@ -31,137 +31,149 @@ import org.mockito.runners.MockitoJUnitRunner;
  * Test : Implementation of WeekService
  */
 @RunWith(MockitoJUnitRunner.class)
-public class WeekServiceImplTest {
+public class WeekServiceImplTest
+{
 
-	@InjectMocks
-	private WeekServiceImpl weekService;
-	@Mock
-	private WeekJpaRepository weekJpaRepository;
-	@Mock
-	private WeekServiceMapper weekServiceMapper;
-	
-	private WeekFactoryForTest weekFactoryForTest = new WeekFactoryForTest();
+    @InjectMocks
+    private WeekServiceImpl weekService;
 
-	private WeekEntityFactoryForTest weekEntityFactoryForTest = new WeekEntityFactoryForTest();
+    @Mock
+    private WeekJpaRepository weekJpaRepository;
 
-	private MockValues mockValues = new MockValues();
-	
-	@Test
-	public void findById() {
-		// Given
-		Integer weekId = mockValues.nextInteger();
-		
-		WeekEntity weekEntity = weekJpaRepository.findOne(weekId);
-		
-		Week week = weekFactoryForTest.newWeek();
-		when(weekServiceMapper.mapWeekEntityToWeek(weekEntity)).thenReturn(week);
+    @Mock
+    private WeekServiceMapper weekServiceMapper;
 
-		// When
-		Week weekFound = weekService.findById(weekId);
+    private WeekFactoryForTest weekFactoryForTest = new WeekFactoryForTest();
 
-		// Then
-		assertEquals(week.getWeekId(),weekFound.getWeekId());
-	}
+    private WeekEntityFactoryForTest weekEntityFactoryForTest = new WeekEntityFactoryForTest();
 
-	@Test
-	public void findAll() {
-		// Given
-		List<WeekEntity> weekEntitys = new ArrayList<WeekEntity>();
-		WeekEntity weekEntity1 = weekEntityFactoryForTest.newWeekEntity();
-		weekEntitys.add(weekEntity1);
-		WeekEntity weekEntity2 = weekEntityFactoryForTest.newWeekEntity();
-		weekEntitys.add(weekEntity2);
-		when(weekJpaRepository.findAll()).thenReturn(weekEntitys);
-		
-		Week week1 = weekFactoryForTest.newWeek();
-		when(weekServiceMapper.mapWeekEntityToWeek(weekEntity1)).thenReturn(week1);
-		Week week2 = weekFactoryForTest.newWeek();
-		when(weekServiceMapper.mapWeekEntityToWeek(weekEntity2)).thenReturn(week2);
+    private MockValues mockValues = new MockValues();
 
-		// When
-		List<Week> weeksFounds = weekService.findAll();
+    @Test
+    public void findById()
+    {
+        // Given
+        Integer weekId = mockValues.nextInteger();
 
-		// Then
-		assertTrue(week1 == weeksFounds.get(0));
-		assertTrue(week2 == weeksFounds.get(1));
-	}
+        WeekEntity weekEntity = weekJpaRepository.findOne(weekId);
 
-	@Test
-	public void create() {
-		// Given
-		Week week = weekFactoryForTest.newWeek();
+        Week week = weekFactoryForTest.newWeek();
+        when(weekServiceMapper.mapWeekEntityToWeek(weekEntity)).thenReturn(week);
 
-		WeekEntity weekEntity = weekEntityFactoryForTest.newWeekEntity();
-		when(weekJpaRepository.findOne(week.getWeekId())).thenReturn(null);
-		
-		weekEntity = new WeekEntity();
-		weekServiceMapper.mapWeekToWeekEntity(week, weekEntity);
-		WeekEntity weekEntitySaved = weekJpaRepository.save(weekEntity);
-		
-		Week weekSaved = weekFactoryForTest.newWeek();
-		when(weekServiceMapper.mapWeekEntityToWeek(weekEntitySaved)).thenReturn(weekSaved);
+        // When
+        Week weekFound = weekService.findById(weekId);
 
-		// When
-		Week weekResult = weekService.create(week);
+        // Then
+        assertEquals(week.getWeekId(), weekFound.getWeekId());
+    }
 
-		// Then
-		assertTrue(weekResult == weekSaved);
-	}
+    @Test
+    public void findAll()
+    {
+        // Given
+        List<WeekEntity> weekEntitys = new ArrayList<WeekEntity>();
+        WeekEntity weekEntity1 = weekEntityFactoryForTest.newWeekEntity();
+        weekEntitys.add(weekEntity1);
+        WeekEntity weekEntity2 = weekEntityFactoryForTest.newWeekEntity();
+        weekEntitys.add(weekEntity2);
+        when(weekJpaRepository.findAll()).thenReturn(weekEntitys);
 
-	@Test
-	public void createKOExists() {
-		// Given
-		Week week = weekFactoryForTest.newWeek();
+        Week week1 = weekFactoryForTest.newWeek();
+        when(weekServiceMapper.mapWeekEntityToWeek(weekEntity1)).thenReturn(week1);
+        Week week2 = weekFactoryForTest.newWeek();
+        when(weekServiceMapper.mapWeekEntityToWeek(weekEntity2)).thenReturn(week2);
 
-		WeekEntity weekEntity = weekEntityFactoryForTest.newWeekEntity();
-		when(weekJpaRepository.findOne(week.getWeekId())).thenReturn(weekEntity);
+        // When
+        List<Week> weeksFounds = weekService.findAll();
 
-		// When
-		Exception exception = null;
-		try {
-			weekService.create(week);
-		} catch(Exception e) {
-			exception = e;
-		}
+        // Then
+        assertTrue(week1 == weeksFounds.get(0));
+        assertTrue(week2 == weeksFounds.get(1));
+    }
 
-		// Then
-		assertTrue(exception instanceof IllegalStateException);
-		assertEquals("already.exists", exception.getMessage());
-	}
+    @Test
+    public void create()
+    {
+        // Given
+        Week week = weekFactoryForTest.newWeek();
 
-	@Test
-	public void update() {
-		// Given
-		Week week = weekFactoryForTest.newWeek();
+        WeekEntity weekEntity = weekEntityFactoryForTest.newWeekEntity();
+        when(weekJpaRepository.findOne(week.getWeekId())).thenReturn(null);
 
-		WeekEntity weekEntity = weekEntityFactoryForTest.newWeekEntity();
-		when(weekJpaRepository.findOne(week.getWeekId())).thenReturn(weekEntity);
-		
-		WeekEntity weekEntitySaved = weekEntityFactoryForTest.newWeekEntity();
-		when(weekJpaRepository.save(weekEntity)).thenReturn(weekEntitySaved);
-		
-		Week weekSaved = weekFactoryForTest.newWeek();
-		when(weekServiceMapper.mapWeekEntityToWeek(weekEntitySaved)).thenReturn(weekSaved);
+        weekEntity = new WeekEntity();
+        weekServiceMapper.mapWeekToWeekEntity(week, weekEntity);
+        WeekEntity weekEntitySaved = weekJpaRepository.save(weekEntity);
 
-		// When
-		Week weekResult = weekService.update(week);
+        Week weekSaved = weekFactoryForTest.newWeek();
+        when(weekServiceMapper.mapWeekEntityToWeek(weekEntitySaved)).thenReturn(weekSaved);
 
-		// Then
-		verify(weekServiceMapper).mapWeekToWeekEntity(week, weekEntity);
-		assertTrue(weekResult == weekSaved);
-	}
+        // When
+        Week weekResult = weekService.create(week);
 
-	@Test
-	public void delete() {
-		// Given
-		Integer weekId = mockValues.nextInteger();
+        // Then
+        assertTrue(weekResult == weekSaved);
+    }
 
-		// When
-		weekService.delete(weekId);
+    @Test
+    public void createKOExists()
+    {
+        // Given
+        Week week = weekFactoryForTest.newWeek();
 
-		// Then
-		verify(weekJpaRepository).delete(weekId);
-		
-	}
+        WeekEntity weekEntity = weekEntityFactoryForTest.newWeekEntity();
+        when(weekJpaRepository.findOne(week.getWeekId())).thenReturn(weekEntity);
+
+        // When
+        Exception exception = null;
+        try
+        {
+            weekService.create(week);
+        }
+        catch (Exception e)
+        {
+            exception = e;
+        }
+
+        // Then
+        assertTrue(exception instanceof IllegalStateException);
+        assertEquals("already.exists", exception.getMessage());
+    }
+
+    @Test
+    public void update()
+    {
+        // Given
+        Week week = weekFactoryForTest.newWeek();
+
+        WeekEntity weekEntity = weekEntityFactoryForTest.newWeekEntity();
+        when(weekJpaRepository.findOne(week.getWeekId())).thenReturn(weekEntity);
+
+        WeekEntity weekEntitySaved = weekEntityFactoryForTest.newWeekEntity();
+        when(weekJpaRepository.save(weekEntity)).thenReturn(weekEntitySaved);
+
+        Week weekSaved = weekFactoryForTest.newWeek();
+        when(weekServiceMapper.mapWeekEntityToWeek(weekEntitySaved)).thenReturn(weekSaved);
+
+        // When
+        Week weekResult = weekService.update(week);
+
+        // Then
+        verify(weekServiceMapper).mapWeekToWeekEntity(week, weekEntity);
+        assertTrue(weekResult == weekSaved);
+    }
+
+    @Test
+    public void delete()
+    {
+        // Given
+        Integer weekId = mockValues.nextInteger();
+
+        // When
+        weekService.delete(weekId);
+
+        // Then
+        verify(weekJpaRepository).delete(weekId);
+
+    }
 
 }

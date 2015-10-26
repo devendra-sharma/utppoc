@@ -23,39 +23,46 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Component
 @Transactional
-public class RouteLinkServiceImpl implements RouteLinkService {
+public class RouteLinkServiceImpl implements RouteLinkService
+{
 
     @Resource
     private RouteLinkJpaRepository routeLinkJpaRepository;
 
     @Resource
     private RouteLinkServiceMapper routeLinkServiceMapper;
-    
+
     @Override
-    public RouteLink findById(Integer rolId) {
+    public RouteLink findById(Integer rolId)
+    {
         RouteLinkEntity routeLinkEntity = routeLinkJpaRepository.findOne(rolId);
         return routeLinkServiceMapper.mapRouteLinkEntityToRouteLink(routeLinkEntity);
     }
 
     @Override
-    public List<RouteLink> findAll() {
+    public List<RouteLink> findAll()
+    {
         Iterable<RouteLinkEntity> entities = routeLinkJpaRepository.findAll();
         List<RouteLink> beans = new ArrayList<RouteLink>();
-        for(RouteLinkEntity routeLinkEntity : entities) {
+        for (RouteLinkEntity routeLinkEntity : entities)
+        {
             beans.add(routeLinkServiceMapper.mapRouteLinkEntityToRouteLink(routeLinkEntity));
         }
         return beans;
     }
 
     @Override
-    public RouteLink save(RouteLink routeLink) {
-        return update(routeLink) ;
+    public RouteLink save(RouteLink routeLink)
+    {
+        return update(routeLink);
     }
 
     @Override
-    public RouteLink create(RouteLink routeLink) {
+    public RouteLink create(RouteLink routeLink)
+    {
         RouteLinkEntity routeLinkEntity = routeLinkJpaRepository.findOne(routeLink.getRolId());
-        if( routeLinkEntity != null ) {
+        if (routeLinkEntity != null)
+        {
             throw new IllegalStateException("already.exists");
         }
         routeLinkEntity = new RouteLinkEntity();
@@ -65,7 +72,8 @@ public class RouteLinkServiceImpl implements RouteLinkService {
     }
 
     @Override
-    public RouteLink update(RouteLink routeLink) {
+    public RouteLink update(RouteLink routeLink)
+    {
         RouteLinkEntity routeLinkEntity = routeLinkJpaRepository.findOne(routeLink.getRolId());
         routeLinkServiceMapper.mapRouteLinkToRouteLinkEntity(routeLink, routeLinkEntity);
         RouteLinkEntity routeLinkEntitySaved = routeLinkJpaRepository.save(routeLinkEntity);
@@ -73,23 +81,28 @@ public class RouteLinkServiceImpl implements RouteLinkService {
     }
 
     @Override
-    public void delete(Integer rolId) {
+    public void delete(Integer rolId)
+    {
         routeLinkJpaRepository.delete(rolId);
     }
 
-    public RouteLinkJpaRepository getRouteLinkJpaRepository() {
+    public RouteLinkJpaRepository getRouteLinkJpaRepository()
+    {
         return routeLinkJpaRepository;
     }
 
-    public void setRouteLinkJpaRepository(RouteLinkJpaRepository routeLinkJpaRepository) {
+    public void setRouteLinkJpaRepository(RouteLinkJpaRepository routeLinkJpaRepository)
+    {
         this.routeLinkJpaRepository = routeLinkJpaRepository;
     }
 
-    public RouteLinkServiceMapper getRouteLinkServiceMapper() {
+    public RouteLinkServiceMapper getRouteLinkServiceMapper()
+    {
         return routeLinkServiceMapper;
     }
 
-    public void setRouteLinkServiceMapper(RouteLinkServiceMapper routeLinkServiceMapper) {
+    public void setRouteLinkServiceMapper(RouteLinkServiceMapper routeLinkServiceMapper)
+    {
         this.routeLinkServiceMapper = routeLinkServiceMapper;
     }
 

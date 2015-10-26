@@ -30,137 +30,149 @@ import org.mockito.runners.MockitoJUnitRunner;
  * Test : Implementation of CodeBookService
  */
 @RunWith(MockitoJUnitRunner.class)
-public class CodeBookServiceImplTest {
+public class CodeBookServiceImplTest
+{
 
-	@InjectMocks
-	private CodeBookServiceImpl codeBookService;
-	@Mock
-	private CodeBookJpaRepository codeBookJpaRepository;
-	@Mock
-	private CodeBookServiceMapper codeBookServiceMapper;
-	
-	private CodeBookFactoryForTest codeBookFactoryForTest = new CodeBookFactoryForTest();
+    @InjectMocks
+    private CodeBookServiceImpl codeBookService;
 
-	private CodeBookEntityFactoryForTest codeBookEntityFactoryForTest = new CodeBookEntityFactoryForTest();
+    @Mock
+    private CodeBookJpaRepository codeBookJpaRepository;
 
-	private MockValues mockValues = new MockValues();
-	
-	@Test
-	public void findById() {
-		// Given
-		Integer cobId = mockValues.nextInteger();
-		
-		CodeBookEntity codeBookEntity = codeBookJpaRepository.findOne(cobId);
-		
-		CodeBook codeBook = codeBookFactoryForTest.newCodeBook();
-		when(codeBookServiceMapper.mapCodeBookEntityToCodeBook(codeBookEntity)).thenReturn(codeBook);
+    @Mock
+    private CodeBookServiceMapper codeBookServiceMapper;
 
-		// When
-		CodeBook codeBookFound = codeBookService.findById(cobId);
+    private CodeBookFactoryForTest codeBookFactoryForTest = new CodeBookFactoryForTest();
 
-		// Then
-		assertEquals(codeBook.getCobId(),codeBookFound.getCobId());
-	}
+    private CodeBookEntityFactoryForTest codeBookEntityFactoryForTest = new CodeBookEntityFactoryForTest();
 
-	@Test
-	public void findAll() {
-		// Given
-		List<CodeBookEntity> codeBookEntitys = new ArrayList<CodeBookEntity>();
-		CodeBookEntity codeBookEntity1 = codeBookEntityFactoryForTest.newCodeBookEntity();
-		codeBookEntitys.add(codeBookEntity1);
-		CodeBookEntity codeBookEntity2 = codeBookEntityFactoryForTest.newCodeBookEntity();
-		codeBookEntitys.add(codeBookEntity2);
-		when(codeBookJpaRepository.findAll()).thenReturn(codeBookEntitys);
-		
-		CodeBook codeBook1 = codeBookFactoryForTest.newCodeBook();
-		when(codeBookServiceMapper.mapCodeBookEntityToCodeBook(codeBookEntity1)).thenReturn(codeBook1);
-		CodeBook codeBook2 = codeBookFactoryForTest.newCodeBook();
-		when(codeBookServiceMapper.mapCodeBookEntityToCodeBook(codeBookEntity2)).thenReturn(codeBook2);
+    private MockValues mockValues = new MockValues();
 
-		// When
-		List<CodeBook> codeBooksFounds = codeBookService.findAll();
+    @Test
+    public void findById()
+    {
+        // Given
+        Integer cobId = mockValues.nextInteger();
 
-		// Then
-		assertTrue(codeBook1 == codeBooksFounds.get(0));
-		assertTrue(codeBook2 == codeBooksFounds.get(1));
-	}
+        CodeBookEntity codeBookEntity = codeBookJpaRepository.findOne(cobId);
 
-	@Test
-	public void create() {
-		// Given
-		CodeBook codeBook = codeBookFactoryForTest.newCodeBook();
+        CodeBook codeBook = codeBookFactoryForTest.newCodeBook();
+        when(codeBookServiceMapper.mapCodeBookEntityToCodeBook(codeBookEntity)).thenReturn(codeBook);
 
-		CodeBookEntity codeBookEntity = codeBookEntityFactoryForTest.newCodeBookEntity();
-		when(codeBookJpaRepository.findOne(codeBook.getCobId())).thenReturn(null);
-		
-		codeBookEntity = new CodeBookEntity();
-		codeBookServiceMapper.mapCodeBookToCodeBookEntity(codeBook, codeBookEntity);
-		CodeBookEntity codeBookEntitySaved = codeBookJpaRepository.save(codeBookEntity);
-		
-		CodeBook codeBookSaved = codeBookFactoryForTest.newCodeBook();
-		when(codeBookServiceMapper.mapCodeBookEntityToCodeBook(codeBookEntitySaved)).thenReturn(codeBookSaved);
+        // When
+        CodeBook codeBookFound = codeBookService.findById(cobId);
 
-		// When
-		CodeBook codeBookResult = codeBookService.create(codeBook);
+        // Then
+        assertEquals(codeBook.getCobId(), codeBookFound.getCobId());
+    }
 
-		// Then
-		assertTrue(codeBookResult == codeBookSaved);
-	}
+    @Test
+    public void findAll()
+    {
+        // Given
+        List<CodeBookEntity> codeBookEntitys = new ArrayList<CodeBookEntity>();
+        CodeBookEntity codeBookEntity1 = codeBookEntityFactoryForTest.newCodeBookEntity();
+        codeBookEntitys.add(codeBookEntity1);
+        CodeBookEntity codeBookEntity2 = codeBookEntityFactoryForTest.newCodeBookEntity();
+        codeBookEntitys.add(codeBookEntity2);
+        when(codeBookJpaRepository.findAll()).thenReturn(codeBookEntitys);
 
-	@Test
-	public void createKOExists() {
-		// Given
-		CodeBook codeBook = codeBookFactoryForTest.newCodeBook();
+        CodeBook codeBook1 = codeBookFactoryForTest.newCodeBook();
+        when(codeBookServiceMapper.mapCodeBookEntityToCodeBook(codeBookEntity1)).thenReturn(codeBook1);
+        CodeBook codeBook2 = codeBookFactoryForTest.newCodeBook();
+        when(codeBookServiceMapper.mapCodeBookEntityToCodeBook(codeBookEntity2)).thenReturn(codeBook2);
 
-		CodeBookEntity codeBookEntity = codeBookEntityFactoryForTest.newCodeBookEntity();
-		when(codeBookJpaRepository.findOne(codeBook.getCobId())).thenReturn(codeBookEntity);
+        // When
+        List<CodeBook> codeBooksFounds = codeBookService.findAll();
 
-		// When
-		Exception exception = null;
-		try {
-			codeBookService.create(codeBook);
-		} catch(Exception e) {
-			exception = e;
-		}
+        // Then
+        assertTrue(codeBook1 == codeBooksFounds.get(0));
+        assertTrue(codeBook2 == codeBooksFounds.get(1));
+    }
 
-		// Then
-		assertTrue(exception instanceof IllegalStateException);
-		assertEquals("already.exists", exception.getMessage());
-	}
+    @Test
+    public void create()
+    {
+        // Given
+        CodeBook codeBook = codeBookFactoryForTest.newCodeBook();
 
-	@Test
-	public void update() {
-		// Given
-		CodeBook codeBook = codeBookFactoryForTest.newCodeBook();
+        CodeBookEntity codeBookEntity = codeBookEntityFactoryForTest.newCodeBookEntity();
+        when(codeBookJpaRepository.findOne(codeBook.getCobId())).thenReturn(null);
 
-		CodeBookEntity codeBookEntity = codeBookEntityFactoryForTest.newCodeBookEntity();
-		when(codeBookJpaRepository.findOne(codeBook.getCobId())).thenReturn(codeBookEntity);
-		
-		CodeBookEntity codeBookEntitySaved = codeBookEntityFactoryForTest.newCodeBookEntity();
-		when(codeBookJpaRepository.save(codeBookEntity)).thenReturn(codeBookEntitySaved);
-		
-		CodeBook codeBookSaved = codeBookFactoryForTest.newCodeBook();
-		when(codeBookServiceMapper.mapCodeBookEntityToCodeBook(codeBookEntitySaved)).thenReturn(codeBookSaved);
+        codeBookEntity = new CodeBookEntity();
+        codeBookServiceMapper.mapCodeBookToCodeBookEntity(codeBook, codeBookEntity);
+        CodeBookEntity codeBookEntitySaved = codeBookJpaRepository.save(codeBookEntity);
 
-		// When
-		CodeBook codeBookResult = codeBookService.update(codeBook);
+        CodeBook codeBookSaved = codeBookFactoryForTest.newCodeBook();
+        when(codeBookServiceMapper.mapCodeBookEntityToCodeBook(codeBookEntitySaved)).thenReturn(codeBookSaved);
 
-		// Then
-		verify(codeBookServiceMapper).mapCodeBookToCodeBookEntity(codeBook, codeBookEntity);
-		assertTrue(codeBookResult == codeBookSaved);
-	}
+        // When
+        CodeBook codeBookResult = codeBookService.create(codeBook);
 
-	@Test
-	public void delete() {
-		// Given
-		Integer cobId = mockValues.nextInteger();
+        // Then
+        assertTrue(codeBookResult == codeBookSaved);
+    }
 
-		// When
-		codeBookService.delete(cobId);
+    @Test
+    public void createKOExists()
+    {
+        // Given
+        CodeBook codeBook = codeBookFactoryForTest.newCodeBook();
 
-		// Then
-		verify(codeBookJpaRepository).delete(cobId);
-		
-	}
+        CodeBookEntity codeBookEntity = codeBookEntityFactoryForTest.newCodeBookEntity();
+        when(codeBookJpaRepository.findOne(codeBook.getCobId())).thenReturn(codeBookEntity);
+
+        // When
+        Exception exception = null;
+        try
+        {
+            codeBookService.create(codeBook);
+        }
+        catch (Exception e)
+        {
+            exception = e;
+        }
+
+        // Then
+        assertTrue(exception instanceof IllegalStateException);
+        assertEquals("already.exists", exception.getMessage());
+    }
+
+    @Test
+    public void update()
+    {
+        // Given
+        CodeBook codeBook = codeBookFactoryForTest.newCodeBook();
+
+        CodeBookEntity codeBookEntity = codeBookEntityFactoryForTest.newCodeBookEntity();
+        when(codeBookJpaRepository.findOne(codeBook.getCobId())).thenReturn(codeBookEntity);
+
+        CodeBookEntity codeBookEntitySaved = codeBookEntityFactoryForTest.newCodeBookEntity();
+        when(codeBookJpaRepository.save(codeBookEntity)).thenReturn(codeBookEntitySaved);
+
+        CodeBook codeBookSaved = codeBookFactoryForTest.newCodeBook();
+        when(codeBookServiceMapper.mapCodeBookEntityToCodeBook(codeBookEntitySaved)).thenReturn(codeBookSaved);
+
+        // When
+        CodeBook codeBookResult = codeBookService.update(codeBook);
+
+        // Then
+        verify(codeBookServiceMapper).mapCodeBookToCodeBookEntity(codeBook, codeBookEntity);
+        assertTrue(codeBookResult == codeBookSaved);
+    }
+
+    @Test
+    public void delete()
+    {
+        // Given
+        Integer cobId = mockValues.nextInteger();
+
+        // When
+        codeBookService.delete(cobId);
+
+        // Then
+        verify(codeBookJpaRepository).delete(cobId);
+
+    }
 
 }

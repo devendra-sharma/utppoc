@@ -23,8 +23,7 @@ public class UTPException extends Exception
         super(message, cause);
     }
 
-    public UTPException(String message, Throwable cause,
-            boolean enableSuppression, boolean writableStackTrace)
+    public UTPException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace)
     {
         super(message, cause, enableSuppression, writableStackTrace);
     }

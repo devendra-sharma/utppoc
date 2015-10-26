@@ -11,23 +11,27 @@ import net.atos.transport.entity.Year;
 /**
  * Business Service Interface for entity Year.
  */
-public interface YearService { 
+public interface YearService
+{
 
     /**
      * Loads an entity from the database using its Primary Key
+     * 
      * @param year
      * @return entity
      */
-    Year findById( Integer year  ) ;
+    Year findById(Integer year);
 
     /**
      * Loads all entities.
+     * 
      * @return all entities
      */
     List<Year> findAll();
 
     /**
      * Saves the given entity in the database (create or update)
+     * 
      * @param entity
      * @return entity
      */
@@ -35,6 +39,7 @@ public interface YearService {
 
     /**
      * Updates the given entity in the database
+     * 
      * @param entity
      * @return
      */
@@ -42,6 +47,7 @@ public interface YearService {
 
     /**
      * Creates the given entity in the database
+     * 
      * @param entity
      * @return
      */
@@ -49,9 +55,9 @@ public interface YearService {
 
     /**
      * Deletes an entity using its Primary Key
+     * 
      * @param year
      */
-    void delete( Integer year );
-
+    void delete(Integer year);
 
 }

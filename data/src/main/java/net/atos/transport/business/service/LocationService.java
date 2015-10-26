@@ -11,23 +11,27 @@ import net.atos.transport.entity.Location;
 /**
  * Business Service Interface for entity Location.
  */
-public interface LocationService { 
+public interface LocationService
+{
 
     /**
      * Loads an entity from the database using its Primary Key
+     * 
      * @param locId
      * @return entity
      */
-    Location findById( Integer locId  ) ;
+    Location findById(Integer locId);
 
     /**
      * Loads all entities.
+     * 
      * @return all entities
      */
     List<Location> findAll();
 
     /**
      * Saves the given entity in the database (create or update)
+     * 
      * @param entity
      * @return entity
      */
@@ -35,6 +39,7 @@ public interface LocationService {
 
     /**
      * Updates the given entity in the database
+     * 
      * @param entity
      * @return
      */
@@ -42,6 +47,7 @@ public interface LocationService {
 
     /**
      * Creates the given entity in the database
+     * 
      * @param entity
      * @return
      */
@@ -49,9 +55,9 @@ public interface LocationService {
 
     /**
      * Deletes an entity using its Primary Key
+     * 
      * @param locId
      */
-    void delete( Integer locId );
-
+    void delete(Integer locId);
 
 }

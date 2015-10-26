@@ -32,137 +32,149 @@ import org.mockito.runners.MockitoJUnitRunner;
  * Test : Implementation of ProductService
  */
 @RunWith(MockitoJUnitRunner.class)
-public class ProductServiceImplTest {
+public class ProductServiceImplTest
+{
 
-	@InjectMocks
-	private ProductServiceImpl productService;
-	@Mock
-	private ProductJpaRepository productJpaRepository;
-	@Mock
-	private ProductServiceMapper productServiceMapper;
-	
-	private ProductFactoryForTest productFactoryForTest = new ProductFactoryForTest();
+    @InjectMocks
+    private ProductServiceImpl productService;
 
-	private ProductEntityFactoryForTest productEntityFactoryForTest = new ProductEntityFactoryForTest();
+    @Mock
+    private ProductJpaRepository productJpaRepository;
 
-	private MockValues mockValues = new MockValues();
-	
-	@Test
-	public void findById() {
-		// Given
-		Integer proId = mockValues.nextInteger();
-		
-		ProductEntity productEntity = productJpaRepository.findOne(proId);
-		
-		Product product = productFactoryForTest.newProduct();
-		when(productServiceMapper.mapProductEntityToProduct(productEntity)).thenReturn(product);
+    @Mock
+    private ProductServiceMapper productServiceMapper;
 
-		// When
-		Product productFound = productService.findById(proId);
+    private ProductFactoryForTest productFactoryForTest = new ProductFactoryForTest();
 
-		// Then
-		assertEquals(product.getProId(),productFound.getProId());
-	}
+    private ProductEntityFactoryForTest productEntityFactoryForTest = new ProductEntityFactoryForTest();
 
-	@Test
-	public void findAll() {
-		// Given
-		List<ProductEntity> productEntitys = new ArrayList<ProductEntity>();
-		ProductEntity productEntity1 = productEntityFactoryForTest.newProductEntity();
-		productEntitys.add(productEntity1);
-		ProductEntity productEntity2 = productEntityFactoryForTest.newProductEntity();
-		productEntitys.add(productEntity2);
-		when(productJpaRepository.findAll()).thenReturn(productEntitys);
-		
-		Product product1 = productFactoryForTest.newProduct();
-		when(productServiceMapper.mapProductEntityToProduct(productEntity1)).thenReturn(product1);
-		Product product2 = productFactoryForTest.newProduct();
-		when(productServiceMapper.mapProductEntityToProduct(productEntity2)).thenReturn(product2);
+    private MockValues mockValues = new MockValues();
 
-		// When
-		List<Product> productsFounds = productService.findAll();
+    @Test
+    public void findById()
+    {
+        // Given
+        Integer proId = mockValues.nextInteger();
 
-		// Then
-		assertTrue(product1 == productsFounds.get(0));
-		assertTrue(product2 == productsFounds.get(1));
-	}
+        ProductEntity productEntity = productJpaRepository.findOne(proId);
 
-	@Test
-	public void create() {
-		// Given
-		Product product = productFactoryForTest.newProduct();
+        Product product = productFactoryForTest.newProduct();
+        when(productServiceMapper.mapProductEntityToProduct(productEntity)).thenReturn(product);
 
-		ProductEntity productEntity = productEntityFactoryForTest.newProductEntity();
-		when(productJpaRepository.findOne(product.getProId())).thenReturn(null);
-		
-		productEntity = new ProductEntity();
-		productServiceMapper.mapProductToProductEntity(product, productEntity);
-		ProductEntity productEntitySaved = productJpaRepository.save(productEntity);
-		
-		Product productSaved = productFactoryForTest.newProduct();
-		when(productServiceMapper.mapProductEntityToProduct(productEntitySaved)).thenReturn(productSaved);
+        // When
+        Product productFound = productService.findById(proId);
 
-		// When
-		Product productResult = productService.create(product);
+        // Then
+        assertEquals(product.getProId(), productFound.getProId());
+    }
 
-		// Then
-		assertTrue(productResult == productSaved);
-	}
+    @Test
+    public void findAll()
+    {
+        // Given
+        List<ProductEntity> productEntitys = new ArrayList<ProductEntity>();
+        ProductEntity productEntity1 = productEntityFactoryForTest.newProductEntity();
+        productEntitys.add(productEntity1);
+        ProductEntity productEntity2 = productEntityFactoryForTest.newProductEntity();
+        productEntitys.add(productEntity2);
+        when(productJpaRepository.findAll()).thenReturn(productEntitys);
 
-	@Test
-	public void createKOExists() {
-		// Given
-		Product product = productFactoryForTest.newProduct();
+        Product product1 = productFactoryForTest.newProduct();
+        when(productServiceMapper.mapProductEntityToProduct(productEntity1)).thenReturn(product1);
+        Product product2 = productFactoryForTest.newProduct();
+        when(productServiceMapper.mapProductEntityToProduct(productEntity2)).thenReturn(product2);
 
-		ProductEntity productEntity = productEntityFactoryForTest.newProductEntity();
-		when(productJpaRepository.findOne(product.getProId())).thenReturn(productEntity);
+        // When
+        List<Product> productsFounds = productService.findAll();
 
-		// When
-		Exception exception = null;
-		try {
-			productService.create(product);
-		} catch(Exception e) {
-			exception = e;
-		}
+        // Then
+        assertTrue(product1 == productsFounds.get(0));
+        assertTrue(product2 == productsFounds.get(1));
+    }
 
-		// Then
-		assertTrue(exception instanceof IllegalStateException);
-		assertEquals("already.exists", exception.getMessage());
-	}
+    @Test
+    public void create()
+    {
+        // Given
+        Product product = productFactoryForTest.newProduct();
 
-	@Test
-	public void update() {
-		// Given
-		Product product = productFactoryForTest.newProduct();
+        ProductEntity productEntity = productEntityFactoryForTest.newProductEntity();
+        when(productJpaRepository.findOne(product.getProId())).thenReturn(null);
 
-		ProductEntity productEntity = productEntityFactoryForTest.newProductEntity();
-		when(productJpaRepository.findOne(product.getProId())).thenReturn(productEntity);
-		
-		ProductEntity productEntitySaved = productEntityFactoryForTest.newProductEntity();
-		when(productJpaRepository.save(productEntity)).thenReturn(productEntitySaved);
-		
-		Product productSaved = productFactoryForTest.newProduct();
-		when(productServiceMapper.mapProductEntityToProduct(productEntitySaved)).thenReturn(productSaved);
+        productEntity = new ProductEntity();
+        productServiceMapper.mapProductToProductEntity(product, productEntity);
+        ProductEntity productEntitySaved = productJpaRepository.save(productEntity);
 
-		// When
-		Product productResult = productService.update(product);
+        Product productSaved = productFactoryForTest.newProduct();
+        when(productServiceMapper.mapProductEntityToProduct(productEntitySaved)).thenReturn(productSaved);
 
-		// Then
-		verify(productServiceMapper).mapProductToProductEntity(product, productEntity);
-		assertTrue(productResult == productSaved);
-	}
+        // When
+        Product productResult = productService.create(product);
 
-	@Test
-	public void delete() {
-		// Given
-		Integer proId = mockValues.nextInteger();
+        // Then
+        assertTrue(productResult == productSaved);
+    }
 
-		// When
-		productService.delete(proId);
+    @Test
+    public void createKOExists()
+    {
+        // Given
+        Product product = productFactoryForTest.newProduct();
 
-		// Then
-		verify(productJpaRepository).delete(proId);
-		
-	}
+        ProductEntity productEntity = productEntityFactoryForTest.newProductEntity();
+        when(productJpaRepository.findOne(product.getProId())).thenReturn(productEntity);
+
+        // When
+        Exception exception = null;
+        try
+        {
+            productService.create(product);
+        }
+        catch (Exception e)
+        {
+            exception = e;
+        }
+
+        // Then
+        assertTrue(exception instanceof IllegalStateException);
+        assertEquals("already.exists", exception.getMessage());
+    }
+
+    @Test
+    public void update()
+    {
+        // Given
+        Product product = productFactoryForTest.newProduct();
+
+        ProductEntity productEntity = productEntityFactoryForTest.newProductEntity();
+        when(productJpaRepository.findOne(product.getProId())).thenReturn(productEntity);
+
+        ProductEntity productEntitySaved = productEntityFactoryForTest.newProductEntity();
+        when(productJpaRepository.save(productEntity)).thenReturn(productEntitySaved);
+
+        Product productSaved = productFactoryForTest.newProduct();
+        when(productServiceMapper.mapProductEntityToProduct(productEntitySaved)).thenReturn(productSaved);
+
+        // When
+        Product productResult = productService.update(product);
+
+        // Then
+        verify(productServiceMapper).mapProductToProductEntity(product, productEntity);
+        assertTrue(productResult == productSaved);
+    }
+
+    @Test
+    public void delete()
+    {
+        // Given
+        Integer proId = mockValues.nextInteger();
+
+        // When
+        productService.delete(proId);
+
+        // Then
+        verify(productJpaRepository).delete(proId);
+
+    }
 
 }
