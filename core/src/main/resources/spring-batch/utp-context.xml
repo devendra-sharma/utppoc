@@ -32,6 +32,9 @@
 		<batch:step id="step2">
 			<tasklet ref="fileWritingTasklet" />
 		</batch:step>
+		<batch:listeners>
+			<batch:listener ref="batchJobListener" />
+		</batch:listeners>
 	</batch:job>
 	
 	<bean id="fileWritingTasklet" class="net.atos.htts.transport.core.batch.FileWritingTasklet">
@@ -47,6 +50,9 @@
 		<property name="keys" value="ErrorItem" />
 	</bean>
 
+<bean id="batchJobListener"
+		class="net.atos.htts.transport.core.batch.BatchJobExecutionListener" />
+		
 	<bean id="recordReader" class="org.springframework.batch.item.file.FlatFileItemReader">
 		<property name="resource" value="classpath:test.txt" />
 		<property name="lineMapper" ref="passThroughFieldSetMapper" />

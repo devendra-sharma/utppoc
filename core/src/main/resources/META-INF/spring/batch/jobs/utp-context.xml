@@ -10,34 +10,41 @@
 		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-	<import resource="classpath:/spring/businessApplicationContext.xml"/>
+	<import resource="classpath:/spring/businessApplicationContext.xml" />
 	<context:component-scan base-package="net.atos.htts.transport.core.batch" />
 	<batch:job id="UTPBatchJob">
-		
-		<batch:step id="step1" >
-		
+
+		<batch:step id="step1">
+
 			<batch:tasklet>
 				<batch:chunk reader="recordReader" writer="utpWriter"
 					processor="recordProcessor" commit-interval="1">
-					
+
 				</batch:chunk>
-				
+
 			</batch:tasklet>
 		</batch:step>
+		<batch:listeners>
+			<batch:listener ref="batchJobListener" />
+		</batch:listeners>
 	</batch:job>
 	<bean id="recordReader" class="org.springframework.batch.item.file.FlatFileItemReader"
 		scope="step">
-		<property name="resource" value="file:///${INPUT_FILE_LOCATION}/#{jobParameters['input.file']}" />
+		<property name="resource"
+			value="file:///${INPUT_FILE_LOCATION}/#{jobParameters['input.file']}" />
 		<property name="lineMapper" ref="passThroughFieldSetMapper" />
 	</bean>
 
 	<bean id="passThroughFieldSetMapper"
 		class="org.springframework.batch.item.file.mapping.PassThroughLineMapper" />
 
+	<bean id="batchJobListener"
+		class="net.atos.htts.transport.core.batch.BatchJobExecutionListener" />
 
-
-	<bean id="utpWriter" class="org.springframework.batch.item.file.FlatFileItemWriter" scope="step">
-		<property name="resource" value="file:///${OUTPUT_FILE_LOCATION}/#{jobParameters['output.file']}" />
+	<bean id="utpWriter" class="org.springframework.batch.item.file.FlatFileItemWriter"
+		scope="step">
+		<property name="resource"
+			value="file:///${OUTPUT_FILE_LOCATION}/#{jobParameters['output.file']}" />
 		<property name="shouldDeleteIfExists" value="true" />
 		<property name="lineAggregator">
 			<bean
@@ -49,16 +56,16 @@
 		<property name="processorMap">
 			<map>
 				<entry key="Z" value-ref="retailItemProcessor" />
-				<entry key="V" value-ref="deleteItemProcessor"/>					
+				<entry key="V" value-ref="deleteItemProcessor" />
 			</map>
 		</property>
 	</bean>
-	<bean id="deleteItemProcessor" class="net.atos.htts.transport.core.batch.DeleteItemProcessor"/>
+	<bean id="deleteItemProcessor" class="net.atos.htts.transport.core.batch.DeleteItemProcessor" />
 	<bean id="retailItemProcessor" class="net.atos.htts.transport.core.batch.RetailItemProcessor">
 		<!-- <constructor-arg ref="recordTypeZ" /> -->
-		<!--<property name="tokenizer" ref="recordTypeZ"></property>
-		 <property name="currencyService" ref="currencyService"/>
-		<property name="currencyConversionService" ref="currencyConversionService"/> -->
+		<!--<property name="tokenizer" ref="recordTypeZ"></property> <property 
+			name="currencyService" ref="currencyService"/> <property name="currencyConversionService" 
+			ref="currencyConversionService"/> -->
 	</bean>
 	<bean id="recordTypeZ"
 		class="org.springframework.batch.item.file.transform.FixedLengthTokenizer">
@@ -66,10 +73,10 @@
 			value="sortKey,recordType,apportionmentIndicator,issuingLocation,sellingLocation,origin,destination,route,ticketStatus,mopBasis,product,discountCode,discountPercentage,dateAndTime,noOfPeople,deferredIssueIdentifier,unUsed,dateOfSale,deferredIssueType,transactionValue,retailItemId,dateOfTravel,lostDays,validityDays,retailTransactionId,ticketNumber,trnasactionNumber,sundryTrnasactionNumber,noSundryItems,bankCreditSerial,seasonTicketEndDate,seasonDateLastUsed,NoOfTickets,NoOfAdults,NoOfChildren,dataProcessed,originRecordType,euroFareBasis,accountingSundry,nonIssueMarker,fareMethodMarker,refundMarker,barCodeInputMarker,advanceIssueMarker,crossLondonMarker,bookingMarker,fareMarker,generatedMarker,multipleIssueMarker,promotionCode,dataMarker,manualInputMarker,refundValue,filler,currency,accountablePeriod,issuingMachine,opertorId,saleNumber,defaultAudit,issuingWindow,sellingWindow,creditCardAcquirer,warrantAccountHolder,runDate,passengerCharterMarker,faresCheckingMarker,IssueProportion,SellingMachineIssue,matchingMarker" />
 		<property name="columns"
 			value="1-62,63-63,64-64,65-70,71-76,77-82,83-88,89-94,95-100,101-106,107-112,113-118,119-122,123-142,143-148,149-156,157-168,169-176,177-182,183-196,197-206,207-214,215-217,218-222,223-232,233-241,242-247,248-253,254-258,259-265,266-273,274-281,282-287,288-290,291-293,294-313,314-319,320-327,328-337,338-343,344-349,350-355,356-361,362-367,368-373,374-379,380-385,386-391,392-397,398-400,401-406,407-412,413-426,427-440,441-446,447-452,453-458,459-466,467-472,473-478,479-484,485-490,491-496,497-502,503-510,511-511,512-512,513-518,519-524,525-530" />
-		<property name="strict" value="false"/>
+		<property name="strict" value="false" />
 	</bean>
-	
-	<!-- <bean id="currencyService" class="net.atos.transport.business.CurrencyServiceImpl"/>
-	<bean id="currencyConversionService" class="net.atos.transport.business.CurrencyConversionServiceImpl"/> -->
+
+	<!-- <bean id="currencyService" class="net.atos.transport.business.CurrencyServiceImpl"/> 
+		<bean id="currencyConversionService" class="net.atos.transport.business.CurrencyConversionServiceImpl"/> -->
 
 </beans>
