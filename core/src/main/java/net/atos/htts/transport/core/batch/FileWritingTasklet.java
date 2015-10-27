@@ -14,78 +14,75 @@ import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.core.io.Resource;
-import org.slf4j.LoggerFactory;
 
 public class FileWritingTasklet implements Tasklet, StepExecutionListener {
-	private static final org.slf4j.Logger logger = LoggerFactory
-			.getLogger(FileWritingTasklet.class);
-	private Resource filePath;
+    private Resource filePath;
 
-	private String content;
+    private String content;
 
-	List<Item> errorItems;
+    List<Item> errorItems;
 
-	public Resource getFilePath() {
-		return filePath;
-	}
+    public Resource getFilePath() {
+        return filePath;
+    }
 
-	public void setFilePath(Resource filePath) {
-		this.filePath = filePath;
-	}
+    public void setFilePath(Resource filePath) {
+        this.filePath = filePath;
+    }
 
-	public void setContent(String content) {
+    public void setContent(String content) {
 
-		this.content = content;
+        this.content = content;
 
-	}
+    }
 
-	@Override
-	public void beforeStep(StepExecution stepExecution) {
-		errorItems = (List) stepExecution.getJobExecution()
-				.getExecutionContext().get("ErrorItem");
+    @Override
+    public void beforeStep(StepExecution stepExecution) {
+        errorItems = (List) stepExecution.getJobExecution()
+                .getExecutionContext().get("ErrorItem");
 
-	}
+    }
 
-	@Override
-	public RepeatStatus execute(StepContribution stepContribution,
-			ChunkContext chunkContext) throws Exception {
+    @Override
+    public RepeatStatus execute(StepContribution stepContribution,
+            ChunkContext chunkContext) throws Exception {
 
-		FileWriter fileWriter = null;
+        FileWriter fileWriter = null;
 
-		BufferedWriter bWriter = null;
+        BufferedWriter bWriter = null;
 
-		try {
+        try {
 
-			stepContribution.incrementReadCount();
-			fileWriter = new FileWriter(filePath.getFile());
+            stepContribution.incrementReadCount();
+            fileWriter = new FileWriter(filePath.getFile());
 
-			bWriter = new BufferedWriter(fileWriter);
+            bWriter = new BufferedWriter(fileWriter);
 
-			for (Item item : errorItems) {
-				content = item.getDataItem() + "\n " + item.getMessage() + "\n";
-				bWriter.write(content);
-			}
+            for (Item item : errorItems) {
+                content = item.getDataItem() + "\n " + item.getMessage() + "\n";
+                bWriter.write(content);
+            }
 
-		} catch (Exception e) {
-			throw e;
+        } catch (Exception e) {
+            throw e;
 
-		} finally {
+        } finally {
 
-			if (bWriter != null) {
-				bWriter.close();
-			}
+            if (bWriter != null) {
+                bWriter.close();
+            }
 
-			if (fileWriter != null) {
-				fileWriter.close();
-			}
+            if (fileWriter != null) {
+                fileWriter.close();
+            }
 
-		}
-		return RepeatStatus.FINISHED;
-	}
+        }
+        return RepeatStatus.FINISHED;
+    }
 
-	@Override
-	public ExitStatus afterStep(StepExecution stepExecution) {
-		return null;
-	}
+    @Override
+    public ExitStatus afterStep(StepExecution stepExecution) {
+        return null;
+    }
 
 }
